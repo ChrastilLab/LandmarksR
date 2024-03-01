@@ -9,7 +9,8 @@ namespace LandmarksR.Scripts.Player
     {
         [SerializeField] public SubController vrController;
         [SerializeField] public SubController desktopController;
-        [SerializeField] public Canvas canvas;
+        [SerializeField] public Hud hud;
+        // [SerializeField] public Canvas canvas;
 
         public void SwitchDisplayMode(DisplayMode displayMode)
         {
@@ -18,14 +19,13 @@ namespace LandmarksR.Scripts.Player
                 case DisplayMode.Desktop:
                     vrController.gameObject.SetActive(false);
                     desktopController.gameObject.SetActive(true);
-                    canvas.worldCamera = desktopController.mainCamera;
+                    hud.SetCamera(desktopController.mainCamera);
                     break;
                 case DisplayMode.VR:
                     desktopController.gameObject.SetActive(false);
                     vrController.gameObject.SetActive(true);
-                    canvas.worldCamera = vrController.mainCamera;
-
-                    // StartCoroutine(StartXR());
+                    hud.SetCamera(vrController.mainCamera);
+                    
                     StartXR();
                     break;
                 default:

@@ -1,7 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using LandmarksR.Scripts.Attributes;
+using LandmarksR.Scripts.Utility;
+using UnityEngine;
 
 #if UNITY_EDITOR
-using LandmarksR.Scripts.Inspector;
 #endif
 
 namespace LandmarksR.Scripts.Experiment
@@ -16,29 +21,61 @@ namespace LandmarksR.Scripts.Experiment
         ]
         private uint id;
 
+        private List<Task> _subTasks;
+
+        private void Start()
+        {
+            _subTasks = transform.Cast<Transform>()
+                .OrderBy(tr => tr.GetSiblingIndex())
+                .Select(tr=> tr.GetComponent<Task>())
+                .ToList();
+        }
+
         public uint ID
         {
             get => id;
             set => id = value;
         }
 
-        public void Prepare()
+
+        [
+#if UNITY_EDITOR
+            NotEditable,
+#endif
+            SerializeField
+        ]
+        protected bool IsCompleted;
+
+        protected virtual void Prepare()
         {
-            IsCompleted = false;
+            DebugLogger.Instance.Log($"{name} Preparing", "task");
         }
 
-        public void Run()
+        protected virtual void CleanUp()
+        {
+            
+            DebugLogger.Instance.Log($"{name} Cleaning", "task");
+        }
+
+        private void Update()
         {
         }
 
-        public bool IsCompleted { get; private set; }
 
-        public void Skip()
+        public IEnumerator ExecuteAll()
         {
+            Prepare();
+            
+            // Wait for the update function to update completion status
+            yield return new WaitUntil(() => IsCompleted); 
+            
+            foreach (var task in _subTasks)
+            {
+                yield return task.ExecuteAll();
+            }
+            
+            CleanUp();
         }
 
-        public void CleanUp()
-        {
-        }
     }
 }

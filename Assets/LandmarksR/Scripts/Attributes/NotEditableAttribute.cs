@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace LandmarksR.Scripts.Inspector
+namespace LandmarksR.Scripts.Attributes
 {
     public class NotEditableAttribute : PropertyAttribute { }
 

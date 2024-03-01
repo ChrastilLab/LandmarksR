@@ -15,6 +15,7 @@ namespace LandmarksR.Scripts.Experiment
         // Player variables
         [SerializeField] public DisplayMode displayMode;
         [SerializeField] public PlayerController playerController;
+        [SerializeField] private Task rootTask;
 
         // Singleton-related methods
         private static Experiment BuildExperiment()
@@ -33,6 +34,7 @@ namespace LandmarksR.Scripts.Experiment
         private void Start()
         {
             playerController.SwitchDisplayMode(displayMode);
+            StartCoroutine(rootTask.ExecuteAll());
         }
 
         private void Update()
