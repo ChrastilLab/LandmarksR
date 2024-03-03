@@ -1,10 +1,12 @@
-﻿#if UNITY_EDITOR
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 namespace LandmarksR.Scripts.Attributes
 {
-    public class NotEditableAttribute : PropertyAttribute { }
+#if UNITY_EDITOR
+    public class NotEditableAttribute : PropertyAttribute
+    {
+    }
 
     [CustomPropertyDrawer(typeof(NotEditableAttribute))]
     public sealed class NotEditableDrawer : PropertyDrawer
@@ -21,5 +23,9 @@ namespace LandmarksR.Scripts.Attributes
             EditorGUI.EndDisabledGroup();
         }
     }
-}
+#else
+    public class NotEditableAttribute: System.Attribute
+    {
+    }
 #endif
+}
