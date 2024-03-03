@@ -15,17 +15,21 @@ namespace LandmarksR.Scripts.Utility
             {
                 Destroy(Instance);
             }
-
-            Instance = this;
+            else
+            {
+                Instance = this;
+            }
         }
 
         public void Log(string content, string logTag)
         {
             if (tagToPrint.IndexOf(logTag) < 0)
+            {
                 return;
-            
-            Debug.Log($"[LandmarksR] {content}");
+            }
+
+            Debug.Log($"[LandmarksR] [{logTag}] {content}");
         }
-        
+
     }
 }
