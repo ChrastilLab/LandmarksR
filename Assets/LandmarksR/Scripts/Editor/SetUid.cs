@@ -1,6 +1,7 @@
 ﻿#if UNITY_EDITOR
 using System.Collections.Generic;
 using LandmarksR.Scripts.Experiment;
+using LandmarksR.Scripts.Experiment.Tasks;
 using UnityEditor;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ namespace LandmarksR.Scripts.Editor
             {
                 var renew = true;
                 // Try get the Uid component and if it exists add the ID member of Uid to the usedIds hashset
-                if (transform.gameObject.TryGetComponent<Task>(out var uid))
+                if (transform.gameObject.TryGetComponent<BaseTask>(out var uid))
                 {
                     if (uid.ID != 0)
                     {
@@ -30,7 +31,7 @@ namespace LandmarksR.Scripts.Editor
                 }
                 else
                 {
-                    uid = transform.gameObject.AddComponent<Task>();
+                    uid = transform.gameObject.AddComponent<BaseTask>();
                 }
                 // If the game object does not have a Uid component, add one
                 if (renew)
@@ -51,7 +52,7 @@ namespace LandmarksR.Scripts.Editor
             foreach (var transform in transforms)
             {
                 UnityEditor.EditorUtility.SetDirty(transform.gameObject);
-                if (transform.gameObject.TryGetComponent<Task>(out var uid))
+                if (transform.gameObject.TryGetComponent<BaseTask>(out var uid))
                 {
                     DestroyImmediate(uid);
                 }
