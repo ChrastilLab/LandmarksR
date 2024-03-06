@@ -1,4 +1,5 @@
 ﻿using System;
+using LandmarksR.Scripts.Experiment.Tasks;
 using LandmarksR.Scripts.Player;
 using UnityEngine;
 
@@ -6,16 +7,13 @@ namespace LandmarksR.Scripts.Experiment
 {
     public class Experiment : MonoBehaviour
     {
-        public static Experiment Instance => _instance != null ? _instance : BuildExperiment();
+        public static Experiment Instance => _instance ??= BuildExperiment();
         private static Experiment _instance;
 
         // Experiment-related variables
 
 
-        // Player variables
-        [SerializeField] public DisplayMode displayMode;
         [SerializeField] public PlayerController playerController;
-        [SerializeField] private Task rootTask;
 
         // Singleton-related methods
         private static Experiment BuildExperiment()
@@ -27,18 +25,30 @@ namespace LandmarksR.Scripts.Experiment
         {
             if (_instance != null && _instance != this)
             {
+                Destroy(this);
+            }
+            else
+            {
                 _instance = this;
             }
         }
 
         private void Start()
         {
-            playerController.SwitchDisplayMode(displayMode);
-            StartCoroutine(rootTask.ExecuteAll());
-        }
+            var rootTaskGameObject = GameObject.FindGameObjectWithTag("RootTask");
+            if (rootTaskGameObject == null)
+            {
+                throw new Exception("No RootTask GameObject found");
+            }
 
-        private void Update()
-        {
+            var rootTask = rootTaskGameObject.GetComponent<RootTask>();
+
+            if (rootTask == null)
+            {
+                throw new Exception("No RootTask Component found");
+            }
+
+            StartCoroutine(rootTask.ExecuteAll());
         }
     }
 }
