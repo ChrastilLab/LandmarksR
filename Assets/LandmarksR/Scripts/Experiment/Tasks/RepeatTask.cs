@@ -14,9 +14,9 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             base.Prepare();
         }
 
-        protected override void CleanUp()
+        protected override void Finish()
         {
-            base.CleanUp();
+            base.Finish();
         }
 
         public override IEnumerator ExecuteAll()

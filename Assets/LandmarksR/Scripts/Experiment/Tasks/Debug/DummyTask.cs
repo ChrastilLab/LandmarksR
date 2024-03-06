@@ -1,7 +1,4 @@
-﻿using LandmarksR.Scripts.Utility;
-using UnityEngine;
-
-namespace LandmarksR.Scripts.Experiment.Tasks
+﻿namespace LandmarksR.Scripts.Experiment.Tasks.Debug
 {
     public class DummyTask: BaseTask
     {

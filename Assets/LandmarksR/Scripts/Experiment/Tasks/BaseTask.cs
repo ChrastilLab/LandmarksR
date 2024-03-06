@@ -38,9 +38,9 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             isRunning = true;
         }
 
-        protected virtual void CleanUp()
+        protected virtual void Finish()
         {
-            DebugLogger.Instance.Log($"{name} CleanUp", "task");
+            DebugLogger.Instance.Log($"{name} Finish", "task");
             isCompleted = true;
         }
 
@@ -64,7 +64,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
                 yield return task.ExecuteAll();
             }
 
-            CleanUp();
+            Finish();
         }
 
         //method to join all the subtasks name

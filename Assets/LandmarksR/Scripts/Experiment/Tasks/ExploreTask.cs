@@ -8,6 +8,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
     {
         [SerializeField] private float timeout = 30f;
         private Hud _hud;
+        private PlayerController _playerController;
         [NotEditable, SerializeField] private float remainingTime;
 
         protected override void Prepare()
@@ -15,9 +16,13 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             base.Prepare();
             remainingTime = timeout;
 
+            _playerController = Experiment.Instance.playerController;
+            _playerController.EnableDesktopInput();
+
             _hud = Experiment.Instance.playerController.hud;
-            _hud.ChangeText($"Explore the environment for {timeout} seconds");
-            _hud.HidePanelAfter(3f);
+            _hud.ShowAll();
+            _hud.ChangeTitle($"Explore the environment for {timeout} seconds");
+            _hud.HideAllAfter(3f);
         }
 
         private void Update()
@@ -30,6 +35,12 @@ namespace LandmarksR.Scripts.Experiment.Tasks
                 isRunning = false;
             }
 
+        }
+
+        protected override void Finish()
+        {
+            base.Finish();
+            _playerController.DisableDesktopInput();
         }
 
 

@@ -9,7 +9,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         {
             DebugLogger.Instance.Log("Start Application", "app");
         }
-        protected override void CleanUp()
+        protected override void Finish()
         {
             DebugLogger.Instance.Log("Quit Application", "app");
 #if UNITY_EDITOR

@@ -12,13 +12,13 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         {
             base.Prepare();
             _hud = Experiment.Instance.playerController.hud;
-            _hud.ChangeText(instruction);
+            _hud.ChangeTitle(instruction);
         }
 
-        protected override void CleanUp()
+        protected override void Finish()
         {
-            base.CleanUp();
-            _hud.HideText();
+            base.Finish();
+            _hud.HideTitle();
         }
 
         public void SetInstruction(string newInstruction)
