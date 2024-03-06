@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace LandmarksR.Scripts.Player
 {
-    public class DesktopController : MonoBehaviour
+    public class FirstPersonController : MonoBehaviour
     {
         private CharacterController _characterController;
         [SerializeField] private Camera cam;
@@ -16,14 +16,18 @@ namespace LandmarksR.Scripts.Player
 
         private Vector3 _gravityVelocity;
 
+        public bool enableControl;
+
         private void Start()
         {
             _characterController = GetComponent<CharacterController>();
             Cursor.lockState = CursorLockMode.Locked;
         }
 
+
         private void Update()
         {
+            if (!enableControl) return;
             HandleMovement();
             HandleGravity();
             HandleRotation();

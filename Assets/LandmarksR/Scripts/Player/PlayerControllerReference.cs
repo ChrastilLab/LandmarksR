@@ -2,7 +2,7 @@
 
 namespace LandmarksR.Scripts.Player
 {
-    public class SubController: MonoBehaviour
+    public class PlayerControllerReference: MonoBehaviour
     {
         [SerializeField]
         public Camera mainCamera;
@@ -12,6 +12,7 @@ namespace LandmarksR.Scripts.Player
 
         [SerializeField]
         public Collider playerCollider;
+
 
     }
 }
