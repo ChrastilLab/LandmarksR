@@ -1,0 +1,11 @@
+TrialNumber,Source,Destination
+1,Capsule,Capsule
+2,Capsule,Capsule
+3,Cube,Capsule
+4,Capsule,Capsule
+5,Cube,Sphere
+6,Cube,Cylinder
+7,Cylinder,Sphere
+8,Capsule,Sphere
+9,Sphere,Sphere
+10,Sphere,Cylinder
