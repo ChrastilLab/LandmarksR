@@ -1,5 +1,5 @@
 ﻿using LandmarksR.Scripts.Player;
-using LandmarksR.Scripts.Utility;
+using UnityEngine;
 
 namespace LandmarksR.Scripts.Experiment.Tasks.Debug
 {
@@ -8,37 +8,18 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Debug
         protected override void Prepare()
         {
             base.Prepare();
-            Player.EnableDesktopInput();
+            Player.TryEnableDesktopInput();
         }
 
-        protected override void Alpha1()
+        protected override void Start()
         {
-            DebugLogger.Instance.Log("Show hud", "tests");
-            Hud.ShowAll();
-        }
-
-        protected override void Alpha2()
-        {
-            DebugLogger.Instance.Log("Hide hud", "tests");
-            Hud.HideAll();
-        }
-
-        protected override void Alpha3()
-        {
-            DebugLogger.Instance.Log("Switch to follow mode", "tests");
-            Config.UpdateHudMode(HudMode.Follow, Hud);
-        }
-
-        protected override void Alpha4()
-        {
-            DebugLogger.Instance.Log("Switch to fixed mode", "tests");
-            Config.UpdateHudMode(HudMode.Fixed, Hud);
-        }
-
-        protected override void Alpha5()
-        {
-            DebugLogger.Instance.Log("Switch to overlay mode", "tests");
-            Config.UpdateHudMode(HudMode.Overlay, Hud);
+            base.Start();
+            AddKeyAction(KeyCode.Alpha1, ()=>Hud.ShowAll(), "Show All");
+            AddKeyAction(KeyCode.Alpha2, ()=>Hud.HideAll(), "Hide All");
+            AddKeyAction(KeyCode.Y, ()=>Hud.SwitchHudMode(HudMode.Follow), "Set Hud Mode Follow");
+            AddKeyAction(KeyCode.F, ()=>Hud.SwitchHudMode(HudMode.Fixed), "Set Hud Mode Fixed");
+            AddKeyAction(KeyCode.O, ()=>Hud.SwitchHudMode(HudMode.Overlay), "Set Hud Mode Overlay");
+            AddKeyAction(KeyCode.Space, () => Hud.FixedRecenter(1.5f), "Recenter Hud");
         }
 
         protected override void Finish()

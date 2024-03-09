@@ -1,15 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using LandmarksR.Scripts.Utility;
 using UnityEngine;
 using LandmarksR.Scripts.Attributes;
+using LandmarksR.Scripts.Experiment.Log;
 
 namespace LandmarksR.Scripts.Experiment.Tasks
 {
     public class BaseTask : MonoBehaviour
     {
-        [SerializeField] private bool enable = true;
+        [SerializeField] protected bool enable = true;
         [NotEditable, SerializeField] private uint id;
 
         public uint ID
@@ -19,6 +20,8 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         }
 
         protected List<BaseTask> SubTasks;
+        [SerializeField] protected float timer = Mathf.Infinity;
+        [NotEditable, SerializeField] protected float elapsedTime;
 
         protected virtual void Start()
         {
@@ -30,17 +33,19 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         }
 
         [NotEditable, SerializeField] protected bool isRunning;
+        [NotEditable, SerializeField] protected bool isSubTaskRunning;
         [NotEditable, SerializeField] protected bool isCompleted;
 
         protected virtual void Prepare()
         {
-            DebugLogger.Instance.Log($"{name} Preparing", "task");
+            DebugLogger.Instance.I("task", $"{name} Started");
             isRunning = true;
+            StartTimer();
         }
 
         protected virtual void Finish()
         {
-            DebugLogger.Instance.Log($"{name} Finish", "task");
+            DebugLogger.Instance.I("task", $"{name} Finished");
             isCompleted = true;
         }
 
@@ -58,24 +63,35 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             // Wait for the update function to update completion status
             yield return new WaitUntil(() => isRunning == false);
 
-            DebugLogger.Instance.Log("Subtasks: " + GetSubTasksName(), "task");
+            isSubTaskRunning = true;
             foreach (var task in SubTasks)
             {
                 yield return task.ExecuteAll();
             }
+            isSubTaskRunning = false;
 
             Finish();
         }
 
         //method to join all the subtasks name
-        public string GetSubTasksName()
+        private string GetSubTasksName()
         {
-            string subTasksName = "";
-            foreach (var task in SubTasks)
+            return SubTasks.Aggregate("", (current, task) => current + (task.name + " "));
+        }
+
+
+        private void StartTimer()
+        {
+            StartCoroutine(TimerCoroutine());
+        }
+        private IEnumerator TimerCoroutine()
+        {
+            while (elapsedTime < timer)
             {
-                subTasksName += task.name + " ";
+                elapsedTime += Time.deltaTime;
+                yield return null;
             }
-            return subTasksName;
+            isRunning = false;
         }
     }
 }

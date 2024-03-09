@@ -1,4 +1,4 @@
-﻿using LandmarksR.Scripts.Utility;
+﻿using LandmarksR.Scripts.Experiment.Log;
 using UnityEngine;
 
 namespace LandmarksR.Scripts.Experiment.Tasks
@@ -7,11 +7,12 @@ namespace LandmarksR.Scripts.Experiment.Tasks
     {
         protected override void Prepare()
         {
-            DebugLogger.Instance.Log("Start Application", "app");
+            DebugLogger.Instance.I("app", "Start Application");
+            base.Prepare();
         }
         protected override void Finish()
         {
-            DebugLogger.Instance.Log("Quit Application", "app");
+            DebugLogger.Instance.I("app", "Finish Application");
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else

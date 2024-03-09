@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Experiment
   - RootTask
+  - Hud
+  - Target
   layers:
   - Default
   - TransparentFX

@@ -30,9 +30,14 @@ namespace LandmarksR.Scripts.Experiment
 
         [SerializeField] private DisplayMode displayMode = DisplayMode.Desktop;
         [SerializeField] private HudMode hudMode = HudMode.Follow;
+        [SerializeField] private float hudDistance = 1.5f;
+        [SerializeField] private Vector2 hudScreenSize = new Vector2(1920f, 1080f);
 
         public DisplayMode DisplayMode {get => displayMode; private set => displayMode = value;}
         public HudMode HudMode {get => hudMode; private set => hudMode = value;}
+
+        public float HudDistance {get => hudDistance; set => hudDistance = value;}
+        public Vector2 HudScreenSize {get => hudScreenSize; set => hudScreenSize = value;}
 
         public void UpdateDisplayMode(DisplayMode mode, PlayerController playerController)
         {

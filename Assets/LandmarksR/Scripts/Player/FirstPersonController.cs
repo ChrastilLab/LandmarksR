@@ -34,6 +34,14 @@ namespace LandmarksR.Scripts.Player
             HandleCursor();
         }
 
+        public void Teleport(Vector3 position, Vector3 rotation)
+        {
+            _characterController.enabled = false;
+            transform.rotation = Quaternion.Euler(rotation);
+            transform.position = position;
+            _characterController.enabled = true;
+        }
+
         private void HandleMovement()
         {
             var move = transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical");

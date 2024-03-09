@@ -1,0 +1,56 @@
+2024-3-8 22:13:59|app|I|Start Application
+2024-3-8 22:13:59|task|I|RootTask Started
+2024-3-8 22:14:00|task|I|Debug Tasks Started
+2024-3-8 22:14:00|task|I|CollectionTask Started
+2024-3-8 22:14:00|task|I|Repeat 3 Times Started
+2024-3-8 22:14:00|task|I|Teleport Started
+2024-3-8 22:14:00|task|I|Teleport Finished
+2024-3-8 22:14:00|task|I|Navigation Started
+2024-3-8 22:36:01|app|I|Start Application
+2024-3-8 22:36:01|task|I|RootTask Started
+2024-3-8 22:36:01|task|I|Debug Tasks Started
+2024-3-8 22:36:01|task|I|CollectionTask Started
+2024-3-8 22:36:01|task|I|Repeat 3 Times Started
+2024-3-8 22:36:01|task|I|Teleport Started
+2024-3-8 22:36:01|task|I|Teleport Finished
+2024-3-8 22:36:01|task|I|Navigation Started
+2024-3-8 22:36:32|app|I|Start Application
+2024-3-8 22:36:32|task|I|RootTask Started
+2024-3-8 22:36:32|task|I|Debug Tasks Started
+2024-3-8 22:36:32|task|I|CollectionTask Started
+2024-3-8 22:36:32|task|I|Repeat 3 Times Started
+2024-3-8 22:36:32|task|I|Teleport Started
+2024-3-8 22:36:32|task|I|Teleport Finished
+2024-3-8 22:36:32|task|I|Navigation Started
+2024-3-8 22:37:27|app|I|Start Application
+2024-3-8 22:37:27|task|I|RootTask Started
+2024-3-8 22:37:28|task|I|Debug Tasks Started
+2024-3-8 22:37:28|task|I|CollectionTask Started
+2024-3-8 22:37:28|task|I|Repeat 3 Times Started
+2024-3-8 22:37:28|task|I|Teleport Started
+2024-3-8 22:37:28|task|I|Teleport Finished
+2024-3-8 22:37:28|task|I|Navigation Started
+2024-3-8 22:49:56|app|I|Start Application
+2024-3-8 22:49:56|task|I|RootTask Started
+2024-3-8 22:49:57|task|I|Debug Tasks Started
+2024-3-8 22:49:57|task|I|CollectionTask Started
+2024-3-8 22:49:57|task|I|Repeat 3 Times Started
+2024-3-8 22:49:57|task|I|Teleport Started
+2024-3-8 22:49:57|task|I|Teleport Finished
+2024-3-8 22:49:57|task|I|Navigation Started
+2024-3-8 22:50:26|app|I|Start Application
+2024-3-8 22:50:26|task|I|RootTask Started
+2024-3-8 22:50:27|task|I|Debug Tasks Started
+2024-3-8 22:50:27|task|I|CollectionTask Started
+2024-3-8 22:50:27|task|I|Repeat 3 Times Started
+2024-3-8 22:50:27|task|I|Teleport Started
+2024-3-8 22:50:27|task|I|Teleport Finished
+2024-3-8 22:50:27|task|I|Navigation Started
+2024-3-8 23:03:43|app|I|Start Application
+2024-3-8 23:03:43|task|I|RootTask Started
+2024-3-8 23:03:43|task|I|Debug Tasks Started
+2024-3-8 23:03:43|task|I|CollectionTask Started
+2024-3-8 23:03:43|task|I|Repeat 3 Times Started
+2024-3-8 23:03:43|task|I|Teleport Started
+2024-3-8 23:03:43|task|I|Teleport Finished
+2024-3-8 23:03:43|task|I|Navigation Started

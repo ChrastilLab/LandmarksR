@@ -1,4 +1,6 @@
-﻿using LandmarksR.Scripts.Player;
+﻿using System;
+using System.Collections.Generic;
+using LandmarksR.Scripts.Player;
 using UnityEngine;
 using LandmarksR.Scripts.Experiment;
 
@@ -11,7 +13,25 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Debug
         protected static PlayerController Player => Experiment.Instance.playerController;
         protected static Hud Hud => Experiment.Instance.playerController.hud;
 
-        protected void Update()
+        private List<Action> _keyActions = new();
+
+        private string _keyActionInstructions = "";
+
+        protected override void Start()
+        {
+            base.Start();
+            _keyActions = new List<Action>();
+            AddKeyAction(KeyCode.Backspace, () => isRunning = false, "Stop Task");
+
+        }
+
+        protected void AddKeyAction(KeyCode code, Action action, string actionName = "")
+        {
+            _keyActionInstructions += $"{code} - {actionName}\n";
+            _keyActions.Add(CreateKeyAction(code, action));
+        }
+
+        protected virtual void Update()
         {
             if (!isRunning) return;
             HandleInput();
@@ -19,107 +39,27 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Debug
 
         private void HandleInput()
         {
-            if (Input.GetKeyDown(KeyCode.Backspace))
+            foreach (var action in _keyActions)
             {
-                isRunning = false;
-            }
-
-            HandleAlphaNumbers();
-        }
-
-        // Handle Alpha0 - Alpha9 input
-        private void HandleAlphaNumbers()
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha0))
-            {
-                Alpha0();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                Alpha1();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                Alpha2();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                Alpha3();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                Alpha4();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha5))
-            {
-                Alpha5();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha6))
-            {
-                Alpha6();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha7))
-            {
-                Alpha7();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha8))
-            {
-                Alpha8();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha9))
-            {
-                Alpha9();
+                action?.Invoke();
             }
         }
 
-        // Alpha0 - 9 Handling Methods, needs to be override
-        protected virtual void Alpha0()
+        private static Action CreateKeyAction(KeyCode keyCode, Action action)
         {
+            return () =>
+            {
+                if (Input.GetKeyDown(keyCode))
+                {
+                    action?.Invoke();
+                }
+            };
         }
 
-        protected virtual void Alpha1()
+        protected void OnGUI()
         {
-        }
-
-        protected virtual void Alpha2()
-        {
-        }
-
-        protected virtual void Alpha3()
-        {
-        }
-
-        protected virtual void Alpha4()
-        {
-        }
-
-        protected virtual void Alpha5()
-        {
-        }
-
-        protected virtual void Alpha6()
-        {
-        }
-
-        protected virtual void Alpha7()
-        {
-        }
-
-        protected virtual void Alpha8()
-        {
-        }
-
-        protected virtual void Alpha9()
-        {
+            if (!isRunning) return;
+            GUI.Label(new Rect(10, 10, 800, 800), _keyActionInstructions);
         }
     }
 }

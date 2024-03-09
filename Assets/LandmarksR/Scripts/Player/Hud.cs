@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using LandmarksR.Scripts.Attributes;
 using LandmarksR.Scripts.Experiment;
 using TMPro;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace LandmarksR.Scripts.Player
     public class Hud : MonoBehaviour
     {
         private Config _config;
-        private HudMode _mode;
+        [NotEditable, SerializeField] private HudMode hudMode;
         [SerializeField] private Canvas canvas;
         [SerializeField] private GameObject panel;
         [SerializeField] private TMP_Text titleText;
@@ -40,60 +41,72 @@ namespace LandmarksR.Scripts.Player
             canvas.renderMode = RenderMode.WorldSpace;
         }
 
-        public void ChangeTitle(string text)
+        public Hud SetTitle(string text)
         {
             titleText.text = text;
+            return this;
         }
 
-        public void ChangeContent(string text)
+
+        public Hud SetContent(string text)
         {
             contentText.text = text;
+            return this;
         }
 
-        public void ChangeButtonText(string text)
+        public Hud SetButtonText(string text)
         {
             confirmButton.GetComponentInChildren<TMP_Text>().text = text;
+            return this;
         }
 
 
-        public void ShowTitle()
+        public Hud ShowTitle()
         {
             titleText.enabled = true;
+            return this;
         }
 
-        public void ShowContent()
+        public Hud ShowContent()
         {
             contentText.enabled = true;
+            return this;
         }
 
-        public void ShowButton()
+        public Hud ShowButton()
         {
             confirmButton.gameObject.SetActive(true);
+            return this;
         }
 
-        public void ShowAll()
+        public Hud ShowAll()
         {
             panel.SetActive(true);
+            return this;
         }
 
-        public void HideTitle()
+        public Hud HideTitle()
         {
             titleText.enabled = false;
+            return this;
         }
 
-        public void HideContent()
+        public Hud HideContent()
         {
             contentText.enabled = false;
+            return this;
         }
 
-        public void HideButton()
+        public Hud HideButton()
         {
             confirmButton.gameObject.SetActive(false);
+            return this;
         }
 
-        public void HideAll()
+        public Hud HideAll()
         {
             panel.SetActive(false);
+            return this;
         }
 
         public void HideAllAfter(float seconds)
@@ -108,7 +121,7 @@ namespace LandmarksR.Scripts.Player
         }
 
 
-        public void SwitchHudMode(HudMode mode)
+        public Hud SwitchHudMode(HudMode mode)
         {
             switch (mode)
             {
@@ -125,22 +138,83 @@ namespace LandmarksR.Scripts.Player
                     throw new ArgumentOutOfRangeException();
             }
 
-            _mode = mode;
+            return this;
         }
 
 
         private void SetModeFollow()
         {
-            canvas.renderMode = RenderMode.ScreenSpaceCamera;
+            hudMode = HudMode.Follow;
+            AdjustScale(_config.HudScreenSize);
+            canvas.renderMode = RenderMode.WorldSpace;
         }
         private void SetModeFixed()
         {
+            hudMode = HudMode.Fixed;
+            AdjustScale(_config.HudScreenSize);
+            Recenter(_config.HudDistance);
+
             canvas.renderMode = RenderMode.WorldSpace;
         }
 
         private void SetModeOverlay()
         {
+            hudMode = HudMode.Overlay;
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        }
+
+        // Fixed Mode related methods
+        public void FixedRecenter(float distanceToCam)
+        {
+            if (hudMode != HudMode.Fixed) return;
+            Recenter(distanceToCam);
+        }
+
+        private void FollowRecenter()
+        {
+            if (hudMode != HudMode.Follow) return;
+            Recenter(_config.HudDistance);
+        }
+
+        private void Recenter(float distanceToCam)
+        {
+            // Get the camera position
+            var camTransform = canvas.worldCamera.transform;
+            var camPos = camTransform.position;
+            var camForward = camTransform.forward;
+            var camUp = camTransform.up;
+
+            // Set the position of the canvas to the camera position + the camera forward vector * distanceToCam
+            canvas.transform.position = camPos + camForward * distanceToCam;
+            canvas.transform.rotation = Quaternion.LookRotation(camForward, camUp);
+        }
+
+
+        public void SetCanvasPosition(Vector3 position, Vector3 lookAt, Vector3 upward)
+        {
+            if (hudMode != HudMode.Fixed) return;
+
+            canvas.transform.position = position;
+            canvas.transform.rotation = Quaternion.LookRotation(lookAt, upward);
+        }
+
+        private void AdjustScale(Vector2 size)
+        {
+            var scaleFactor = CalculateScaleFactor(size);
+            canvas.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+        }
+        private float CalculateScaleFactor(Vector2 size)
+        {
+            // This is a simple heuristic. You might need to adjust this formula based on your specific needs
+            // and camera settings. This formula assumes a FOV of 60 degrees.
+            var h = 2.0f *  Mathf.Tan(0.5f * canvas.worldCamera.fieldOfView * Mathf.Deg2Rad);
+            var scaleFactor = h / size.y;
+            return scaleFactor;
+        }
+
+        private void Update()
+        {
+            FollowRecenter();
         }
     }
 }

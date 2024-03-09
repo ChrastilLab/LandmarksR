@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using LandmarksR.Scripts.Attributes;
 using LandmarksR.Scripts.Experiment;
 using UnityEngine;
 using UnityEngine.XR.Management;
@@ -17,8 +18,8 @@ namespace LandmarksR.Scripts.Player
         [SerializeField] public PlayerControllerReference vrPlayerControllerReference;
         [SerializeField] public PlayerControllerReference desktopPlayerControllerReference;
         [SerializeField] public Hud hud;
-
-        private FirstPersonController _firstPersonController;
+        [NotEditable, SerializeField] public PlayerEventController playerEventController;
+        [NotEditable, SerializeField] private FirstPersonController firstPersonController;
 
         // [SerializeField] public Canvas canvas;
 
@@ -30,6 +31,14 @@ namespace LandmarksR.Scripts.Player
             SwitchDisplayMode(_config.DisplayMode);
         }
 
+        public void Teleport(Vector3 position, Vector3 rotation)
+        {
+            if (firstPersonController)
+            {
+                firstPersonController.Teleport(position, rotation);
+            }
+        }
+
         public void SwitchDisplayMode(DisplayMode displayMode)
         {
             switch (displayMode)
@@ -39,14 +48,17 @@ namespace LandmarksR.Scripts.Player
                     desktopPlayerControllerReference.gameObject.SetActive(true);
                     hud.SetCamera(desktopPlayerControllerReference.mainCamera);
 
-                    _firstPersonController = desktopPlayerControllerReference.GetComponent<FirstPersonController>();
+                    firstPersonController = desktopPlayerControllerReference.GetComponent<FirstPersonController>();
+                    playerEventController = desktopPlayerControllerReference.GetComponent<PlayerEventController>();
+
                     break;
                 case DisplayMode.VR:
                     desktopPlayerControllerReference.gameObject.SetActive(false);
                     vrPlayerControllerReference.gameObject.SetActive(true);
                     hud.SetCamera(vrPlayerControllerReference.mainCamera);
 
-                    _firstPersonController = null;
+                    firstPersonController = null;
+                    playerEventController = vrPlayerControllerReference.GetComponent<PlayerEventController>();
 
                     StartXR();
                     break;
@@ -55,16 +67,28 @@ namespace LandmarksR.Scripts.Player
             }
         }
 
-        public void EnableDesktopInput()
+
+        public void TryEnableDesktopInput()
         {
-            if (_firstPersonController != null)
-                _firstPersonController.enableControl = true;
+            if (firstPersonController != null)
+                firstPersonController.enableControl = true;
+        }
+
+        public void TryEnableDesktopInput(float delay)
+        {
+            StartCoroutine(TryEnableDesktopInputCoroutine(delay));
+        }
+
+        private IEnumerator TryEnableDesktopInputCoroutine(float delay = 0)
+        {
+            yield return new WaitForSeconds(delay);
+            TryEnableDesktopInput();
         }
 
         public void DisableDesktopInput()
         {
-            if (_firstPersonController != null)
-                _firstPersonController.enableControl = false;
+            if (firstPersonController != null)
+                firstPersonController.enableControl = false;
         }
 
         private static void StartXR()
