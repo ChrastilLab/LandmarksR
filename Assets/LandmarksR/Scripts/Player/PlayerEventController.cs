@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
-using LandmarksR.Scripts.Experiment.Log;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace LandmarksR.Scripts.Player
 {
