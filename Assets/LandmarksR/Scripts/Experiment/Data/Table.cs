@@ -81,7 +81,7 @@ namespace LandmarksR.Scripts.Experiment.Data
                 }
             }
 
-            ExperimentLogger.Instance.I("data",($"{counter} rows are created");
+            ExperimentLogger.Instance.I("data",$"{counter} rows are created");
 
         }
 
