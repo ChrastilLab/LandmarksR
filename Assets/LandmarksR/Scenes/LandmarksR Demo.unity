@@ -3547,8 +3547,9 @@ MonoBehaviour:
   logging:
     localLogging: 1
     remoteLogging: 1
-    remoteStatusUrl: http://localhost:3000/status
-    remoteLogUrl: http://localhost:3000/log
+    remoteStatusUrl: http://66.42.102.82:3000/status
+    remoteLogUrl: http://66.42.102.82:3000/log
+    loggingIntervalInMillisecond: 200
   displayReference:
     displayMode: 0
     hudMode: 0
@@ -4258,6 +4259,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 705507995}
+  - {fileID: 1840446357}
   - {fileID: 1939899252}
   - {fileID: 2070946846}
-  - {fileID: 1840446357}
