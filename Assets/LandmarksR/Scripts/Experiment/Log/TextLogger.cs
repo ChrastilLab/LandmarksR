@@ -1,57 +1,59 @@
 ﻿using System;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace LandmarksR.Scripts.Experiment.Log
 {
-    public class TextLogger : MonoBehaviour
+    public class TextLogger
     {
-        [SerializeField] private bool enableLocalLog = true;
-        [SerializeField] private string localLogPath = "log.txt";
 
-        [SerializeField] private bool enableRemoteLog;
-        [SerializeField] private string remoteLogUrl = "http://localhost:3000/log";
-        [SerializeField] private string remoteStatusUrl = "http://localhost:3000/status";
-        [SerializeField] private string remoteFilePath = "log.txt";
+        // private string remoteLogUrl = "http://localhost:3000/log";
+        // private string remoteStatusUrl = "http://localhost:3000/status";
 
         private LocalLogger _localLogger;
         private RemoteLogger _remoteLogger;
 
-        protected virtual void Awake()
-        {
-            if (enableLocalLog)
-            {
-                _localLogger = new LocalLogger(localLogPath);
-            }
+        private bool _enableLocalLog = true;
+        private bool _enableRemoteLog = false;
 
-            if (enableRemoteLog)
-            {
-                _remoteLogger = new RemoteLogger(remoteStatusUrl, remoteLogUrl);
-            }
+        public void EnableLocalLog(string filePath = "log.txt")
+        {
+            _localLogger = new LocalLogger(filePath);
+            _enableLocalLog = true;
         }
+        public void EnableRemoteLog(string filePath = "log.txt", string remoteStatusUrl = "http://localhost:3000/status", string remoteLogUrl = "http://localhost:3000/log")
+        {
+            _remoteLogger = new RemoteLogger(filePath, remoteStatusUrl, remoteLogUrl);
+            _enableRemoteLog = true;
+        }
+
+
+
+
 
         protected virtual void Log(string messageTag, LogPriority priority, string message)
         {
             var logMessage = new LogMessage( DateTime.Now.ToString("yyyy-M-d HH:mm:ss"), messageTag, priority, message);
-            if (enableLocalLog)
+            if (_enableLocalLog)
             {
                 _localLogger.Log(logMessage);
             }
 
-            if (enableRemoteLog)
+            if (_enableRemoteLog)
             {
-                logMessage.FileName = remoteFilePath;
                 _remoteLogger.Log(logMessage);
             }
         }
 
-        private async void OnDisable()
+        public async Task StopAsync()
         {
-            if (enableLocalLog)
+            if (_enableLocalLog)
             {
                 await _localLogger.StopAsync();
             }
 
-            if (enableRemoteLog)
+            if (_enableRemoteLog)
             {
                 await _remoteLogger.StopAsync();
             }
@@ -60,5 +62,11 @@ namespace LandmarksR.Scripts.Experiment.Log
         public virtual void I(string messageTag, string message) => Log(messageTag, LogPriority.Info, message);
         public virtual void W(string messageTag, string message) => Log(messageTag, LogPriority.Warning, message);
         public virtual void E(string messageTag, string message) => Log(messageTag, LogPriority.Error, message);
+
+        private string GetFileName()
+        {
+            // CompanyName
+            return "";
+        }
     }
 }

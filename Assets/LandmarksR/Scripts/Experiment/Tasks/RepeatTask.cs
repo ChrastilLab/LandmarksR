@@ -84,7 +84,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
         private IEnumerator ExecuteSubTasks()
         {
-            foreach (var subTask in SubTasks)
+            foreach (var subTask in subTasks)
             {
                 yield return subTask.ExecuteAll();
                 currentSubTaskNumber++;
@@ -94,7 +94,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         private void ResetSubtasks()
         {
             currentSubTaskNumber = 1;
-            foreach (var task in SubTasks)
+            foreach (var task in subTasks)
             {
                 task.Reset();
             }
@@ -104,7 +104,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         {
             if (!isSubTaskRunning) return;
             GUI.Label(new Rect(10, 10, 100, 20), $"Repeat: {currentRepeat}/{numberOfRepeat}");
-            GUI.Label(new Rect( 10, 30, 100, 20), $"SubTask: {currentSubTaskNumber}/{SubTasks.Count}");
+            GUI.Label(new Rect( 10, 30, 100, 20), $"SubTask: {currentSubTaskNumber}/{subTasks.Count}");
         }
     }
 }

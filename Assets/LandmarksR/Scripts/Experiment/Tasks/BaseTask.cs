@@ -10,22 +10,22 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 {
     public class BaseTask : MonoBehaviour
     {
+
         [SerializeField] protected bool enable = true;
-        [NotEditable, SerializeField] private uint id;
+        [NotEditable] public uint id;
 
-        public uint ID
-        {
-            get => id;
-            set => id = value;
-        }
+        protected ExperimentLogger logger;
 
-        protected List<BaseTask> SubTasks;
+        protected List<BaseTask> subTasks;
+
+
+        [Header("Time")]
         [SerializeField] protected float timer = Mathf.Infinity;
         [NotEditable, SerializeField] protected float elapsedTime;
 
         protected virtual void Start()
         {
-            SubTasks = transform.Cast<Transform>()
+            subTasks = transform.Cast<Transform>()
                 .OrderBy(tr => tr.GetSiblingIndex())
                 .Select(tr => tr.GetComponent<BaseTask>())
                 .Where(component => component != null)
@@ -38,7 +38,9 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
         protected virtual void Prepare()
         {
-            DebugLogger.Instance.I("task", $"{name} Started");
+            logger = ExperimentLogger.Instance;
+            logger.I("task", $"{name} started");
+
             isCompleted = false;
             isRunning = true;
             StartTimer();
@@ -46,7 +48,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
         protected virtual void Finish()
         {
-            DebugLogger.Instance.I("task", $"{name} Finished");
+            logger.I("task", $"{name} Finished");
             isCompleted = true;
         }
 
@@ -65,7 +67,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             yield return new WaitUntil(() => !isRunning);
 
             isSubTaskRunning = true;
-            foreach (var task in SubTasks)
+            foreach (var task in subTasks)
             {
                 yield return task.ExecuteAll();
             }
@@ -77,7 +79,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         //method to join all the subtasks name
         private string GetSubTasksName()
         {
-            return SubTasks.Aggregate("", (current, task) => current + (task.name + " "));
+            return subTasks.Aggregate("", (current, task) => current + (task.name + " "));
         }
 
         private void StartTimer()

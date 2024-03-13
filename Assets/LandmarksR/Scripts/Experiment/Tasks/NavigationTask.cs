@@ -21,7 +21,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
                 // _parentRepeatTask = repeatTask;
                 target = repeatTask.table.GetValue("Target");
             else
-                DebugLogger.Instance.I("task", "Parent task is not a repeat task.");
+                logger.I("task", "Parent task is not a repeat task.");
 
 
             _hud = Experiment.Instance.playerController.hud;

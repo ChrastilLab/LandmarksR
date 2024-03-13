@@ -10,12 +10,10 @@ namespace LandmarksR.Scripts.Experiment.Log
     }
     public class LogMessage
     {
-        public string FileName { get; set; }
-        public LogPriority Priority { get;  }
-        public string Message { get; }
-        public string Tag { get; }
-
-        public string Timestamp { get; }
+        private LogPriority Priority { get;  }
+        private string Message { get; }
+        private string Tag { get; }
+        private string Timestamp { get; }
 
         public LogMessage(string timestamp, string tag, LogPriority priority,string message)
         {
@@ -39,9 +37,9 @@ namespace LandmarksR.Scripts.Experiment.Log
             return $"{Timestamp}|{Tag}|{priority}|{Message}";
         }
 
-        public string ToJson()
+        public string ToJson(string fileName)
         {
-            return $"{{\"filePath\":\"{FileName}\",\"message\":\"{SecurityElement.Escape(ToString())}\"}}";
+            return $"{{\"filePath\":\"{fileName}\",\"message\":\"{SecurityElement.Escape(ToString())}\"}}";
         }
 
     }

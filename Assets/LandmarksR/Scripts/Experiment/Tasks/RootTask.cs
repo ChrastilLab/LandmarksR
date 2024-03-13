@@ -7,12 +7,12 @@ namespace LandmarksR.Scripts.Experiment.Tasks
     {
         protected override void Prepare()
         {
-            DebugLogger.Instance.I("app", "Start Application");
+            ExperimentLogger.Instance.I("app", "Start Application");
             base.Prepare();
         }
         protected override void Finish()
         {
-            DebugLogger.Instance.I("app", "Finish Application");
+            ExperimentLogger.Instance.I("app", "Finish Application");
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else

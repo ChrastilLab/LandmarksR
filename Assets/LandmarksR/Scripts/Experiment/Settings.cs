@@ -11,6 +11,7 @@ namespace LandmarksR.Scripts.Experiment
         public string participantId;
     }
 
+
     [Serializable]
     public class DisplaySettings
     {
@@ -85,6 +86,16 @@ namespace LandmarksR.Scripts.Experiment
         }
     }
 
+    [Serializable]
+    public class LoggingSettings
+    {
+        public bool localLogging;
+        public bool remoteLogging;
+        public string remoteStatusUrl;
+        public string remoteLogUrl;
+    }
+
+
     public class Settings : MonoBehaviour
     {
         public static Settings Instance => _instance ??= BuildConfig();
@@ -111,7 +122,10 @@ namespace LandmarksR.Scripts.Experiment
             }
         }
 
-        public ExperimentSettings experiment = new();
+        public ExperimentSettings experiment = new()
+        {
+            participantId = "default_participant_0"
+        };
 
         public DisplaySettings vrDisplay = new()
         {
@@ -133,9 +147,16 @@ namespace LandmarksR.Scripts.Experiment
 
         public SpaceSettings space = new();
 
-        public void SwitchDisplayMode(DisplayMode displayMode)
+        public LoggingSettings logging = new()
         {
-            Debug.Log("Switching display mode to " + displayMode);
+            localLogging = true,
+            remoteLogging = false,
+            remoteStatusUrl = "http://localhost:3000/status",
+            remoteLogUrl = "http://localhost:3000/log"
+        };
+
+        private void SwitchDisplayMode(DisplayMode displayMode)
+        {
             displayReference = displayMode switch
             {
                 DisplayMode.Desktop => desktopDisplay,

@@ -23,9 +23,9 @@ namespace LandmarksR.Scripts.Editor
                 // Try get the Uid component and if it exists add the ID member of Uid to the usedIds hashset
                 if (transform.gameObject.TryGetComponent<BaseTask>(out var uid))
                 {
-                    if (uid.ID != 0)
+                    if (uid.id != 0)
                     {
-                        usedIds.Add(uid.ID);
+                        usedIds.Add(uid.id);
                         renew = false;
                     }
                 }
@@ -36,8 +36,8 @@ namespace LandmarksR.Scripts.Editor
                 // If the game object does not have a Uid component, add one
                 if (renew)
                 {
-                    uid.ID = GetUnusedID(usedIds);
-                    usedIds.Add(uid.ID);
+                    uid.id = GetUnusedID(usedIds);
+                    usedIds.Add(uid.id);
                 }
 
                 EditorUtility.SetDirty(uid);

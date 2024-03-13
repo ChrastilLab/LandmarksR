@@ -13,10 +13,12 @@ namespace LandmarksR.Scripts.Experiment.Log
         private readonly LoggerQueue _loggerQueue;
         private static readonly HttpClient HttpClient = new(); // Reuse instance
         private readonly string _logUrl;
+        private readonly string _filePath;
         private bool _ready; // Changed to false by default
 
-        public RemoteLogger(string statusUrl, string logUrl, int flushingInterval = 100)
+        public RemoteLogger(string filePath, string statusUrl, string logUrl, int flushingInterval = 100)
         {
+            _filePath = filePath;
             _logUrl = logUrl;
             _loggerQueue = new LoggerQueue(WriteLogAsync, flushingInterval); // Assume WriteLogAsync is the new async method
 
@@ -41,9 +43,10 @@ namespace LandmarksR.Scripts.Experiment.Log
 
         private async Task WriteLogAsync(LogMessage message)
         {
-            var content = new StringContent(message.ToJson(), Encoding.UTF8, "application/json");
+            var content = new StringContent(message.ToJson(_filePath), Encoding.UTF8, "application/json");
             try
             {
+                Debug.Log($"Sending log message: {message.ToJson(_filePath)}");
                 var response = await HttpClient.PostAsync(_logUrl, content);
                 if (!response.IsSuccessStatusCode)
                 {

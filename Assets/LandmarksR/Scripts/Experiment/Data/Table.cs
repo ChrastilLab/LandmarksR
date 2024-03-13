@@ -16,7 +16,7 @@ namespace LandmarksR.Scripts.Experiment.Data
             row = new Row();
             if (values.Count != headers.Count)
             {
-                DebugLogger.Instance.E("data","Values and headers count does not match.");
+                ExperimentLogger.Instance.E("data","Values and headers count does not match.");
                 return false;
             }
 
@@ -35,7 +35,7 @@ namespace LandmarksR.Scripts.Experiment.Data
         {
             if (!_headerValuePairs.ContainsKey(header))
             {
-                DebugLogger.Instance.E("data", $"Header {header} does not exist.");
+                ExperimentLogger.Instance.E("data", $"Header {header} does not exist.");
                 return null;
             }
 
@@ -64,7 +64,7 @@ namespace LandmarksR.Scripts.Experiment.Data
             var counter = 0;
             if (string.IsNullOrEmpty(delimiter) || string.IsNullOrWhiteSpace(delimiter))
             {
-                DebugLogger.Instance.E("Delimiter is not set.", "data");
+                ExperimentLogger.Instance.E("Delimiter is not set.", "data");
                 return;
             }
 
@@ -77,11 +77,11 @@ namespace LandmarksR.Scripts.Experiment.Data
                 }
                 else
                 {
-                    DebugLogger.Instance.W($"Row {counter} is not created.", "data");
+                    ExperimentLogger.Instance.W($"Row {counter} is not created.", "data");
                 }
             }
 
-            DebugLogger.Instance.I($"{counter} rows are created.", "data");
+            ExperimentLogger.Instance.I($"{counter} rows are created.", "data");
 
         }
 
@@ -124,7 +124,7 @@ namespace LandmarksR.Scripts.Experiment.Data
             if (string.IsNullOrWhiteSpace(dataPath))
             {
                 // Log error or handle the case where dataPath is not set
-                DebugLogger.Instance.E("data", "Data path is not set.");
+                ExperimentLogger.Instance.E("data", "Data path is not set.");
                 return;
             }
 
@@ -159,7 +159,7 @@ namespace LandmarksR.Scripts.Experiment.Data
             catch (System.IO.IOException ex)
             {
                 // Log the exception or handle it as needed
-                DebugLogger.Instance.E($"data", $"Error reading file: {ex.Message}");
+                ExperimentLogger.Instance.E($"data", $"Error reading file: {ex.Message}");
             }
         }
 

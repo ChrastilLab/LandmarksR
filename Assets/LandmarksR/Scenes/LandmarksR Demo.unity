@@ -799,12 +799,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91e0871a388f4bc3acd0c5bc1f5dd09d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableLocalLog: 1
-  localLogPath: log.txt
-  enableRemoteLog: 1
-  remoteLogUrl: http://localhost:3000/log
-  remoteStatusUrl: http://localhost:3000/status
-  remoteFilePath: log.txt
   tagToPrint:
   - app
   - data
@@ -3530,7 +3524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   experiment:
-    participantId: 
+    participantId: default_participant_0
   vrDisplay:
     displayMode: 1
     hudMode: 1
@@ -3550,6 +3544,11 @@ MonoBehaviour:
     rightBottom: {x: 0, y: 0, z: 0}
     center: {x: 0, y: 0, z: 0}
     forward: {x: 0, y: 0, z: 0}
+  logging:
+    localLogging: 1
+    remoteLogging: 1
+    remoteStatusUrl: http://localhost:3000/status
+    remoteLogUrl: http://localhost:3000/log
   displayReference:
     displayMode: 0
     hudMode: 0

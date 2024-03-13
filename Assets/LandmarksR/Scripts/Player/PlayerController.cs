@@ -40,7 +40,7 @@ namespace LandmarksR.Scripts.Player
 
         public void SwitchDisplayMode(DisplayMode displayMode)
         {
-            DebugLogger.Instance.I("app", "Switching display mode to " + displayMode);
+            ExperimentLogger.Instance.I("app", "Switching display mode to " + displayMode);
             switch (displayMode)
             {
                 case DisplayMode.Desktop:

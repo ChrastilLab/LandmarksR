@@ -14,7 +14,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Debug
         protected static PlayerController Player => Experiment.Instance.playerController;
         protected static Hud Hud => Experiment.Instance.playerController.hud;
 
-        protected static DebugLogger Logger => DebugLogger.Instance;
+        protected static ExperimentLogger Logger => ExperimentLogger.Instance;
 
         private List<Action> _keyActions = new();
 
