@@ -18,7 +18,6 @@ namespace LandmarksR.Scripts.Animation
         {
             _time += Time.deltaTime * speed * 0.05f;
 
-
             // rainbow color
             _light.color = Color.HSVToRGB(Mathf.PingPong(_time, 1), 1, 1);
 

@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace LandmarksR.Scripts.Experiment
 {
+
     public class Experiment : MonoBehaviour
     {
         public static Experiment Instance => _instance ??= BuildExperiment();

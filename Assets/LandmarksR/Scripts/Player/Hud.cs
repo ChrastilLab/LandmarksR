@@ -17,7 +17,8 @@ namespace LandmarksR.Scripts.Player
 
     public class Hud : MonoBehaviour
     {
-        private Config _config;
+        private Settings _settings;
+        private DisplaySettings DisplaySettingsReference => _settings.displayReference;
         [NotEditable, SerializeField] private HudMode hudMode;
         [SerializeField] private Canvas canvas;
         [SerializeField] private GameObject panel;
@@ -27,8 +28,13 @@ namespace LandmarksR.Scripts.Player
 
         private void Start()
         {
-            _config = Config.Instance;
-            SwitchHudMode(_config.HudMode);
+
+        }
+
+        public void UpdateSettings(Settings settings)
+        {
+            _settings = settings;
+            SwitchHudMode(DisplaySettingsReference.hudMode);
         }
 
         public void SetCamera(Camera cam)
@@ -145,14 +151,14 @@ namespace LandmarksR.Scripts.Player
         private void SetModeFollow()
         {
             hudMode = HudMode.Follow;
-            AdjustScale(_config.HudScreenSize);
+            AdjustScale(DisplaySettingsReference.hudScreenSize);
             canvas.renderMode = RenderMode.WorldSpace;
         }
         private void SetModeFixed()
         {
             hudMode = HudMode.Fixed;
-            AdjustScale(_config.HudScreenSize);
-            Recenter(_config.HudDistance);
+            AdjustScale(DisplaySettingsReference.hudScreenSize);
+            Recenter(DisplaySettingsReference.hudDistance);
 
             canvas.renderMode = RenderMode.WorldSpace;
         }
@@ -172,8 +178,8 @@ namespace LandmarksR.Scripts.Player
 
         private void FollowRecenter()
         {
-            if (hudMode != HudMode.Follow) return;
-            Recenter(_config.HudDistance);
+            if (hudMode != HudMode.Follow || _settings == null) return;
+            Recenter(DisplaySettingsReference.hudDistance);
         }
 
         private void Recenter(float distanceToCam)
@@ -210,6 +216,16 @@ namespace LandmarksR.Scripts.Player
             var h = 2.0f *  Mathf.Tan(0.5f * canvas.worldCamera.fieldOfView * Mathf.Deg2Rad);
             var scaleFactor = h / size.y;
             return scaleFactor;
+        }
+
+        public void HideByLayer(string layerName)
+        {
+            canvas.GetComponent<Canvas>().worldCamera.cullingMask &= ~(1 << LayerMask.NameToLayer(layerName));
+        }
+
+        public void ShowByLayer(string layerName)
+        {
+            canvas.GetComponent<Canvas>().worldCamera.cullingMask |= (1 << LayerMask.NameToLayer(layerName));
         }
 
         private void Update()

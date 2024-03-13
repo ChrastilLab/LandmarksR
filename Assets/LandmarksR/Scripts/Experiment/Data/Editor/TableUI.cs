@@ -6,7 +6,7 @@ using UnityEngine;
 namespace LandmarksR.Scripts.Experiment.Data.Editor
 {
     [CustomEditor(typeof(Table))]
-    public class TableEditor : UnityEditor.Editor
+    public class TableUI : UnityEditor.Editor
     {
         private SerializedProperty _rows;
         private SerializedProperty _hasHeader;

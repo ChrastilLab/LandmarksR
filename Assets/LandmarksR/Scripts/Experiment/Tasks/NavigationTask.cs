@@ -33,7 +33,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
             _playerController = Experiment.Instance.playerController;
             _playerController.TryEnableDesktopInput(3f);
-            _playerController.playerEventController.RegisterTriggerEnterHandler(HandlePlayerTriggerEnter);
+            _playerController.playerEvent.RegisterTriggerEnterHandler(HandlePlayerTriggerEnter);
         }
 
         private void HandlePlayerTriggerEnter(Collider other)
@@ -48,7 +48,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         {
             base.Finish();
             _playerController.DisableDesktopInput();
-            _playerController.playerEventController.UnregisterTriggerEnterHandler(HandlePlayerTriggerEnter);
+            _playerController.playerEvent.UnregisterTriggerEnterHandler(HandlePlayerTriggerEnter);
         }
     }
 }

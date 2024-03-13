@@ -13,6 +13,12 @@ namespace LandmarksR.Scripts.Player
         [SerializeField]
         public Collider playerCollider;
 
+        [SerializeField]
+        public GameObject leftHandAnchor;
+
+        [SerializeField]
+        public GameObject rightHandAnchor;
+
 
     }
 }

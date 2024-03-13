@@ -5,22 +5,22 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 {
     public class InstructionTask : BaseTask
     {
-        private Hud _hud;
-        private PlayerEventController _playerEventController;
+        protected Hud Hud;
+        protected PlayerEventController PlayerEvent;
         [SerializeField] private string instructionTitle;
+        [TextArea(3, 10)]
         [SerializeField] private string instructionContent;
         protected override void Prepare()
         {
             base.Prepare();
 
-            _hud = Experiment.Instance.playerController.hud;
-            _hud.SwitchHudMode(HudMode.Follow)
-                .SetTitle(instructionTitle)
+            Hud = Experiment.Instance.playerController.hud;
+            Hud.SetTitle(instructionTitle)
                 .SetContent(instructionContent)
                 .ShowAll();
 
-            _playerEventController = Experiment.Instance.playerController.playerEventController;
-            _playerEventController.RegisterConfirmHandler(OnConfirm);
+            PlayerEvent = Experiment.Instance.playerController.playerEvent;
+            PlayerEvent.RegisterConfirmHandler(OnConfirm);
         }
 
         private void OnConfirm()
@@ -32,8 +32,8 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         protected override void Finish()
         {
             base.Finish();
-            _hud.HideAll();
-            _playerEventController.UnregisterConfirmHandler(OnConfirm);
+            Hud.HideAll();
+            PlayerEvent.UnregisterConfirmHandler(OnConfirm);
         }
     }
 }

@@ -54,3 +54,935 @@
 2024-3-8 23:03:43|task|I|Teleport Started
 2024-3-8 23:03:43|task|I|Teleport Finished
 2024-3-8 23:03:43|task|I|Navigation Started
+2024-3-11 18:04:08|app|I|Start Application
+2024-3-11 18:04:08|task|I|RootTask Started
+2024-3-11 18:04:09|task|I|Debug Tasks Started
+2024-3-11 18:04:09|task|I|CollectionTask Started
+2024-3-11 18:04:09|task|I|Repeat 3 Times Started
+2024-3-11 18:04:09|task|I|Teleport Started
+2024-3-11 18:04:10|task|I|Teleport Finished
+2024-3-11 18:04:10|task|I|Navigation Started
+2024-3-11 19:07:16|app|I|Start Application
+2024-3-11 19:07:16|task|I|RootTask Started
+2024-3-11 19:07:16|task|I|Debug Tasks Started
+2024-3-11 19:07:16|task|I|CollectionTask Started
+2024-3-11 19:07:16|task|I|Repeat 3 Times Started
+2024-3-11 19:07:16|task|I|Teleport Started
+2024-3-11 19:07:16|task|I|Teleport Finished
+2024-3-11 19:07:16|task|I|Navigation Started
+2024-3-11 19:07:32|app|I|Start Application
+2024-3-11 19:07:32|task|I|RootTask Started
+2024-3-11 19:07:32|task|I|Debug Tasks Started
+2024-3-11 19:07:32|task|I|CollectionTask Started
+2024-3-11 19:07:32|task|I|Repeat 3 Times Started
+2024-3-11 19:07:32|task|I|Teleport Started
+2024-3-11 19:07:32|task|I|Teleport Finished
+2024-3-11 19:07:32|task|I|Navigation Started
+2024-3-11 19:08:05|app|I|Start Application
+2024-3-11 19:08:05|task|I|RootTask Started
+2024-3-11 19:08:05|task|I|Debug Tasks Started
+2024-3-11 19:08:05|task|I|CollectionTask Started
+2024-3-11 19:08:05|task|I|Repeat 3 Times Started
+2024-3-11 19:08:05|task|I|Teleport Started
+2024-3-11 19:08:05|task|I|Teleport Finished
+2024-3-11 19:08:05|task|I|Navigation Started
+2024-3-11 19:46:07|app|I|Start Application
+2024-3-11 19:46:07|task|I|RootTask Started
+2024-3-11 19:46:07|task|I|Debug Tasks Started
+2024-3-11 19:46:07|task|I|CollectionTask Started
+2024-3-11 19:46:07|task|I|Repeat 3 Times Started
+2024-3-11 19:46:07|task|I|Teleport Started
+2024-3-11 19:46:07|task|I|Teleport Finished
+2024-3-11 19:46:07|task|I|Navigation Started
+2024-3-11 19:46:48|app|I|Start Application
+2024-3-11 19:46:48|task|I|RootTask Started
+2024-3-11 19:46:48|task|I|Debug Tasks Started
+2024-3-11 19:46:48|task|I|CollectionTask Started
+2024-3-11 19:46:48|task|I|Repeat 3 Times Started
+2024-3-11 19:46:48|task|I|Teleport Started
+2024-3-11 19:46:48|task|I|Teleport Finished
+2024-3-11 19:46:48|task|I|Navigation Started
+2024-3-11 19:47:59|app|I|Start Application
+2024-3-11 19:47:59|task|I|RootTask Started
+2024-3-11 19:47:59|task|I|Debug Tasks Started
+2024-3-11 19:47:59|task|I|CollectionTask Started
+2024-3-11 19:47:59|task|I|Repeat 3 Times Started
+2024-3-11 19:47:59|task|I|Teleport Started
+2024-3-11 19:47:59|task|I|Teleport Finished
+2024-3-11 19:47:59|task|I|Navigation Started
+2024-3-11 19:53:16|app|I|Start Application
+2024-3-11 19:53:16|task|I|RootTask Started
+2024-3-11 19:53:17|task|I|Debug Tasks Started
+2024-3-11 19:53:17|task|I|CollectionTask Started
+2024-3-11 19:53:17|task|I|Repeat 3 Times Started
+2024-3-11 19:53:17|task|I|Teleport Started
+2024-3-11 19:53:17|task|I|Teleport Finished
+2024-3-11 19:53:17|task|I|Navigation Started
+2024-3-11 19:53:45|app|I|Start Application
+2024-3-11 19:53:45|task|I|RootTask Started
+2024-3-11 19:53:45|task|I|Debug Tasks Started
+2024-3-11 19:53:45|task|I|CollectionTask Started
+2024-3-11 19:53:45|task|I|Repeat 3 Times Started
+2024-3-11 19:53:45|task|I|Teleport Started
+2024-3-11 19:53:45|task|I|Teleport Finished
+2024-3-11 19:53:45|task|I|Navigation Started
+2024-3-11 19:54:58|app|I|Start Application
+2024-3-11 19:54:58|task|I|RootTask Started
+2024-3-11 19:54:58|task|I|Debug Tasks Started
+2024-3-11 19:54:58|task|I|CollectionTask Started
+2024-3-11 19:54:58|task|I|Repeat 3 Times Started
+2024-3-11 19:54:58|task|I|Teleport Started
+2024-3-11 19:54:58|task|I|Teleport Finished
+2024-3-11 19:54:58|task|I|Navigation Started
+2024-3-11 19:57:13|app|I|Switching display mode to Desktop
+2024-3-11 19:57:13|app|I|Start Application
+2024-3-11 19:57:13|task|I|RootTask Started
+2024-3-11 19:57:13|task|I|Debug Tasks Started
+2024-3-11 19:57:13|task|I|CollectionTask Started
+2024-3-11 19:57:13|task|I|Repeat 3 Times Started
+2024-3-11 19:57:13|task|I|Teleport Started
+2024-3-11 19:57:13|task|I|Teleport Finished
+2024-3-11 19:57:13|task|I|Navigation Started
+2024-3-11 19:57:29|app|I|Switching display mode to VR
+2024-3-11 19:57:30|app|I|Start Application
+2024-3-11 19:57:30|task|I|RootTask Started
+2024-3-11 19:57:31|task|I|Debug Tasks Started
+2024-3-11 19:57:31|task|I|CollectionTask Started
+2024-3-11 19:57:31|task|I|Repeat 3 Times Started
+2024-3-11 19:57:31|task|I|Teleport Started
+2024-3-11 19:57:31|task|I|Teleport Finished
+2024-3-11 19:57:31|task|I|Navigation Started
+2024-3-11 20:01:07|app|I|Switching display mode to Desktop
+2024-3-11 20:01:07|app|I|Start Application
+2024-3-11 20:01:07|task|I|RootTask Started
+2024-3-11 20:01:07|task|I|Debug Tasks Started
+2024-3-11 20:01:07|task|I|CollectionTask Started
+2024-3-11 20:01:07|task|I|Repeat 3 Times Started
+2024-3-11 20:01:07|task|I|Teleport Started
+2024-3-11 20:01:07|task|I|Teleport Finished
+2024-3-11 20:01:07|task|I|Navigation Started
+2024-3-11 20:01:17|app|I|Switching display mode to Desktop
+2024-3-11 20:01:17|app|I|Start Application
+2024-3-11 20:01:17|task|I|RootTask Started
+2024-3-11 20:01:18|task|I|Debug Tasks Started
+2024-3-11 20:01:18|task|I|CollectionTask Started
+2024-3-11 20:01:18|task|I|Repeat 3 Times Started
+2024-3-11 20:01:18|task|I|Teleport Started
+2024-3-11 20:01:18|task|I|Teleport Finished
+2024-3-11 20:01:18|task|I|Navigation Started
+2024-3-11 20:01:55|app|I|Switching display mode to VR
+2024-3-11 20:01:57|app|I|Start Application
+2024-3-11 20:01:57|task|I|RootTask Started
+2024-3-11 20:01:57|task|I|Debug Tasks Started
+2024-3-11 20:01:57|task|I|CollectionTask Started
+2024-3-11 20:01:57|task|I|Single Instruction Started
+2024-3-11 20:06:50|app|I|Switching display mode to Desktop
+2024-3-11 20:06:50|app|I|Start Application
+2024-3-11 20:06:50|task|I|RootTask Started
+2024-3-11 20:06:50|task|I|Debug Tasks Started
+2024-3-11 20:06:50|task|I|CollectionTask Started
+2024-3-11 20:06:50|task|I|Single Instruction Started
+2024-3-11 20:06:51|task|I|Single Instruction Finished
+2024-3-11 20:06:51|task|I|Hud Testing Started
+2024-3-11 20:07:08|app|I|Switching display mode to Desktop
+2024-3-11 20:07:08|app|I|Start Application
+2024-3-11 20:07:08|task|I|RootTask Started
+2024-3-11 20:07:09|task|I|Debug Tasks Started
+2024-3-11 20:07:09|task|I|CollectionTask Started
+2024-3-11 20:07:09|task|I|Single Instruction Started
+2024-3-11 20:07:16|app|I|Switching display mode to VR
+2024-3-11 20:07:17|app|I|Start Application
+2024-3-11 20:07:17|task|I|RootTask Started
+2024-3-11 20:07:17|task|I|Debug Tasks Started
+2024-3-11 20:07:17|task|I|CollectionTask Started
+2024-3-11 20:07:17|task|I|Single Instruction Started
+2024-3-11 20:09:07|app|I|Switching display mode to Desktop
+2024-3-11 20:09:07|app|I|Start Application
+2024-3-11 20:09:07|task|I|RootTask Started
+2024-3-11 20:09:08|task|I|Debug Tasks Started
+2024-3-11 20:09:08|task|I|CollectionTask Started
+2024-3-11 20:09:08|task|I|Single Instruction Started
+2024-3-11 20:09:30|app|I|Switching display mode to VR
+2024-3-11 20:09:32|app|I|Start Application
+2024-3-11 20:09:32|task|I|RootTask Started
+2024-3-11 20:09:33|task|I|Debug Tasks Started
+2024-3-11 20:09:33|task|I|CollectionTask Started
+2024-3-11 20:09:33|task|I|Single Instruction Started
+2024-3-11 20:10:21|app|I|Switching display mode to VR
+2024-3-11 20:10:22|app|I|Start Application
+2024-3-11 20:10:22|task|I|RootTask Started
+2024-3-11 20:10:23|task|I|Debug Tasks Started
+2024-3-11 20:10:23|task|I|CollectionTask Started
+2024-3-11 20:10:23|task|I|Single Instruction Started
+2024-3-11 20:11:13|app|I|Switching display mode to VR
+2024-3-11 20:11:15|app|I|Start Application
+2024-3-11 20:11:15|task|I|RootTask Started
+2024-3-11 20:11:16|task|I|Debug Tasks Started
+2024-3-11 20:11:16|task|I|CollectionTask Started
+2024-3-11 20:11:16|task|I|Hud Testing Started
+2024-3-11 20:13:40|app|I|Switching display mode to VR
+2024-3-11 20:13:41|app|I|Start Application
+2024-3-11 20:13:41|task|I|RootTask Started
+2024-3-11 20:13:42|task|I|Debug Tasks Started
+2024-3-11 20:13:42|task|I|CollectionTask Started
+2024-3-11 20:13:42|task|I|Single Instruction Started
+2024-3-11 20:13:43|task|I|Single Instruction Finished
+2024-3-11 20:13:43|task|I|Hud Testing Started
+2024-3-11 20:19:28|app|I|Switching display mode to VR
+2024-3-11 20:19:28|app|I|Start Application
+2024-3-11 20:19:28|task|I|RootTask Started
+2024-3-11 20:19:29|task|I|Debug Tasks Started
+2024-3-11 20:19:29|task|I|CollectionTask Started
+2024-3-11 20:19:29|task|I|Single Instruction Started
+2024-3-11 20:19:47|app|I|Switching display mode to VR
+2024-3-11 20:19:49|app|I|Start Application
+2024-3-11 20:19:49|task|I|RootTask Started
+2024-3-11 20:19:50|task|I|Debug Tasks Started
+2024-3-11 20:19:50|task|I|CollectionTask Started
+2024-3-11 20:19:50|task|I|Single Instruction Started
+2024-3-11 20:23:20|app|I|Switching display mode to VR
+2024-3-11 20:23:20|app|I|Start Application
+2024-3-11 20:23:20|task|I|RootTask Started
+2024-3-11 20:23:21|task|I|Debug Tasks Started
+2024-3-11 20:23:21|task|I|CollectionTask Started
+2024-3-11 20:23:21|task|I|Single Instruction Started
+2024-3-11 20:30:29|app|I|Switching display mode to VR
+2024-3-11 20:30:29|app|I|Start Application
+2024-3-11 20:30:29|task|I|RootTask Started
+2024-3-11 20:30:30|task|I|Debug Tasks Started
+2024-3-11 20:30:30|task|I|CollectionTask Started
+2024-3-11 20:30:30|task|I|Single Instruction Started
+2024-3-11 20:47:02|app|I|Switching display mode to Desktop
+2024-3-11 20:47:02|app|I|Start Application
+2024-3-11 20:47:02|task|I|RootTask Started
+2024-3-11 20:47:03|task|I|Debug Tasks Started
+2024-3-11 20:47:03|task|I|CollectionTask Started
+2024-3-11 20:47:03|task|I|Single Instruction Started
+2024-3-11 20:47:04|task|I|Single Instruction Finished
+2024-3-11 20:47:04|task|I|Hud Testing Started
+2024-3-11 20:49:21|app|I|Switching display mode to VR
+2024-3-11 20:49:21|app|I|Start Application
+2024-3-11 20:49:21|task|I|RootTask Started
+2024-3-11 20:49:22|task|I|Debug Tasks Started
+2024-3-11 20:49:22|task|I|CollectionTask Started
+2024-3-11 20:49:22|task|I|Single Instruction Started
+2024-3-11 20:49:24|task|I|Single Instruction Finished
+2024-3-11 20:49:24|task|I|Hud Testing Started
+2024-3-11 20:49:57|app|I|Switching display mode to VR
+2024-3-11 20:49:57|app|I|Start Application
+2024-3-11 20:49:57|task|I|RootTask Started
+2024-3-11 20:49:57|task|I|Debug Tasks Started
+2024-3-11 20:49:57|task|I|CollectionTask Started
+2024-3-11 20:49:58|task|I|Single Instruction Started
+2024-3-11 20:50:00|task|I|Single Instruction Finished
+2024-3-11 20:50:00|task|I|Hud Testing Started
+2024-3-11 20:51:23|app|I|Switching display mode to VR
+2024-3-11 20:51:24|app|I|Start Application
+2024-3-11 20:51:24|task|I|RootTask Started
+2024-3-11 20:51:24|task|I|Debug Tasks Started
+2024-3-11 20:51:24|task|I|CollectionTask Started
+2024-3-11 20:51:24|task|I|Single Instruction Started
+2024-3-11 20:51:41|app|I|Switching display mode to VR
+2024-3-11 20:51:41|app|I|Start Application
+2024-3-11 20:51:41|task|I|RootTask Started
+2024-3-11 20:51:42|task|I|Debug Tasks Started
+2024-3-11 20:51:42|task|I|CollectionTask Started
+2024-3-11 20:51:42|task|I|Hud Testing Started
+2024-3-12 12:10:46|app|I|Switching display mode to Desktop
+2024-3-12 12:10:46|app|I|Start Application
+2024-3-12 12:10:46|task|I|RootTask Started
+2024-3-12 12:10:46|task|I|Debug Tasks Started
+2024-3-12 12:10:46|task|I|CollectionTask Started
+2024-3-12 12:10:46|task|I|GameObject Started
+2024-3-12 12:14:56|app|I|Switching display mode to VR
+2024-3-12 12:14:57|app|I|Start Application
+2024-3-12 12:14:57|task|I|RootTask Started
+2024-3-12 12:16:54|app|I|Switching display mode to Desktop
+2024-3-12 12:16:54|app|I|Start Application
+2024-3-12 12:16:54|task|I|RootTask Started
+2024-3-12 12:16:55|task|I|Debug Tasks Started
+2024-3-12 12:16:55|task|I|CollectionTask Started
+2024-3-12 12:16:55|task|I|GameObject Started
+2024-3-12 12:17:53|app|I|Switching display mode to VR
+2024-3-12 12:17:55|app|I|Start Application
+2024-3-12 12:17:55|task|I|RootTask Started
+2024-3-12 12:18:26|app|I|Switching display mode to VR
+2024-3-12 12:18:28|app|I|Start Application
+2024-3-12 12:18:28|task|I|RootTask Started
+2024-3-12 12:19:35|app|I|Switching display mode to VR
+2024-3-12 12:19:36|app|I|Start Application
+2024-3-12 12:19:36|task|I|RootTask Started
+2024-3-12 12:19:53|app|I|Switching display mode to VR
+2024-3-12 12:19:54|app|I|Start Application
+2024-3-12 12:19:54|task|I|RootTask Started
+2024-3-12 12:23:07|app|I|Switching display mode to VR
+2024-3-12 12:23:09|app|I|Start Application
+2024-3-12 12:23:09|task|I|RootTask Started
+2024-3-12 12:23:09|task|I|Debug Tasks Started
+2024-3-12 12:23:09|task|I|CollectionTask Started
+2024-3-12 12:23:09|task|I|GameObject Started
+2024-3-12 12:25:55|app|I|Switching display mode to VR
+2024-3-12 12:25:57|app|I|Start Application
+2024-3-12 12:25:57|task|I|RootTask Started
+2024-3-12 12:25:57|task|I|Debug Tasks Started
+2024-3-12 12:25:58|task|I|CollectionTask Started
+2024-3-12 12:25:58|task|I|GameObject Started
+2024-3-12 12:28:00|app|I|Switching display mode to VR
+2024-3-12 12:28:01|app|I|Start Application
+2024-3-12 12:28:01|task|I|RootTask Started
+2024-3-12 12:28:02|task|I|Debug Tasks Started
+2024-3-12 12:28:02|task|I|CollectionTask Started
+2024-3-12 12:28:02|task|I|GameObject Started
+2024-3-12 12:36:30|app|I|Switching display mode to VR
+2024-3-12 12:36:32|app|I|Start Application
+2024-3-12 12:36:32|task|I|RootTask Started
+2024-3-12 12:36:32|task|I|Debug Tasks Started
+2024-3-12 12:36:32|task|I|CollectionTask Started
+2024-3-12 12:36:32|task|I|GameObject Started
+2024-3-12 12:37:31|app|I|Switching display mode to VR
+2024-3-12 12:37:33|app|I|Start Application
+2024-3-12 12:37:33|task|I|RootTask Started
+2024-3-12 12:37:33|task|I|Debug Tasks Started
+2024-3-12 12:37:33|task|I|CollectionTask Started
+2024-3-12 12:37:33|task|I|GameObject Started
+2024-3-12 12:39:38|app|I|Switching display mode to VR
+2024-3-12 12:39:39|app|I|Start Application
+2024-3-12 12:39:39|task|I|RootTask Started
+2024-3-12 12:39:40|task|I|Debug Tasks Started
+2024-3-12 12:39:40|task|I|CollectionTask Started
+2024-3-12 12:39:40|task|I|GameObject Started
+2024-3-12 12:52:44|app|I|Switching display mode to VR
+2024-3-12 12:52:45|app|I|Start Application
+2024-3-12 12:52:45|task|I|RootTask Started
+2024-3-12 12:52:46|task|I|Debug Tasks Started
+2024-3-12 12:52:46|task|I|CollectionTask Started
+2024-3-12 12:52:46|task|I|VRInputTesting Started
+2024-3-12 12:53:04|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:53:35|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:53:41|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:53:41|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:53:41|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:53:42|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:53:44|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:54:02|app|I|Switching display mode to VR
+2024-3-12 12:54:02|app|I|Start Application
+2024-3-12 12:54:02|task|I|RootTask Started
+2024-3-12 12:54:03|task|I|Debug Tasks Started
+2024-3-12 12:54:03|task|I|CollectionTask Started
+2024-3-12 12:54:03|task|I|VRInputTesting Started
+2024-3-12 12:54:24|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:54:25|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:54:25|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:54:26|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:54:27|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:54:27|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:54:27|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:54:27|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:54:27|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:54:28|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:54:28|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:54:29|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:54:29|tests|I|Primary Hand Trigger Pressed
+2024-3-12 12:59:24|app|I|Switching display mode to VR
+2024-3-12 12:59:24|app|I|Start Application
+2024-3-12 12:59:24|task|I|RootTask Started
+2024-3-12 12:59:25|task|I|Debug Tasks Started
+2024-3-12 12:59:25|task|I|CollectionTask Started
+2024-3-12 12:59:25|task|I|VRInputTesting Started
+2024-3-12 13:01:10|app|I|Switching display mode to VR
+2024-3-12 13:01:10|app|I|Start Application
+2024-3-12 13:01:10|task|I|RootTask Started
+2024-3-12 13:01:11|task|I|Debug Tasks Started
+2024-3-12 13:01:11|task|I|CollectionTask Started
+2024-3-12 13:01:11|task|I|VRInputTesting Started
+2024-3-12 13:01:22|input|I|PrimaryIndexTrigger
+2024-3-12 13:01:23|input|I|One
+2024-3-12 13:01:23|input|I|Three
+2024-3-12 13:01:28|input|I|One
+2024-3-12 13:01:28|input|I|Three
+2024-3-12 13:01:29|input|I|Two
+2024-3-12 13:01:29|input|I|Four
+2024-3-12 13:01:32|input|I|Two
+2024-3-12 13:01:32|input|I|Four
+2024-3-12 13:01:32|input|I|One
+2024-3-12 13:01:32|input|I|Three
+2024-3-12 13:01:33|input|I|Two
+2024-3-12 13:01:33|input|I|Four
+2024-3-12 13:01:34|input|I|One
+2024-3-12 13:01:34|input|I|Three
+2024-3-12 13:01:34|input|I|Two
+2024-3-12 13:01:34|input|I|Four
+2024-3-12 13:01:35|input|I|One
+2024-3-12 13:01:35|input|I|Three
+2024-3-12 13:01:35|input|I|Two
+2024-3-12 13:01:35|input|I|Four
+2024-3-12 13:01:35|input|I|One
+2024-3-12 13:01:35|input|I|Three
+2024-3-12 13:01:36|input|I|Two
+2024-3-12 13:01:36|input|I|Four
+2024-3-12 13:01:36|input|I|One
+2024-3-12 13:01:36|input|I|Three
+2024-3-12 13:01:36|input|I|Two
+2024-3-12 13:01:36|input|I|Four
+2024-3-12 13:01:37|input|I|One
+2024-3-12 13:01:37|input|I|Three
+2024-3-12 13:01:37|input|I|One
+2024-3-12 13:01:37|input|I|Three
+2024-3-12 13:01:37|input|I|One
+2024-3-12 13:01:37|input|I|Three
+2024-3-12 13:01:37|input|I|One
+2024-3-12 13:01:37|input|I|Three
+2024-3-12 13:01:41|input|I|PrimaryIndexTrigger
+2024-3-12 13:01:42|input|I|PrimaryIndexTrigger
+2024-3-12 13:01:43|input|I|One
+2024-3-12 13:01:43|input|I|Three
+2024-3-12 13:01:44|input|I|One
+2024-3-12 13:01:44|input|I|Three
+2024-3-12 13:01:44|input|I|One
+2024-3-12 13:01:44|input|I|Three
+2024-3-12 13:01:44|input|I|One
+2024-3-12 13:01:44|input|I|Three
+2024-3-12 13:01:46|input|I|One
+2024-3-12 13:01:46|input|I|Three
+2024-3-12 13:01:46|input|I|One
+2024-3-12 13:01:46|input|I|Three
+2024-3-12 13:01:46|input|I|One
+2024-3-12 13:01:46|input|I|Three
+2024-3-12 13:01:49|input|I|One
+2024-3-12 13:01:49|input|I|Three
+2024-3-12 13:01:50|input|I|One
+2024-3-12 13:01:50|input|I|Three
+2024-3-12 13:01:50|input|I|One
+2024-3-12 13:01:50|input|I|Three
+2024-3-12 13:01:51|input|I|One
+2024-3-12 13:01:51|input|I|Three
+2024-3-12 13:01:51|input|I|One
+2024-3-12 13:01:51|input|I|Three
+2024-3-12 13:01:51|input|I|One
+2024-3-12 13:01:51|input|I|Three
+2024-3-12 13:01:51|input|I|One
+2024-3-12 13:01:51|input|I|Three
+2024-3-12 13:01:51|input|I|One
+2024-3-12 13:01:51|input|I|Three
+2024-3-12 13:01:54|input|I|PrimaryIndexTrigger
+2024-3-12 13:01:57|input|I|PrimaryIndexTrigger
+2024-3-12 13:01:58|input|I|PrimaryIndexTrigger
+2024-3-12 13:02:00|input|I|PrimaryIndexTrigger
+2024-3-12 13:02:00|input|I|PrimaryIndexTrigger
+2024-3-12 13:02:12|input|I|PrimaryIndexTrigger
+2024-3-12 13:02:14|input|I|Three
+2024-3-12 13:02:15|input|I|Four
+2024-3-12 13:02:16|input|I|Three
+2024-3-12 13:02:17|input|I|Four
+2024-3-12 13:02:18|input|I|PrimaryIndexTrigger
+2024-3-12 13:02:19|input|I|PrimaryHandTrigger
+2024-3-12 13:02:20|input|I|PrimaryHandTrigger
+2024-3-12 13:02:21|input|I|PrimaryIndexTrigger
+2024-3-12 13:02:21|input|I|Three
+2024-3-12 13:02:23|input|I|Four
+2024-3-12 13:02:24|input|I|Three
+2024-3-12 13:02:26|input|I|Three
+2024-3-12 13:02:28|input|I|Three
+2024-3-12 13:02:29|input|I|Four
+2024-3-12 13:02:33|input|I|PrimaryIndexTrigger
+2024-3-12 13:02:37|input|I|One
+2024-3-12 13:02:39|input|I|Two
+2024-3-12 13:34:47|app|I|Switching display mode to VR
+2024-3-12 13:34:47|app|I|Start Application
+2024-3-12 13:34:47|task|I|RootTask Started
+2024-3-12 13:34:47|task|I|Debug Tasks Started
+2024-3-12 13:34:48|task|I|CollectionTask Started
+2024-3-12 13:34:48|task|I|VRInputTesting Started
+2024-3-12 13:34:59|input|I|PrimaryIndexTrigger
+2024-3-12 13:35:58|app|I|Switching display mode to VR
+2024-3-12 13:35:59|app|I|Start Application
+2024-3-12 13:35:59|task|I|RootTask Started
+2024-3-12 13:35:59|task|I|Debug Tasks Started
+2024-3-12 13:36:00|task|I|CollectionTask Started
+2024-3-12 13:36:00|task|I|VRInputTesting Started
+2024-3-12 14:02:13|app|I|Switching display mode to VR
+2024-3-12 14:02:13|app|I|Start Application
+2024-3-12 14:02:13|task|I|RootTask Started
+2024-3-12 14:02:14|task|I|Debug Tasks Started
+2024-3-12 14:02:14|task|I|CollectionTask Started
+2024-3-12 14:02:14|task|I|VRInputTesting Started
+2024-3-12 14:02:19|input|I|One/A
+2024-3-12 14:02:19|input|I|Three/X
+2024-3-12 14:02:23|input|I|Two/B
+2024-3-12 14:02:23|input|I|Four/Y
+2024-3-12 14:02:24|input|I|One/A
+2024-3-12 14:02:24|input|I|Three/X
+2024-3-12 14:02:25|input|I|One/A
+2024-3-12 14:02:25|input|I|Three/X
+2024-3-12 14:02:25|input|I|One/A
+2024-3-12 14:02:25|input|I|Three/X
+2024-3-12 14:02:25|input|I|One/A
+2024-3-12 14:02:25|input|I|Three/X
+2024-3-12 14:02:26|input|I|One/A
+2024-3-12 14:02:26|input|I|Three/X
+2024-3-12 14:02:26|input|I|Two/B
+2024-3-12 14:02:26|input|I|Four/Y
+2024-3-12 14:02:27|input|I|One/A
+2024-3-12 14:02:27|input|I|Three/X
+2024-3-12 14:02:51|app|I|Switching display mode to VR
+2024-3-12 14:02:51|app|I|Start Application
+2024-3-12 14:02:51|task|I|RootTask Started
+2024-3-12 14:02:52|task|I|Debug Tasks Started
+2024-3-12 14:02:52|task|I|CollectionTask Started
+2024-3-12 14:02:52|task|I|Calibration Started
+2024-3-12 14:03:52|app|I|Switching display mode to VR
+2024-3-12 14:03:52|app|I|Start Application
+2024-3-12 14:03:52|task|I|RootTask Started
+2024-3-12 14:03:53|task|I|Debug Tasks Started
+2024-3-12 14:03:53|task|I|CollectionTask Started
+2024-3-12 14:03:53|task|I|Calibration Started
+2024-3-12 14:06:11|app|I|Switching display mode to VR
+2024-3-12 14:06:11|app|I|Start Application
+2024-3-12 14:06:11|task|I|RootTask Started
+2024-3-12 14:06:12|task|I|Debug Tasks Started
+2024-3-12 14:06:12|task|I|CollectionTask Started
+2024-3-12 14:06:12|task|I|Calibration Started
+2024-3-12 14:06:16|task|I|Calibration Finished
+2024-3-12 14:06:16|task|I|Hud Testing Started
+2024-3-12 14:06:55|task|I|Hud Testing Finished
+2024-3-12 14:06:55|task|I|Repeat 3 Times Started
+2024-3-12 14:06:55|task|I|Teleport Started
+2024-3-12 14:06:56|task|I|Teleport Finished
+2024-3-12 14:06:56|task|I|Navigation Started
+2024-3-12 14:20:48|app|I|Switching display mode to VR
+2024-3-12 14:20:48|app|I|Start Application
+2024-3-12 14:20:48|task|I|RootTask Started
+2024-3-12 14:22:24|app|I|Switching display mode to VR
+2024-3-12 14:23:07|app|I|Start Application
+2024-3-12 14:23:07|task|I|RootTask Started
+2024-3-12 14:23:08|task|I|Debug Tasks Started
+2024-3-12 14:23:08|task|I|CollectionTask Started
+2024-3-12 14:23:08|task|I|Calibration Started
+2024-3-12 14:25:24|app|I|Switching display mode to VR
+2024-3-12 14:26:07|app|I|Start Application
+2024-3-12 14:26:07|task|I|RootTask Started
+2024-3-12 14:26:08|task|I|Debug Tasks Started
+2024-3-12 14:26:08|task|I|CollectionTask Started
+2024-3-12 14:26:08|task|I|Calibration Started
+2024-3-12 14:28:05|task|I|Calibration Finished
+2024-3-12 14:29:23|app|I|Switching display mode to VR
+2024-3-12 14:30:06|app|I|Start Application
+2024-3-12 14:30:06|task|I|RootTask Started
+2024-3-12 14:30:07|task|I|Debug Tasks Started
+2024-3-12 14:30:07|task|I|CollectionTask Started
+2024-3-12 14:30:07|task|I|Calibration Started
+2024-3-12 14:31:30|task|I|Calibration Finished
+2024-3-12 14:31:30|task|I|Hud Testing Started
+2024-3-12 19:45:51|app|I|Switching display mode to VR
+2024-3-12 19:45:51|app|I|Start Application
+2024-3-12 19:45:51|task|I|RootTask Started
+2024-3-12 19:47:32|app|I|Switching display mode to VR
+2024-3-12 19:47:32|app|I|Start Application
+2024-3-12 19:47:32|task|I|RootTask Started
+2024-3-12 19:47:33|task|I|Debug Tasks Started
+2024-3-12 19:47:33|task|I|CollectionTask Started
+2024-3-12 19:47:33|task|I|Calibration Started
+2024-3-12 19:47:50|task|I|Calibration Finished
+2024-3-12 19:47:50|task|I|Hud Testing Started
+2024-3-12 19:48:15|app|I|Switching display mode to VR
+2024-3-12 19:48:15|app|I|Start Application
+2024-3-12 19:48:15|task|I|RootTask Started
+2024-3-12 19:48:16|task|I|Debug Tasks Started
+2024-3-12 19:48:16|task|I|CollectionTask Started
+2024-3-12 19:48:16|task|I|Calibration Started
+2024-3-12 19:49:03|task|I|Calibration Finished
+2024-3-12 19:49:03|task|I|Hud Testing Started
+2024-3-12 20:20:15|app|I|Switching display mode to VR
+2024-3-12 20:20:15|app|I|Start Application
+2024-3-12 20:20:15|task|I|RootTask Started
+2024-3-12 20:20:16|task|I|Debug Tasks Started
+2024-3-12 20:20:16|task|I|CollectionTask Started
+2024-3-12 20:20:16|task|I|Calibration Started
+2024-3-12 20:20:39|task|I|Calibration Finished
+2024-3-12 20:20:39|task|I|Hud Testing Started
+2024-3-12 20:22:40|app|I|Switching display mode to VR
+2024-3-12 20:22:40|app|I|Start Application
+2024-3-12 20:22:40|task|I|RootTask Started
+2024-3-12 20:22:41|task|I|Debug Tasks Started
+2024-3-12 20:22:41|task|I|CollectionTask Started
+2024-3-12 20:22:41|task|I|Calibration Started
+2024-3-12 20:23:32|task|I|Calibration Finished
+2024-3-12 20:23:32|task|I|Hud Testing Started
+2024-3-12 21:09:00|app|I|Switching display mode to Desktop
+2024-3-12 21:09:00|app|I|Start Application
+2024-3-12 21:09:00|task|I|RootTask Started
+2024-3-12 21:09:01|task|I|Debug Tasks Started
+2024-3-12 21:09:01|task|I|CollectionTask Started
+2024-3-12 21:09:01|task|I|Hud Testing Started
+2024-3-12 21:09:08|task|I|Hud Testing Finished
+2024-3-12 21:09:08|task|I|Repeat 3 Times Started
+2024-3-12 21:09:08|task|I|Teleport Started
+2024-3-12 21:09:08|task|I|Teleport Finished
+2024-3-12 21:09:08|task|I|Navigation Started
+2024-3-12 21:09:23|app|I|Switching display mode to Desktop
+2024-3-12 21:09:23|app|I|Start Application
+2024-3-12 21:09:23|task|I|RootTask Started
+2024-3-12 21:09:23|task|I|Debug Tasks Started
+2024-3-12 21:09:23|task|I|CollectionTask Started
+2024-3-12 21:09:23|task|I|Hud Testing Started
+2024-3-12 21:09:26|task|I|Hud Testing Finished
+2024-3-12 21:09:26|task|I|Repeat 3 Times Started
+2024-3-12 21:09:26|task|I|Teleport Started
+2024-3-12 21:09:26|task|I|Teleport Finished
+2024-3-12 21:09:26|task|I|Navigation Started
+2024-3-12 21:09:31|task|I|Navigation Finished
+2024-3-12 21:09:31|task|I|Teleport Started
+2024-3-12 21:09:31|task|I|Teleport Finished
+2024-3-12 21:09:31|task|I|Navigation Started
+2024-3-12 21:09:36|task|I|Navigation Finished
+2024-3-12 21:09:36|task|I|Teleport Started
+2024-3-12 21:09:36|task|I|Teleport Finished
+2024-3-12 21:09:36|task|I|Navigation Started
+2024-3-12 21:09:41|task|I|Navigation Finished
+2024-3-12 21:09:41|task|I|Teleport Started
+2024-3-12 21:09:41|task|I|Teleport Finished
+2024-3-12 21:09:41|task|I|Navigation Started
+2024-3-12 21:10:03|app|I|Switching display mode to Desktop
+2024-3-12 21:10:03|app|I|Start Application
+2024-3-12 21:10:03|task|I|RootTask Started
+2024-3-12 21:10:03|task|I|Debug Tasks Started
+2024-3-12 21:10:03|task|I|CollectionTask Started
+2024-3-12 21:10:03|task|I|Hud Testing Started
+2024-3-12 21:10:07|task|I|Hud Testing Finished
+2024-3-12 21:10:07|task|I|CollectionTask Finished
+2024-3-12 21:10:07|task|I|Debug Tasks Finished
+2024-3-12 21:10:07|app|I|Finish Application
+2024-3-12 21:10:18|app|I|Switching display mode to Desktop
+2024-3-12 21:10:18|app|I|Start Application
+2024-3-12 21:10:18|task|I|RootTask Started
+2024-3-12 21:10:19|task|I|Debug Tasks Started
+2024-3-12 21:10:19|task|I|CollectionTask Started
+2024-3-12 21:10:19|task|I|Hud Testing Started
+2024-3-12 21:19:58|app|I|Switching display mode to Desktop
+2024-3-12 21:19:58|app|I|Start Application
+2024-3-12 21:19:58|task|I|RootTask Started
+2024-3-12 21:19:58|task|I|Debug Tasks Started
+2024-3-12 21:19:58|task|I|Instruction Set Started
+2024-3-12 21:19:58|task|I|1 Started
+2024-3-12 21:20:01|task|I|1 Finished
+2024-3-12 21:20:01|task|I|1 (1) Started
+2024-3-12 21:20:02|task|I|1 (1) Finished
+2024-3-12 21:20:02|task|I|1 (2) Started
+2024-3-12 21:20:02|task|I|1 (2) Finished
+2024-3-12 21:20:02|task|I|1 (3) Started
+2024-3-12 21:20:02|task|I|1 (3) Finished
+2024-3-12 21:20:02|task|I|1 (4) Started
+2024-3-12 21:20:03|task|I|1 (4) Finished
+2024-3-12 21:20:03|task|I|Instruction Set Finished
+2024-3-12 21:20:03|task|I|Debug Tasks Finished
+2024-3-12 21:20:03|app|I|Finish Application
+2024-3-12 21:20:14|app|I|Switching display mode to Desktop
+2024-3-12 21:20:14|app|I|Start Application
+2024-3-12 21:20:14|task|I|RootTask Started
+2024-3-12 21:20:14|task|I|Debug Tasks Started
+2024-3-12 21:20:14|task|I|Instruction Set Started
+2024-3-12 21:20:14|task|I|1 Started
+2024-3-12 21:20:16|task|I|1 Finished
+2024-3-12 21:20:16|task|I|1 (1) Started
+2024-3-12 21:20:16|task|I|1 (1) Finished
+2024-3-12 21:20:16|task|I|1 (2) Started
+2024-3-12 21:20:16|task|I|1 (2) Finished
+2024-3-12 21:20:16|task|I|1 (3) Started
+2024-3-12 21:20:16|task|I|1 (3) Finished
+2024-3-12 21:20:16|task|I|1 (4) Started
+2024-3-12 21:20:16|task|I|1 (4) Finished
+2024-3-12 21:20:16|task|I|Instruction Set Finished
+2024-3-12 21:20:16|task|I|Debug Tasks Finished
+2024-3-12 21:20:16|app|I|Finish Application
+2024-3-12 23:18:33|app|I|Switching display mode to Desktop
+2024-3-12 23:18:33|app|I|Start Application
+2024-3-12 23:18:33|task|I|RootTask Started
+2024-3-12 23:18:34|task|I|Debug Tasks Started
+2024-3-12 23:18:34|task|I|Calibration Started
+2024-3-12 23:18:34|task|I|Calibration Instruction Started
+2024-3-12 23:18:47|app|I|Switching display mode to VR
+2024-3-12 23:18:48|app|I|Start Application
+2024-3-12 23:18:48|task|I|RootTask Started
+2024-3-12 23:18:48|task|I|Debug Tasks Started
+2024-3-12 23:18:48|task|I|Calibration Started
+2024-3-12 23:18:48|task|I|Calibration Instruction Started
+2024-3-12 23:21:03|app|I|Switching display mode to VR
+2024-3-12 23:21:04|app|I|Start Application
+2024-3-12 23:21:04|task|I|RootTask Started
+2024-3-12 23:21:04|task|I|Debug Tasks Started
+2024-3-12 23:21:04|task|I|Calibration Started
+2024-3-12 23:21:04|task|I|Calibration Instruction Started
+2024-3-12 23:22:31|app|I|Switching display mode to VR
+2024-3-12 23:22:31|app|I|Start Application
+2024-3-12 23:22:31|task|I|RootTask Started
+2024-3-12 23:22:32|task|I|Debug Tasks Started
+2024-3-12 23:22:32|task|I|Calibration Started
+2024-3-12 23:22:32|task|I|Calibration Instruction Started
+2024-3-12 23:23:13|app|I|Switching display mode to VR
+2024-3-12 23:23:13|app|I|Start Application
+2024-3-12 23:23:13|task|I|RootTask Started
+2024-3-12 23:23:14|task|I|Debug Tasks Started
+2024-3-12 23:23:14|task|I|Calibration Started
+2024-3-12 23:23:14|task|I|Calibration Instruction Started
+2024-3-12 23:26:13|app|I|Switching display mode to VR
+2024-3-12 23:26:13|app|I|Start Application
+2024-3-12 23:26:13|task|I|RootTask Started
+2024-3-12 23:26:14|task|I|Debug Tasks Started
+2024-3-12 23:26:14|task|I|Calibration Started
+2024-3-12 23:26:14|task|I|Calibration Instruction Started
+2024-3-12 23:33:42|app|I|Switching display mode to VR
+2024-3-12 23:33:42|app|I|Start Application
+2024-3-12 23:33:42|task|I|RootTask Started
+2024-3-12 23:33:43|task|I|Debug Tasks Started
+2024-3-12 23:33:43|task|I|Calibration Started
+2024-3-12 23:33:43|task|I|Calibration Instruction Started
+2024-3-12 23:33:46|task|I|Calibration Instruction Finished
+2024-3-12 23:33:46|task|I|LeftTop Started
+2024-3-12 23:35:24|app|I|Switching display mode to VR
+2024-3-12 23:35:24|app|I|Start Application
+2024-3-12 23:35:24|task|I|RootTask Started
+2024-3-12 23:35:25|task|I|Debug Tasks Started
+2024-3-12 23:35:25|task|I|Calibration Started
+2024-3-12 23:35:25|task|I|Calibration Instruction Started
+2024-3-12 23:35:26|task|I|Calibration Instruction Finished
+2024-3-12 23:35:26|task|I|LeftTop Started
+2024-3-12 23:35:27|task|I|LeftTop Finished
+2024-3-12 23:35:27|task|I|RightTop Started
+2024-3-12 23:35:28|task|I|RightTop Finished
+2024-3-12 23:35:28|task|I|LeftTop Started
+2024-3-12 23:35:30|task|I|LeftTop Finished
+2024-3-12 23:35:30|task|I|Calibration Instruction Started
+2024-3-12 23:35:33|task|I|Calibration Instruction Finished
+2024-3-12 23:35:33|task|I|LeftTop Started
+2024-3-12 23:35:36|task|I|LeftTop Finished
+2024-3-12 23:35:36|task|I|RightTop Started
+2024-3-12 23:35:37|task|I|RightTop Finished
+2024-3-12 23:35:37|task|I|LeftTop Started
+2024-3-12 23:35:38|task|I|LeftTop Finished
+2024-3-12 23:35:38|task|I|Calibration Instruction Started
+2024-3-12 23:35:39|task|I|Calibration Instruction Finished
+2024-3-12 23:35:39|task|I|LeftTop Started
+2024-3-12 23:35:39|task|I|LeftTop Finished
+2024-3-12 23:35:39|task|I|RightTop Started
+2024-3-12 23:35:40|task|I|RightTop Finished
+2024-3-12 23:35:40|task|I|RightBottom Started
+2024-3-12 23:35:40|task|I|RightBottom Finished
+2024-3-12 23:35:40|task|I|RightTop Started
+2024-3-12 23:35:40|task|I|RightTop Finished
+2024-3-12 23:35:40|task|I|LeftTop Started
+2024-3-12 23:35:40|task|I|LeftTop Finished
+2024-3-12 23:35:40|task|I|Calibration Instruction Started
+2024-3-12 23:36:57|app|I|Switching display mode to VR
+2024-3-12 23:36:57|app|I|Start Application
+2024-3-12 23:36:57|task|I|RootTask Started
+2024-3-12 23:36:58|task|I|Debug Tasks Started
+2024-3-12 23:36:58|task|I|Calibration Started
+2024-3-12 23:36:58|task|I|Calibration Instruction Started
+2024-3-12 23:36:59|task|I|Calibration Instruction Finished
+2024-3-12 23:36:59|task|I|LeftTop Started
+2024-3-12 23:37:00|task|I|LeftTop Finished
+2024-3-12 23:37:00|task|I|RightTop Started
+2024-3-12 23:37:06|task|I|RightTop Finished
+2024-3-12 23:37:06|task|I|LeftTop Started
+2024-3-12 23:37:28|task|I|LeftTop Finished
+2024-3-12 23:37:28|task|I|RightTop Started
+2024-3-12 23:38:25|app|I|Switching display mode to VR
+2024-3-12 23:38:26|app|I|Start Application
+2024-3-12 23:38:26|task|I|RootTask Started
+2024-3-12 23:38:26|task|I|Debug Tasks Started
+2024-3-12 23:38:26|task|I|Calibration Started
+2024-3-12 23:38:26|task|I|Calibration Instruction Started
+2024-3-12 23:38:28|task|I|Calibration Instruction Finished
+2024-3-12 23:38:28|task|I|LeftTop Started
+2024-3-12 23:38:29|task|I|LeftTop Finished
+2024-3-12 23:38:29|task|I|RightTop Started
+2024-3-12 23:38:30|task|I|RightTop Finished
+2024-3-12 23:38:30|task|I|RightBottom Started
+2024-3-12 23:38:30|task|I|RightBottom Finished
+2024-3-12 23:38:30|task|I|RightTop Started
+2024-3-12 23:38:31|task|I|RightTop Finished
+2024-3-12 23:38:31|task|I|LeftTop Started
+2024-3-12 23:38:34|task|I|LeftTop Finished
+2024-3-12 23:38:34|task|I|Calibration Instruction Started
+2024-3-12 23:38:35|task|I|Calibration Instruction Finished
+2024-3-12 23:38:35|task|I|LeftTop Started
+2024-3-12 23:38:35|task|I|LeftTop Finished
+2024-3-12 23:38:35|task|I|RightTop Started
+2024-3-12 23:38:38|task|I|RightTop Finished
+2024-3-12 23:38:38|task|I|LeftTop Started
+2024-3-12 23:38:39|task|I|LeftTop Finished
+2024-3-12 23:38:39|task|I|RightTop Started
+2024-3-12 23:38:40|task|I|RightTop Finished
+2024-3-12 23:38:40|task|I|RightBottom Started
+2024-3-12 23:38:40|task|I|RightBottom Finished
+2024-3-12 23:38:40|task|I|LeftBottom Started
+2024-3-12 23:38:41|task|I|LeftBottom Finished
+2024-3-12 23:38:41|task|I|Calibration Finished
+2024-3-12 23:38:41|task|I|Debug Tasks Finished
+2024-3-12 23:38:41|app|I|Finish Application
+2024-3-12 23:52:35|app|I|Switching display mode to VR
+2024-3-12 23:52:36|app|I|Start Application
+2024-3-12 23:52:36|task|I|RootTask Started
+2024-3-12 23:52:36|task|I|Debug Tasks Started
+2024-3-12 23:52:36|task|I|Calibration Started
+2024-3-12 23:52:36|task|I|Calibration Instruction Started
+2024-3-12 23:52:52|task|I|Calibration Instruction Finished
+2024-3-12 23:52:52|task|I|LeftTop Started
+2024-3-12 23:52:59|task|I|LeftTop Finished
+2024-3-12 23:52:59|task|I|RightTop Started
+2024-3-12 23:53:03|task|I|RightTop Finished
+2024-3-12 23:53:03|task|I|LeftTop Started
+2024-3-12 23:53:08|task|I|LeftTop Finished
+2024-3-12 23:53:08|task|I|RightTop Started
+2024-3-12 23:53:10|task|I|RightTop Finished
+2024-3-12 23:53:10|task|I|LeftTop Started
+2024-3-12 23:53:10|task|I|LeftTop Finished
+2024-3-12 23:53:10|task|I|Calibration Instruction Started
+2024-3-12 23:53:12|task|I|Calibration Instruction Finished
+2024-3-12 23:53:12|task|I|LeftTop Started
+2024-3-12 23:53:12|task|I|LeftTop Finished
+2024-3-12 23:53:12|task|I|RightTop Started
+2024-3-12 23:53:14|task|I|RightTop Finished
+2024-3-12 23:53:14|task|I|RightBottom Started
+2024-3-12 23:53:15|task|I|RightBottom Finished
+2024-3-12 23:53:15|task|I|LeftBottom Started
+2024-3-12 23:53:17|task|I|LeftBottom Finished
+2024-3-12 23:53:17|task|I|Confirm Pole Placements Started
+2024-3-12 23:53:20|task|I|Confirm Pole Placements Finished
+2024-3-12 23:53:20|task|I|LeftBottom Started
+2024-3-12 23:53:25|task|I|LeftBottom Finished
+2024-3-12 23:53:25|task|I|Confirm Pole Placements Started
+2024-3-12 23:53:28|task|I|Confirm Pole Placements Finished
+2024-3-12 23:53:28|task|I|Calibration Finished
+2024-3-12 23:53:28|task|I|Debug Tasks Finished
+2024-3-12 23:53:28|app|I|Finish Application
+2024-3-13 00:28:07|app|I|Switching display mode to VR
+2024-3-13 00:28:08|app|I|Start Application
+2024-3-13 00:28:08|task|I|RootTask Started
+2024-3-13 00:28:08|task|I|Debug Tasks Started
+2024-3-13 00:28:08|task|I|Calibration Started
+2024-3-13 00:28:08|task|I|Calibration Instruction Started
+2024-3-13 00:28:13|task|I|Calibration Instruction Finished
+2024-3-13 00:28:13|task|I|LeftTop Started
+2024-3-13 00:28:17|task|I|LeftTop Finished
+2024-3-13 00:28:17|task|I|RightTop Started
+2024-3-13 00:28:25|task|I|RightTop Finished
+2024-3-13 00:28:25|task|I|RightBottom Started
+2024-3-13 00:28:27|task|I|RightBottom Finished
+2024-3-13 00:28:27|task|I|LeftBottom Started
+2024-3-13 00:28:31|task|I|LeftBottom Finished
+2024-3-13 00:28:31|task|I|Confirm Pole Placements Started
+2024-3-13 00:29:10|task|I|Confirm Pole Placements Finished
+2024-3-13 00:29:10|task|I|LeftBottom Started
+2024-3-13 00:29:17|task|I|LeftBottom Finished
+2024-3-13 00:29:17|task|I|Confirm Pole Placements Started
+2024-3-13 00:29:17|task|I|Confirm Pole Placements Finished
+2024-3-13 00:29:17|task|I|Calibration Finished
+2024-3-13 00:29:17|task|I|Debug Tasks Finished
+2024-3-13 00:29:17|app|I|Finish Application
+2024-3-13 00:29:29|app|I|Switching display mode to VR
+2024-3-13 00:29:29|app|I|Start Application
+2024-3-13 00:29:29|task|I|RootTask Started
+2024-3-13 00:29:30|task|I|Debug Tasks Started
+2024-3-13 00:29:30|task|I|Calibration Started
+2024-3-13 00:29:30|task|I|Calibration Instruction Started
+2024-3-13 00:29:38|task|I|Calibration Instruction Finished
+2024-3-13 00:29:38|task|I|LeftTop Started
+2024-3-13 00:29:40|task|I|LeftTop Finished
+2024-3-13 00:29:40|task|I|RightTop Started
+2024-3-13 00:29:43|task|I|RightTop Finished
+2024-3-13 00:29:43|task|I|RightBottom Started
+2024-3-13 00:29:45|task|I|RightBottom Finished
+2024-3-13 00:29:45|task|I|LeftBottom Started
+2024-3-13 00:29:49|task|I|LeftBottom Finished
+2024-3-13 00:29:49|task|I|Confirm Pole Placements Started
+2024-3-13 00:29:50|task|I|Confirm Pole Placements Finished
+2024-3-13 00:29:50|task|I|Calibration Finished
+2024-3-13 00:29:50|task|I|Debug Tasks Finished
+2024-3-13 00:29:50|app|I|Finish Application
+2024-3-13 00:29:57|app|I|Switching display mode to VR
+2024-3-13 00:29:57|app|I|Start Application
+2024-3-13 00:29:57|task|I|RootTask Started
+2024-3-13 00:29:57|task|I|Debug Tasks Started
+2024-3-13 00:29:57|task|I|Calibration Started
+2024-3-13 00:29:57|task|I|Calibration Instruction Started
+2024-3-13 00:30:01|task|I|Calibration Instruction Finished
+2024-3-13 00:30:01|task|I|LeftTop Started
+2024-3-13 00:30:03|task|I|LeftTop Finished
+2024-3-13 00:30:03|task|I|RightTop Started
+2024-3-13 00:30:07|task|I|RightTop Finished
+2024-3-13 00:30:07|task|I|RightBottom Started
+2024-3-13 00:30:09|task|I|RightBottom Finished
+2024-3-13 00:30:09|task|I|LeftBottom Started
+2024-3-13 00:30:13|task|I|LeftBottom Finished
+2024-3-13 00:30:13|task|I|Confirm Pole Placements Started
+2024-3-13 00:30:30|task|I|Confirm Pole Placements Finished
+2024-3-13 00:30:30|task|I|LeftBottom Started
+2024-3-13 00:30:33|task|I|LeftBottom Finished
+2024-3-13 00:30:33|task|I|Confirm Pole Placements Started
+2024-3-13 00:30:35|task|I|Confirm Pole Placements Finished
+2024-3-13 00:30:35|task|I|LeftBottom Started
+2024-3-13 00:30:36|task|I|LeftBottom Finished
+2024-3-13 00:30:36|task|I|RightBottom Started
+2024-3-13 00:30:40|task|I|RightBottom Finished
+2024-3-13 00:30:40|task|I|LeftBottom Started
+2024-3-13 00:30:44|task|I|LeftBottom Finished
+2024-3-13 00:30:44|task|I|Confirm Pole Placements Started
+2024-3-13 00:30:52|task|I|Confirm Pole Placements Finished
+2024-3-13 00:30:52|task|I|Calibration Finished
+2024-3-13 00:30:52|task|I|Debug Tasks Finished
+2024-3-13 00:30:52|app|I|Finish Application
+2024-3-13 00:45:23|app|I|Switching display mode to VR
+2024-3-13 00:45:23|app|I|Start Application
+2024-3-13 00:45:23|task|I|RootTask Started
+2024-3-13 00:45:24|task|I|Debug Tasks Started
+2024-3-13 00:45:24|task|I|Calibration Started
+2024-3-13 00:45:24|task|I|Calibration Instruction Started
+2024-3-13 00:45:30|task|I|Calibration Instruction Finished
+2024-3-13 00:45:30|task|I|LeftTop Started
+2024-3-13 00:45:32|task|I|LeftTop Finished
+2024-3-13 00:45:32|task|I|RightTop Started
+2024-3-13 00:45:33|task|I|RightTop Finished
+2024-3-13 00:45:33|task|I|RightBottom Started
+2024-3-13 00:45:34|task|I|RightBottom Finished
+2024-3-13 00:45:34|task|I|LeftBottom Started
+2024-3-13 00:45:36|task|I|LeftBottom Finished
+2024-3-13 00:45:36|task|I|Floor Started
+2024-3-13 00:45:39|task|I|Floor Finished
+2024-3-13 00:45:39|task|I|Confirm Started
+2024-3-13 00:48:56|app|I|Switching display mode to VR
+2024-3-13 00:48:56|app|I|Start Application
+2024-3-13 00:48:56|task|I|RootTask Started
+2024-3-13 00:48:57|task|I|Debug Tasks Started
+2024-3-13 00:48:57|task|I|Calibration Started
+2024-3-13 00:48:57|task|I|Calibration Instruction Started
+2024-3-13 00:49:00|task|I|Calibration Instruction Finished
+2024-3-13 00:49:00|task|I|LeftTop Started
+2024-3-13 00:49:01|task|I|LeftTop Finished
+2024-3-13 00:49:01|task|I|RightTop Started
+2024-3-13 00:49:03|task|I|RightTop Finished
+2024-3-13 00:49:03|task|I|RightBottom Started
+2024-3-13 00:49:05|task|I|RightBottom Finished
+2024-3-13 00:49:05|task|I|LeftBottom Started
+2024-3-13 00:49:08|task|I|LeftBottom Finished
+2024-3-13 00:49:08|task|I|Floor Started
+2024-3-13 00:49:11|task|I|Floor Finished
+2024-3-13 00:49:11|task|I|Confirm Started
+2024-3-13 00:50:40|app|I|Switching display mode to VR
+2024-3-13 00:50:40|app|I|Start Application
+2024-3-13 00:50:40|task|I|RootTask Started
+2024-3-13 00:50:41|task|I|Debug Tasks Started
+2024-3-13 00:50:41|task|I|Calibration Started
+2024-3-13 00:50:41|task|I|Calibration Instruction Started
+2024-3-13 00:50:45|task|I|Calibration Instruction Finished
+2024-3-13 00:50:45|task|I|LeftTop Started
+2024-3-13 00:50:46|task|I|LeftTop Finished
+2024-3-13 00:50:46|task|I|RightTop Started
+2024-3-13 00:50:47|task|I|RightTop Finished
+2024-3-13 00:50:47|task|I|RightBottom Started
+2024-3-13 00:50:48|task|I|RightBottom Finished
+2024-3-13 00:50:48|task|I|LeftBottom Started
+2024-3-13 00:50:50|task|I|LeftBottom Finished
+2024-3-13 00:50:50|task|I|Floor Started
+2024-3-13 00:50:51|task|I|Floor Finished
+2024-3-13 00:50:51|task|I|Confirm Started

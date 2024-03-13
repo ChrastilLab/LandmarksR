@@ -6,11 +6,11 @@ namespace LandmarksR.Scripts.Player
 {
     public class PlayerEventController : MonoBehaviour
     {
-        public static PlayerEventController Instance => _instance ??= BuildInputControl();
-        private static PlayerEventController _instance;
+        public delegate void KeyboardEventHandler();
+        private readonly Dictionary<KeyCode, KeyboardEventHandler> _keyboardEvents = new();
 
-        public delegate void KeyEventHandler();
-        private readonly Dictionary<KeyCode, KeyEventHandler> _keyEvents = new();
+        public delegate void VRInputEventHandler();
+        private readonly Dictionary<OVRInput.Button, VRInputEventHandler> _vrButtonInputEvents = new();
 
         public delegate void InputEventHandler();
         private InputEventHandler _onConfirm;
@@ -22,39 +22,40 @@ namespace LandmarksR.Scripts.Player
         public delegate void CollisionEventHandler(Collision collider);
         private CollisionEventHandler _onCollisionEnter;
 
-        private static PlayerEventController BuildInputControl()
-        {
-            return new GameObject("PlayerEventController").AddComponent<PlayerEventController>();
-        }
-
-        private void Awake()
-        {
-            if (_instance != null && _instance != this)
-            {
-                Destroy(this);
-            }
-            else
-            {
-                _instance = this;
-            }
-        }
-
         private void Start()
         {
-            RegisterKeyHandler(KeyCode.Return, ReturnConfirmHandler);
+            RegisterKeyHandler(KeyCode.Return, Confirm);
+            RegisterVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, Confirm);
         }
 
         private void OnDisable()
         {
-            UnregisterKeyHandler(KeyCode.Return, ReturnConfirmHandler);
+            UnregisterKeyHandler(KeyCode.Return, Confirm);
+            UnregisterVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, Confirm);
         }
 
 
         private void Update()
         {
             HandleKeys();
+            HandleVRButtonInputs();
         }
 
+        private void HandleKeys()
+        {
+            foreach (var keys in _keyboardEvents.Keys.Where(Input.GetKeyDown))
+            {
+                _keyboardEvents[keys]?.Invoke();
+            }
+        }
+
+        private void HandleVRButtonInputs()
+        {
+            foreach (var input in _vrButtonInputEvents.Where(input => OVRInput.GetDown(input.Key)))
+            {
+                _vrButtonInputEvents[input.Key]?.Invoke();
+            }
+        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -66,41 +67,51 @@ namespace LandmarksR.Scripts.Player
             _onCollisionEnter?.Invoke(other);
         }
 
-        private void RegisterKeyHandler(KeyCode code, KeyEventHandler keyEventHandler)
-        {
-            if (!_keyEvents.TryAdd(code, keyEventHandler))
-            {
-                _keyEvents[code] += keyEventHandler;
-            }
-        }
-
-        private void ReturnConfirmHandler()
-        {
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                _onConfirm?.Invoke();
-            }
-        }
-
-        private void HandleKeys()
-        {
-            foreach (var keys in _keyEvents.Keys.Where(Input.GetKeyDown))
-            {
-                _keyEvents[keys]?.Invoke();
-            }
-        }
-
         public void Confirm()
         {
             _onConfirm?.Invoke();
         }
 
-        private void UnregisterKeyHandler(KeyCode code, KeyEventHandler keyEventHandler)
+        private void RegisterKeyHandler(KeyCode code, KeyboardEventHandler keyboardEventHandler)
         {
-            if (_keyEvents.ContainsKey(code))
+            if (!_keyboardEvents.TryAdd(code, keyboardEventHandler))
             {
-                _keyEvents[code] -= keyEventHandler;
+                _keyboardEvents[code] += keyboardEventHandler;
             }
+        }
+
+        private void UnregisterKeyHandler(KeyCode code, KeyboardEventHandler keyboardEventHandler)
+        {
+            if (_keyboardEvents.ContainsKey(code))
+            {
+                _keyboardEvents[code] -= keyboardEventHandler;
+            }
+        }
+
+        public void UnregisterAllKeyHandlers()
+        {
+            _keyboardEvents.Clear();
+        }
+
+        public void RegisterVRInputHandler(OVRInput.Button input, VRInputEventHandler vrInputEventHandler)
+        {
+            if (!_vrButtonInputEvents.TryAdd(input, vrInputEventHandler))
+            {
+                _vrButtonInputEvents[input] += vrInputEventHandler;
+            }
+        }
+
+        public void UnregisterVRInputHandler(OVRInput.Button input, VRInputEventHandler vrInputEventHandler)
+        {
+            if (_vrButtonInputEvents.ContainsKey(input))
+            {
+                _vrButtonInputEvents[input] -= vrInputEventHandler;
+            }
+        }
+
+        public void UnregisterAllVRInputHandlers()
+        {
+            _vrButtonInputEvents.Clear();
         }
 
         public void RegisterConfirmHandler(InputEventHandler inputEventHandler)

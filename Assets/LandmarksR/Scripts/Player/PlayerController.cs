@@ -2,33 +2,32 @@
 using System.Collections;
 using LandmarksR.Scripts.Attributes;
 using LandmarksR.Scripts.Experiment;
+using LandmarksR.Scripts.Experiment.Log;
 using UnityEngine;
 using UnityEngine.XR.Management;
 
 namespace LandmarksR.Scripts.Player
 {
-
     public enum DisplayMode
     {
         Desktop,
         VR
     }
+
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] public PlayerControllerReference vrPlayerControllerReference;
         [SerializeField] public PlayerControllerReference desktopPlayerControllerReference;
         [SerializeField] public Hud hud;
-        [NotEditable, SerializeField] public PlayerEventController playerEventController;
+        [NotEditable, SerializeField] public PlayerEventController playerEvent;
         [NotEditable, SerializeField] private FirstPersonController firstPersonController;
 
-        // [SerializeField] public Canvas canvas;
-
-        private Config _config;
+        private Settings _settings;
 
         public void Start()
         {
-            _config = Config.Instance;
-            SwitchDisplayMode(_config.DisplayMode);
+            _settings = Settings.Instance;
+            SwitchDisplayMode(_settings.displayReference.displayMode);
         }
 
         public void Teleport(Vector3 position, Vector3 rotation)
@@ -41,24 +40,30 @@ namespace LandmarksR.Scripts.Player
 
         public void SwitchDisplayMode(DisplayMode displayMode)
         {
+            DebugLogger.Instance.I("app", "Switching display mode to " + displayMode);
             switch (displayMode)
             {
                 case DisplayMode.Desktop:
+                    _settings.displayReference = _settings.desktopDisplay;
+
                     vrPlayerControllerReference.gameObject.SetActive(false);
                     desktopPlayerControllerReference.gameObject.SetActive(true);
                     hud.SetCamera(desktopPlayerControllerReference.mainCamera);
+                    hud.UpdateSettings(_settings);
 
                     firstPersonController = desktopPlayerControllerReference.GetComponent<FirstPersonController>();
-                    playerEventController = desktopPlayerControllerReference.GetComponent<PlayerEventController>();
-
+                    playerEvent = desktopPlayerControllerReference.GetComponent<PlayerEventController>();
                     break;
                 case DisplayMode.VR:
+                    _settings.displayReference = _settings.vrDisplay;
+
                     desktopPlayerControllerReference.gameObject.SetActive(false);
                     vrPlayerControllerReference.gameObject.SetActive(true);
                     hud.SetCamera(vrPlayerControllerReference.mainCamera);
+                    hud.UpdateSettings(_settings);
 
                     firstPersonController = null;
-                    playerEventController = vrPlayerControllerReference.GetComponent<PlayerEventController>();
+                    playerEvent = vrPlayerControllerReference.GetComponent<PlayerEventController>();
 
                     StartXR();
                     break;
@@ -66,6 +71,7 @@ namespace LandmarksR.Scripts.Player
                     throw new ArgumentOutOfRangeException();
             }
         }
+
 
 
         public void TryEnableDesktopInput()

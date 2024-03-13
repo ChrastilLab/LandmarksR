@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using LandmarksR.Scripts.Player;
 using UnityEngine;
 using LandmarksR.Scripts.Experiment;
+using LandmarksR.Scripts.Experiment.Log;
 
 namespace LandmarksR.Scripts.Experiment.Tasks.Debug
 {
     public class TestingTask : BaseTask
     {
-        protected static Config Config => Config.Instance;
+        protected static Settings Settings => Settings.Instance;
         protected static Experiment Experiment => Experiment.Instance;
         protected static PlayerController Player => Experiment.Instance.playerController;
         protected static Hud Hud => Experiment.Instance.playerController.hud;
+
+        protected static DebugLogger Logger => DebugLogger.Instance;
 
         private List<Action> _keyActions = new();
 

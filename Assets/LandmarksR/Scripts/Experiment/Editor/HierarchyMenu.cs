@@ -10,7 +10,7 @@ namespace LandmarksR.Scripts.Experiment.Editor
         [MenuItem("GameObject/Experiment/Config", false, 1)]
         private static void CreateRootTask(MenuCommand menuCommand)
         {
-            CreateMenuItem.CreateGameObjectContextMenu<Config>(menuCommand, "Config");
+            CreateMenuItem.CreateGameObjectContextMenu<Settings>(menuCommand, "Config");
         }
     }
 }

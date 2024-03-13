@@ -39,6 +39,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         protected virtual void Prepare()
         {
             DebugLogger.Instance.I("task", $"{name} Started");
+            isCompleted = false;
             isRunning = true;
             StartTimer();
         }
@@ -61,7 +62,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             Prepare();
 
             // Wait for the update function to update completion status
-            yield return new WaitUntil(() => isRunning == false);
+            yield return new WaitUntil(() => !isRunning);
 
             isSubTaskRunning = true;
             foreach (var task in SubTasks)
@@ -78,7 +79,6 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         {
             return SubTasks.Aggregate("", (current, task) => current + (task.name + " "));
         }
-
 
         private void StartTimer()
         {
