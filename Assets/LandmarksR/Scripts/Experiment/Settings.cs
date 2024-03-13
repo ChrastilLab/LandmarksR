@@ -68,8 +68,10 @@ namespace LandmarksR.Scripts.Experiment
         public Vector3 ComputeForward()
         {
             // use the leftTop and rightTop to compute the forward vector
-            var vec1 = leftTop - center;
-            var vec2 = rightTop - center;
+            var leftTopTemp = new Vector3(leftTop.x, groundY, leftTop.z);
+            var rightTopTemp = new Vector3(rightTop.x, groundY, rightTop.z);
+            var vec1 = leftTopTemp - center;
+            var vec2 = rightTopTemp - center;
             forward =  (vec1.normalized + vec2.normalized).normalized;
             return forward;
         }
