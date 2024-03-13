@@ -22,12 +22,47 @@ namespace LandmarksR.Scripts.Player
         [NotEditable, SerializeField] public PlayerEventController playerEvent;
         [NotEditable, SerializeField] private FirstPersonController firstPersonController;
 
-        private Settings _settings;
+        private Action _loggingAction;
 
-        public void Start()
+
+        private Settings _settings;
+        private ExperimentLogger _logger;
+        private bool _playerLogging = true;
+
+        private void Start()
         {
             _settings = Settings.Instance;
+            _logger = ExperimentLogger.Instance;
             SwitchDisplayMode(_settings.displayReference.displayMode);
+
+            var waitTime = 0.001f * _settings.logging.loggingIntervalInMillisecond;
+            _logger.I("player", $"Logging Interval: {waitTime}");
+            StartCoroutine(PlayerLoggingCoroutine(waitTime));
+        }
+
+        private IEnumerator PlayerLoggingCoroutine(float interval = 0.2f)
+        {
+            while (_playerLogging)
+            {
+                yield return new WaitForSeconds(interval);
+                _loggingAction?.Invoke();
+            }
+        }
+
+        private void HandleVRLogging()
+        {
+            var vrTransform = hud.GetCamera().transform;
+            var position = vrTransform.position;
+            var rotation = vrTransform.rotation.eulerAngles;
+            _logger.I("player", $"Position: {position}|Rotation: {rotation}");
+        }
+
+        private void HandleDesktopLogging()
+        {
+            var desktopTransform = hud.GetCamera().transform;
+            var position = desktopTransform.position;
+            var rotation = desktopTransform.rotation.eulerAngles;
+            _logger.I("player", $"Position: {position}|Rotation: {rotation}");
         }
 
         public void Teleport(Vector3 position, Vector3 rotation)
@@ -40,7 +75,6 @@ namespace LandmarksR.Scripts.Player
 
         public void SwitchDisplayMode(DisplayMode displayMode)
         {
-            ExperimentLogger.Instance.I("app", "Switching display mode to " + displayMode);
             switch (displayMode)
             {
                 case DisplayMode.Desktop:
@@ -53,6 +87,8 @@ namespace LandmarksR.Scripts.Player
 
                     firstPersonController = desktopPlayerControllerReference.GetComponent<FirstPersonController>();
                     playerEvent = desktopPlayerControllerReference.GetComponent<PlayerEventController>();
+
+                    _loggingAction = HandleDesktopLogging;
                     break;
                 case DisplayMode.VR:
                     _settings.displayReference = _settings.vrDisplay;
@@ -66,6 +102,8 @@ namespace LandmarksR.Scripts.Player
                     playerEvent = vrPlayerControllerReference.GetComponent<PlayerEventController>();
 
                     StartXR();
+
+                    _loggingAction = HandleVRLogging;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -121,6 +159,11 @@ namespace LandmarksR.Scripts.Player
             if (!XRGeneralSettings.Instance.Manager.isInitializationComplete) return;
             XRGeneralSettings.Instance.Manager.StopSubsystems();
             XRGeneralSettings.Instance.Manager.DeinitializeLoader();
+        }
+
+        private void OnDisable()
+        {
+            _playerLogging = false;
         }
 
         private void OnApplicationQuit()

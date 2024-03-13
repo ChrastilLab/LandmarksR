@@ -36,54 +36,56 @@ namespace LandmarksR.Scripts.Experiment.Log
 
             if (_settings.logging.localLogging)
             {
-                _textLogger.EnableLocalLog(GetPersistentLocalPath($"{_settings.experiment.participantId}.log"));
+                _textLogger.EnableLocalLog(GetPersistentLocalPath());
             }
 
             if (_settings.logging.remoteLogging)
             {
-                _textLogger.EnableRemoteLog(GetRelativeRemotePath($"{_settings.experiment.participantId}.log"),
+                _textLogger.EnableRemoteLog(GetRelativeRemotePath(),
                     _settings.logging.remoteStatusUrl, _settings.logging.remoteLogUrl);
             }
         }
 
         public void I(string messageTag, string message)
         {
-            if (!CheckTag(messageTag)) return;
 #if UNITY_EDITOR
-            Debug.Log($"<color=green>INFO</color> | {messageTag} | {message}");
+            if (CheckTag(messageTag))
+                Debug.Log($"<color=green>INFO</color> | {messageTag} | {message}");
 #endif
             _textLogger.I(messageTag, message);
         }
 
         public void W(string messageTag, string message)
         {
-            if (!CheckTag(messageTag)) return;
 #if UNITY_EDITOR
-            Debug.Log($"<color=yellow>WARNING</color> | {messageTag} | {message}");
+            if (CheckTag(messageTag))
+                Debug.Log($"<color=yellow>WARNING</color> | {messageTag} | {message}");
 #endif
             _textLogger.W(messageTag, message);
         }
 
         public void E(string messageTag, string message)
         {
-            if (!CheckTag(messageTag)) return;
 #if UNITY_EDITOR
-            Debug.Log($"<color=red>ERROR</color> | {messageTag} | {message}");
+            if (CheckTag(messageTag))
+                Debug.Log($"<color=red>ERROR</color> | {messageTag} | {message}");
 #endif
             _textLogger.E(messageTag, message);
         }
 
-        private string GetPersistentLocalPath(string fileName)
+        private string GetPersistentLocalPath()
         {
+            var date = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
             return Path.Combine(Application.persistentDataPath,
                 Application.productName,
                 _settings.experiment.participantId,
-                fileName);
+                $"{_settings.experiment.participantId}_{date}.log");
         }
 
-        private string GetRelativeRemotePath(string fileName)
+        private string GetRelativeRemotePath()
         {
-            return $"{Application.productName}/{_settings.experiment.participantId}/{fileName}";
+            var date = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+            return $"{Application.productName}/{_settings.experiment.participantId}/{_settings.experiment.participantId}_{date}.log";
         }
 
         private async void OnDisable()

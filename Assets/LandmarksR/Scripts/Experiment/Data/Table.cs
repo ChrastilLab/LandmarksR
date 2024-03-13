@@ -64,7 +64,7 @@ namespace LandmarksR.Scripts.Experiment.Data
             var counter = 0;
             if (string.IsNullOrEmpty(delimiter) || string.IsNullOrWhiteSpace(delimiter))
             {
-                ExperimentLogger.Instance.E("Delimiter is not set.", "data");
+                ExperimentLogger.Instance.E("data", "Delimiter is not set.");
                 return;
             }
 
@@ -77,11 +77,11 @@ namespace LandmarksR.Scripts.Experiment.Data
                 }
                 else
                 {
-                    ExperimentLogger.Instance.W($"Row {counter} is not created.", "data");
+                    ExperimentLogger.Instance.W("data",$"Row {counter} is not created.");
                 }
             }
 
-            ExperimentLogger.Instance.I($"{counter} rows are created.", "data");
+            ExperimentLogger.Instance.I("data",($"{counter} rows are created");
 
         }
 

@@ -46,7 +46,6 @@ namespace LandmarksR.Scripts.Experiment.Log
             var content = new StringContent(message.ToJson(_filePath), Encoding.UTF8, "application/json");
             try
             {
-                Debug.Log($"Sending log message: {message.ToJson(_filePath)}");
                 var response = await HttpClient.PostAsync(_logUrl, content);
                 if (!response.IsSuccessStatusCode)
                 {

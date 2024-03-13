@@ -93,6 +93,7 @@ namespace LandmarksR.Scripts.Experiment
         public bool remoteLogging;
         public string remoteStatusUrl;
         public string remoteLogUrl;
+        public float loggingIntervalInMillisecond;
     }
 
 
@@ -152,7 +153,8 @@ namespace LandmarksR.Scripts.Experiment
             localLogging = true,
             remoteLogging = false,
             remoteStatusUrl = "http://localhost:3000/status",
-            remoteLogUrl = "http://localhost:3000/log"
+            remoteLogUrl = "http://localhost:3000/log",
+            loggingIntervalInMillisecond = 200f
         };
 
         private void SwitchDisplayMode(DisplayMode displayMode)

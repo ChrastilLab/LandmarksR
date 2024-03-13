@@ -26,6 +26,8 @@ namespace LandmarksR.Scripts.Player
         [SerializeField] private TMP_Text contentText;
         [SerializeField] private Button confirmButton;
 
+        private Camera _camera;
+
         private void Start()
         {
 
@@ -39,8 +41,11 @@ namespace LandmarksR.Scripts.Player
 
         public void SetCamera(Camera cam)
         {
+            _camera = cam;
             canvas.worldCamera = cam;
         }
+
+        public Camera GetCamera() => _camera;
 
         public void SetCameraToFollow()
         {
