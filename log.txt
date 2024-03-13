@@ -986,3 +986,69 @@
 2024-3-13 00:50:50|task|I|Floor Started
 2024-3-13 00:50:51|task|I|Floor Finished
 2024-3-13 00:50:51|task|I|Confirm Started
+2024-3-13 12:35:15|app|I|Switching display mode to VR
+2024-3-13 12:35:16|app|I|Start Application
+2024-3-13 12:35:16|task|I|RootTask Started
+2024-3-13 12:35:16|task|I|Debug Tasks Started
+2024-3-13 12:35:16|task|I|Calibration Started
+2024-3-13 12:35:16|task|I|Calibration Instruction Started
+2024-3-13 12:35:28|task|I|Calibration Instruction Finished
+2024-3-13 12:35:28|task|I|LeftTop Started
+2024-3-13 12:35:29|task|I|LeftTop Finished
+2024-3-13 12:35:29|task|I|RightTop Started
+2024-3-13 12:35:32|task|I|RightTop Finished
+2024-3-13 12:35:32|task|I|RightBottom Started
+2024-3-13 12:35:33|task|I|RightBottom Finished
+2024-3-13 12:35:33|task|I|LeftBottom Started
+2024-3-13 12:35:36|task|I|LeftBottom Finished
+2024-3-13 12:35:36|task|I|Floor Started
+2024-3-13 12:35:37|task|I|Floor Finished
+2024-3-13 12:35:37|task|I|Confirm Started
+2024-3-13 12:35:39|task|I|Confirm Finished
+2024-3-13 12:35:39|task|I|Calibration Finished
+2024-3-13 12:35:39|task|I|Debug Tasks Finished
+2024-3-13 12:35:39|app|I|Finish Application
+2024-3-13 12:36:48|app|I|Switching display mode to VR
+2024-3-13 12:36:48|app|I|Start Application
+2024-3-13 12:36:48|task|I|RootTask Started
+2024-3-13 12:36:49|task|I|Debug Tasks Started
+2024-3-13 12:36:49|task|I|Calibration Started
+2024-3-13 12:36:49|task|I|Calibration Instruction Started
+2024-3-13 12:37:57|app|I|Switching display mode to VR
+2024-3-13 12:37:57|app|I|Start Application
+2024-3-13 12:37:57|task|I|RootTask Started
+2024-3-13 12:37:57|task|I|Debug Tasks Started
+2024-3-13 12:37:57|task|I|Calibration Started
+2024-3-13 12:37:57|task|I|Calibration Instruction Started
+2024-3-13 12:38:03|task|I|Calibration Instruction Finished
+2024-3-13 12:38:03|task|I|LeftTop Started
+2024-3-13 12:38:04|task|I|LeftTop Finished
+2024-3-13 12:38:04|task|I|RightTop Started
+2024-3-13 12:38:07|task|I|RightTop Finished
+2024-3-13 12:38:07|task|I|RightBottom Started
+2024-3-13 12:38:09|task|I|RightBottom Finished
+2024-3-13 12:38:09|task|I|LeftBottom Started
+2024-3-13 12:38:11|task|I|LeftBottom Finished
+2024-3-13 12:38:11|task|I|Floor Started
+2024-3-13 12:38:13|task|I|Floor Finished
+2024-3-13 12:38:13|task|I|Confirm Started
+2024-3-13 12:38:14|task|I|Confirm Finished
+2024-3-13 12:38:14|task|I|Calibration Finished
+2024-3-13 12:38:14|task|I|CollectionTask Started
+2024-3-13 12:38:14|task|I|VRInputTesting Started
+2024-3-13 12:38:45|input|I|PrimaryIndexTrigger
+2024-3-13 12:38:47|input|I|PrimaryIndexTrigger
+2024-3-13 12:38:47|input|I|PrimaryHandTrigger
+2024-3-13 12:38:48|input|I|PrimaryHandTrigger
+2024-3-13 12:38:48|input|I|PrimaryHandTrigger
+2024-3-13 12:38:49|input|I|PrimaryHandTrigger
+2024-3-13 12:38:49|input|I|PrimaryHandTrigger
+2024-3-13 12:38:49|input|I|PrimaryHandTrigger
+2024-3-13 12:38:50|input|I|PrimaryHandTrigger
+2024-3-13 12:38:50|input|I|PrimaryHandTrigger
+2024-3-13 12:38:51|input|I|PrimaryHandTrigger
+2024-3-13 12:38:51|input|I|PrimaryIndexTrigger
+2024-3-13 12:38:52|input|I|PrimaryHandTrigger
+2024-3-13 12:38:53|input|I|PrimaryIndexTrigger
+2024-3-13 12:39:20|task|I|VRInputTesting Finished
+2024-3-13 12:39:20|task|I|Hud Testing Started

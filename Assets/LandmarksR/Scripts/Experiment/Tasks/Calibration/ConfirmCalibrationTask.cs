@@ -44,6 +44,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
             if (_calibrationResult)
             {
                 Destroy(_calibrationResult);
+                _settings.space.ApplyToEnvironment();
             }
         }
 

@@ -8,6 +8,7 @@ TagManager:
   - RootTask
   - Hud
   - Target
+  - Environment
   layers:
   - Default
   - TransparentFX

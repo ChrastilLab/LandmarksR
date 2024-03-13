@@ -29,12 +29,19 @@ namespace LandmarksR.Scripts.Experiment
          *  |                |
          *  leftBottom ---- rightBottom
          */
+        [NotEditable]
         public float groundY = 0f;
+        [NotEditable]
         public Vector3 leftTop;
+        [NotEditable]
         public Vector3 rightTop;
+        [NotEditable]
         public Vector3 leftBottom;
+        [NotEditable]
         public Vector3 rightBottom;
+        [NotEditable]
         public Vector3 center;
+        [NotEditable]
         public Vector3 forward;
         public Vector3 ComputeCenter()
         {
@@ -64,6 +71,17 @@ namespace LandmarksR.Scripts.Experiment
             var vec2 = rightTop - center;
             forward =  (vec1.normalized + vec2.normalized).normalized;
             return forward;
+        }
+
+        public void ApplyToEnvironment()
+        {
+            // apply the settings to the environment
+            var environment = GameObject.FindGameObjectWithTag("Environment");
+            if (!environment) return;
+
+            var environmentTransform = environment.transform;
+            environmentTransform.position = center;
+            environmentTransform.forward = forward;
         }
     }
 
