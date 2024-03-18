@@ -59,7 +59,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
             var center = _settings.space.ComputeCenter();
             var forward = _settings.space.ComputeForward();
 
-            center.y = _settings.space.groundY;
+            logger.I("calibration", $"Center: {center}|Forward: {forward}");
 
             _calibrationResult = Instantiate(calibrationResultPrefab, center, Quaternion.LookRotation(forward));
         }
