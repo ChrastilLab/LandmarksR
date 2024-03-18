@@ -9,6 +9,15 @@ TagManager:
   - Hud
   - Target
   - Environment
+  - HudPositionTag
+  - AlcoveLocationColliders
+  - LocationColliders
+  - Wall
+  - Sky
+  - Target_Model
+  - StartPole
+  - HUD
+  - Task
   layers:
   - Default
   - TransparentFX
@@ -16,11 +25,11 @@ TagManager:
   - 
   - Water
   - UI
-  - Ground
+  - Floor
+  - Objects
   - 
   - 
-  - 
-  - 
+  - Hud
   - 
   - 
   - 
