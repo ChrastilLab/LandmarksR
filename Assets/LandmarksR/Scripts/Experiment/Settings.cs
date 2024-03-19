@@ -22,6 +22,12 @@ namespace LandmarksR.Scripts.Experiment
     }
 
     [Serializable]
+    public class CalibrationSettings
+    {
+        public float controllerHeight = 0.15f; //unit is centimeter
+    }
+
+    [Serializable]
     public class SpaceSettings
     {
         /*
@@ -30,50 +36,38 @@ namespace LandmarksR.Scripts.Experiment
          *  |                |
          *  leftBottom ---- rightBottom
          */
-        [NotEditable]
-        public float groundY = 0f;
-        [NotEditable]
-        public Vector3 leftTop;
-        [NotEditable]
-        public Vector3 rightTop;
-        [NotEditable]
-        public Vector3 leftBottom;
-        [NotEditable]
-        public Vector3 rightBottom;
-        [NotEditable]
-        public Vector3 center;
-        [NotEditable]
-        public Vector3 forward;
-        public Vector3 ComputeCenter()
-        {
-            // compute a xz plane normal
-            // var groundPlaneNormal = new Vector3(0, 1, 0);
-            // // compute the diagonals of the space
-            // var diagonal1 = leftTop - rightBottom;
-            // var diagonal2 = rightTop - leftBottom;
-            //
-            // // compute the projection of the diagonals on the xz plane
-            // var projDiagonal1 = Vector3.ProjectOnPlane(diagonal1, groundPlaneNormal);
-            // var projDiagonal2 = Vector3.ProjectOnPlane(diagonal2, groundPlaneNormal);
-            //
-            // // compute the center of the space by
+        [NotEditable] public bool calibrated;
+        [NotEditable] public float groundY = 0f;
+        [NotEditable] public Vector3 leftTop;
+        [NotEditable] public Vector3 rightTop;
+        [NotEditable] public Vector3 leftBottom;
+        [NotEditable] public Vector3 rightBottom;
+        [NotEditable] public Vector3 center;
+        [NotEditable] public Vector3 forward;
 
+        public void CalibrateSpace()
+        {
+            ComputeCenter();
+            ComputeForward();
+            calibrated = true;
+        }
+
+        private void ComputeCenter()
+        {
             // average x and z of the corners
             var x = (leftTop.x + rightTop.x + leftBottom.x + rightBottom.x) / 4;
             var z = (leftTop.z + rightTop.z + leftBottom.z + rightBottom.z) / 4;
             center = new Vector3(x, groundY, z);
-            return center;
         }
 
-        public Vector3 ComputeForward()
+        private void ComputeForward()
         {
             // use the leftTop and rightTop to compute the forward vector
             var leftTopTemp = new Vector3(leftTop.x, groundY, leftTop.z);
             var rightTopTemp = new Vector3(rightTop.x, groundY, rightTop.z);
             var vec1 = leftTopTemp - center;
             var vec2 = rightTopTemp - center;
-            forward =  (vec1.normalized + vec2.normalized).normalized;
-            return forward;
+            forward = (vec1.normalized + vec2.normalized).normalized;
         }
 
         public void ApplyToEnvironment()
@@ -125,10 +119,22 @@ namespace LandmarksR.Scripts.Experiment
             }
         }
 
+        private void SwitchDisplayMode(DisplayMode displayMode)
+        {
+            displayReference = displayMode switch
+            {
+                DisplayMode.Desktop => desktopDisplay,
+                DisplayMode.VR => vrDisplay,
+                _ => throw new Exception("Invalid Display Mode")
+            };
+        }
+
         public ExperimentSettings experiment = new()
         {
             participantId = "default_participant_0"
         };
+
+        public DisplayMode defaultDisplayMode = DisplayMode.VR;
 
         public DisplaySettings vrDisplay = new()
         {
@@ -146,9 +152,12 @@ namespace LandmarksR.Scripts.Experiment
             hudScreenSize = new Vector2(1920f, 1080f)
         };
 
-        public DisplayMode defaultDisplayMode = DisplayMode.VR;
+
+        public DisplaySettings displayReference = new();
 
         public SpaceSettings space = new();
+
+        public CalibrationSettings calibration = new();
 
         public LoggingSettings logging = new()
         {
@@ -159,16 +168,6 @@ namespace LandmarksR.Scripts.Experiment
             loggingIntervalInMillisecond = 200f
         };
 
-        private void SwitchDisplayMode(DisplayMode displayMode)
-        {
-            displayReference = displayMode switch
-            {
-                DisplayMode.Desktop => desktopDisplay,
-                DisplayMode.VR => vrDisplay,
-                _ => throw new Exception("Invalid Display Mode")
-            };
-        }
 
-        public DisplaySettings displayReference = new();
     }
 }

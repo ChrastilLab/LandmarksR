@@ -46,7 +46,7 @@ namespace LandmarksR.Scripts.Experiment
 
             if (rootTask == null)
             {
-                throw new Exception("No RootTask Component found");
+                throw new Exception("No Collection Component found");
             }
 
             StartCoroutine(rootTask.ExecuteAll());

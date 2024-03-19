@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
+using JetBrains.Annotations;
 using LandmarksR.Scripts.Attributes;
 using LandmarksR.Scripts.Experiment;
+using LandmarksR.Scripts.Experiment.Log;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +20,7 @@ namespace LandmarksR.Scripts.Player
     public class Hud : MonoBehaviour
     {
         private Settings _settings;
-        private DisplaySettings DisplaySettingsReference => _settings.displayReference;
+        private ExperimentLogger _logger;
         [NotEditable, SerializeField] private HudMode hudMode;
         [SerializeField] private Canvas canvas;
         [SerializeField] private GameObject panel;
@@ -30,13 +32,18 @@ namespace LandmarksR.Scripts.Player
 
         private void Start()
         {
+            _settings = Settings.Instance;
+            _logger = ExperimentLogger.Instance;
 
+            if (!_settings) return;
+            _logger.I("hud", "Settings found");
+            SwitchHudMode(_settings.displayReference?.hudMode);
         }
 
-        public void UpdateSettings(Settings settings)
+        public void ApplySettingChanges()
         {
-            _settings = settings;
-            SwitchHudMode(DisplaySettingsReference.hudMode);
+            if (!_settings) return;
+            SwitchHudMode(_settings.displayReference?.hudMode);
         }
 
         public void SetCamera(Camera cam)
@@ -132,9 +139,10 @@ namespace LandmarksR.Scripts.Player
         }
 
 
-        public Hud SwitchHudMode(HudMode mode)
+        public Hud SwitchHudMode(HudMode? mode)
         {
-            switch (mode)
+            if (!mode.HasValue) return this;
+            switch (mode.Value)
             {
                 case HudMode.Follow:
                     SetModeFollow();
@@ -148,22 +156,25 @@ namespace LandmarksR.Scripts.Player
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
             return this;
         }
 
 
         private void SetModeFollow()
         {
+            if (!_settings) return;
+            _logger.I("hud", "SetModeFollow");
             hudMode = HudMode.Follow;
-            AdjustScale(DisplaySettingsReference.hudScreenSize);
+            AdjustScale(_settings.displayReference?.hudScreenSize);
             canvas.renderMode = RenderMode.WorldSpace;
         }
         private void SetModeFixed()
         {
+            if (!_settings) return;
             hudMode = HudMode.Fixed;
-            AdjustScale(DisplaySettingsReference.hudScreenSize);
-            Recenter(DisplaySettingsReference.hudDistance);
+            _logger.I("hud", "SetModeFixed");
+            AdjustScale(_settings.displayReference?.hudScreenSize);
+            Recenter(_settings.displayReference?.hudDistance);
 
             canvas.renderMode = RenderMode.WorldSpace;
         }
@@ -171,6 +182,7 @@ namespace LandmarksR.Scripts.Player
         private void SetModeOverlay()
         {
             hudMode = HudMode.Overlay;
+            _logger.I("hud", "SetModeOverlay");
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         }
 
@@ -183,12 +195,14 @@ namespace LandmarksR.Scripts.Player
 
         private void FollowRecenter()
         {
-            if (hudMode != HudMode.Follow || _settings == null) return;
-            Recenter(DisplaySettingsReference.hudDistance);
+            if (!_settings) return;
+            if (hudMode != HudMode.Follow) return;
+            Recenter(_settings.displayReference?.hudDistance);
         }
 
-        private void Recenter(float distanceToCam)
+        private void Recenter(float? distanceToCam)
         {
+            if (!distanceToCam.HasValue) return;
             // Get the camera position
             var camTransform = canvas.worldCamera.transform;
             var camPos = camTransform.position;
@@ -196,7 +210,7 @@ namespace LandmarksR.Scripts.Player
             var camUp = camTransform.up;
 
             // Set the position of the canvas to the camera position + the camera forward vector * distanceToCam
-            canvas.transform.position = camPos + camForward * distanceToCam;
+            canvas.transform.position = camPos + camForward * distanceToCam.Value;
             canvas.transform.rotation = Quaternion.LookRotation(camForward, camUp);
         }
 
@@ -209,9 +223,10 @@ namespace LandmarksR.Scripts.Player
             canvas.transform.rotation = Quaternion.LookRotation(lookAt, upward);
         }
 
-        private void AdjustScale(Vector2 size)
+        private void AdjustScale(Vector2? size)
         {
-            var scaleFactor = CalculateScaleFactor(size);
+            if (!size.HasValue) return;
+            var scaleFactor = CalculateScaleFactor(size.Value);
             canvas.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
         }
         private float CalculateScaleFactor(Vector2 size)

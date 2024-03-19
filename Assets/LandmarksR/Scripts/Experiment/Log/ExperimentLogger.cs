@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -48,29 +49,28 @@ namespace LandmarksR.Scripts.Experiment.Log
 
         public void I(string messageTag, string message)
         {
+            _textLogger.I(messageTag, message);
 #if UNITY_EDITOR
             if (CheckTag(messageTag))
                 Debug.Log($"<color=green>INFO</color> | {messageTag} | {message}");
 #endif
-            _textLogger.I(messageTag, message);
         }
 
         public void W(string messageTag, string message)
         {
-#if UNITY_EDITOR
-            if (CheckTag(messageTag))
-                Debug.Log($"<color=yellow>WARNING</color> | {messageTag} | {message}");
-#endif
             _textLogger.W(messageTag, message);
+#if UNITY_EDITOR
+            Debug.LogWarning($"<color=yellow>WARNING</color> | {messageTag} | {message}");
+#endif
         }
 
         public void E(string messageTag, string message)
         {
-#if UNITY_EDITOR
-            if (CheckTag(messageTag))
-                Debug.Log($"<color=red>ERROR</color> | {messageTag} | {message}");
-#endif
             _textLogger.E(messageTag, message);
+#if UNITY_EDITOR
+            Debug.LogError($"<color=red>ERROR</color> | {messageTag} | {message}");
+            EditorApplication.isPlaying = false;
+#endif
         }
 
         private string GetPersistentLocalPath()
@@ -85,7 +85,8 @@ namespace LandmarksR.Scripts.Experiment.Log
         private string GetRelativeRemotePath()
         {
             var date = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-            return $"{Application.productName}/{_settings.experiment.participantId}/{_settings.experiment.participantId}_{date}.log";
+            return
+                $"{Application.productName}/{_settings.experiment.participantId}/{_settings.experiment.participantId}_{date}.log";
         }
 
         private async void OnDisable()

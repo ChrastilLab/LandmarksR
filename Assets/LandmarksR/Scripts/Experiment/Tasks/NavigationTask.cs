@@ -1,14 +1,10 @@
 ﻿using LandmarksR.Scripts.Attributes;
-using LandmarksR.Scripts.Experiment.Log;
-using LandmarksR.Scripts.Player;
 using UnityEngine;
 
 namespace LandmarksR.Scripts.Experiment.Tasks
 {
     public class NavigationTask : BaseTask
     {
-        private Hud _hud;
-        private PlayerController _playerController;
         // private RepeatTask _parentRepeatTask;
         [NotEditable, SerializeField] private string target;
 
@@ -24,16 +20,13 @@ namespace LandmarksR.Scripts.Experiment.Tasks
                 logger.I("task", "Parent task is not a repeat task.");
 
 
-            _hud = Experiment.Instance.playerController.hud;
-            _hud.SetTitle("Navigation Task")
+            hud.SetTitle("Navigation Task")
                 .SetContent($"You will have {timer} seconds to find the target: {target}")
                 .ShowAll()
                 .HideAllAfter(3f);
 
-
-            _playerController = Experiment.Instance.playerController;
-            _playerController.TryEnableDesktopInput(3f);
-            _playerController.playerEvent.RegisterTriggerEnterHandler(HandlePlayerTriggerEnter);
+            playerController.TryEnableDesktopInput(3f);
+            playerEvent.RegisterTriggerEnterHandler(HandlePlayerTriggerEnter);
         }
 
         private void HandlePlayerTriggerEnter(Collider other)
@@ -47,8 +40,8 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         protected override void Finish()
         {
             base.Finish();
-            _playerController.DisableDesktopInput();
-            _playerController.playerEvent.UnregisterTriggerEnterHandler(HandlePlayerTriggerEnter);
+            playerController.DisableDesktopInput();
+            playerEvent.UnregisterTriggerEnterHandler(HandlePlayerTriggerEnter);
         }
     }
 }

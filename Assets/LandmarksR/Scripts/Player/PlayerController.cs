@@ -83,7 +83,7 @@ namespace LandmarksR.Scripts.Player
                     vrPlayerControllerReference.gameObject.SetActive(false);
                     desktopPlayerControllerReference.gameObject.SetActive(true);
                     hud.SetCamera(desktopPlayerControllerReference.mainCamera);
-                    hud.UpdateSettings(_settings);
+                    hud.ApplySettingChanges();
 
                     firstPersonController = desktopPlayerControllerReference.GetComponent<FirstPersonController>();
                     playerEvent = desktopPlayerControllerReference.GetComponent<PlayerEventController>();
@@ -96,7 +96,7 @@ namespace LandmarksR.Scripts.Player
                     desktopPlayerControllerReference.gameObject.SetActive(false);
                     vrPlayerControllerReference.gameObject.SetActive(true);
                     hud.SetCamera(vrPlayerControllerReference.mainCamera);
-                    hud.UpdateSettings(_settings);
+                    hud.ApplySettingChanges();
 
                     firstPersonController = null;
                     playerEvent = vrPlayerControllerReference.GetComponent<PlayerEventController>();

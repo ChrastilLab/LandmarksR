@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using LandmarksR.Scripts.Attributes;
 using LandmarksR.Scripts.Experiment.Log;
+using LandmarksR.Scripts.Player;
 
 namespace LandmarksR.Scripts.Experiment.Tasks
 {
@@ -14,10 +15,15 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         [SerializeField] protected bool enable = true;
         [NotEditable] public uint id;
 
+        protected Settings settings;
+        protected Experiment experiment;
+        protected PlayerController playerController;
+        protected PlayerEventController playerEvent;
+        protected Hud hud;
         protected ExperimentLogger logger;
 
+        // Subtasks (if any) are directly loaded from the children of the task
         protected List<BaseTask> subTasks;
-
 
         [Header("Time")]
         [SerializeField] protected float timer = Mathf.Infinity;
@@ -38,7 +44,13 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
         protected virtual void Prepare()
         {
+            settings = Settings.Instance;
+            experiment = Experiment.Instance;
+            playerController = experiment.playerController;
+            playerEvent = playerController.playerEvent;
+            hud = playerController.hud;
             logger = ExperimentLogger.Instance;
+
             logger.I("task", $"{name} started");
 
             isCompleted = false;
