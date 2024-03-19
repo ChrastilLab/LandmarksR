@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace LandmarksR.Scripts.Player
 {
+
     public class PlayerEventController : MonoBehaviour
     {
         public delegate void KeyboardEventHandler();
@@ -11,6 +13,24 @@ namespace LandmarksR.Scripts.Player
 
         public delegate void VRInputEventHandler();
         private readonly Dictionary<OVRInput.Button, VRInputEventHandler> _vrButtonInputEvents = new();
+
+        public class TimedHandle
+        {
+            public float elapsedTime;
+            public readonly float totalTime;
+            public VRInputEventHandler vrInputEventHandler;
+
+            public TimedHandle(VRInputEventHandler vrInputEventHandler, float totalTime)
+            {
+                this.vrInputEventHandler = vrInputEventHandler;
+                this.totalTime = totalTime;
+            }
+        }
+
+        // private readonly Dictionary<OVRInput.Button, TimedHandle> _vrButtonTimedInputEvents = new();
+        private readonly Dictionary<OVRInput.Button, Dictionary<float, TimedHandle>> _vrButtonTimedInputEvents = new();
+
+
 
         public delegate void InputEventHandler();
         private InputEventHandler _onConfirm;
@@ -39,6 +59,7 @@ namespace LandmarksR.Scripts.Player
         {
             HandleKeys();
             HandleVRButtonInputs();
+            HandleTimedVRButtonInputs();
         }
 
         private void HandleKeys()
@@ -54,6 +75,27 @@ namespace LandmarksR.Scripts.Player
             foreach (var input in _vrButtonInputEvents.Where(input => OVRInput.GetDown(input.Key)))
             {
                 _vrButtonInputEvents[input.Key]?.Invoke();
+            }
+        }
+
+        private void HandleTimedVRButtonInputs()
+        {
+            foreach (var selectedButtonDictionaryPair in _vrButtonTimedInputEvents)
+            {
+                foreach (var timeHandle in selectedButtonDictionaryPair.Value.Select(timeHandlePair => _vrButtonTimedInputEvents[selectedButtonDictionaryPair.Key][timeHandlePair.Key]))
+                {
+                    if (OVRInput.Get(selectedButtonDictionaryPair.Key))
+                    {
+                        timeHandle.elapsedTime += Time.deltaTime;
+                        if (!(timeHandle.elapsedTime >= timeHandle.totalTime)) continue;
+                        timeHandle.vrInputEventHandler?.Invoke();
+                        timeHandle.elapsedTime = 0;
+                    }
+                    else
+                    {
+                        timeHandle.elapsedTime = 0;
+                    }
+                }
             }
         }
 
@@ -91,6 +133,52 @@ namespace LandmarksR.Scripts.Player
         public void UnregisterAllKeyHandlers()
         {
             _keyboardEvents.Clear();
+        }
+
+        // public void RegisterTimedVRInputHandler(OVRInput.Button input, VRInputEventHandler vrInputEventHandler, float time)
+        // {
+        //     if (!_vrButtonTimedInputEvents.ContainsKey(input))
+        //     {
+        //         _vrButtonTimedInputEvents.Add(input, new TimedHandle(vrInputEventHandler, time));
+        //     }
+        //     else
+        //     {
+        //         var timeHandle = _vrButtonTimedInputEvents[input];
+        //         if (Math.Abs(timeHandle.totalTime - time) < 0.01f)
+        //         {
+        //             timeHandle.vrInputEventHandler += vrInputEventHandler;
+        //         }
+        //     }
+        // }
+        public void RegisterTimedVRInputHandler(OVRInput.Button input, VRInputEventHandler vrInputEventHandler,
+            float time)
+        {
+            if (_vrButtonTimedInputEvents.ContainsKey(input))
+            {
+                if (_vrButtonTimedInputEvents[input].ContainsKey(time))
+                {
+                    _vrButtonTimedInputEvents[input][time].vrInputEventHandler += vrInputEventHandler;
+                }
+                else
+                {
+                    _vrButtonTimedInputEvents[input].Add(time, new TimedHandle(vrInputEventHandler, time));
+                }
+            }
+            else
+            {
+                _vrButtonTimedInputEvents.Add(input, new Dictionary<float, TimedHandle> {{time, new TimedHandle(vrInputEventHandler, time)}});
+            }
+        }
+
+        public void UnregisterTimedVRInputHandler(OVRInput.Button input, VRInputEventHandler vrInputEventHandler, float time)
+        {
+            if (_vrButtonTimedInputEvents.ContainsKey(input))
+            {
+                if (_vrButtonTimedInputEvents[input].ContainsKey(time))
+                {
+                    _vrButtonTimedInputEvents[input][time].vrInputEventHandler -= vrInputEventHandler;
+                }
+            }
         }
 
         public void RegisterVRInputHandler(OVRInput.Button input, VRInputEventHandler vrInputEventHandler)
