@@ -13,12 +13,13 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
         RightBottom,
         LeftBottom
     }
+
     public class CalibrateTask : CollectionTask
     {
-
         // Pole Variables
         [Header("Calibration Settings")] [SerializeField]
         private GameObject polePrefab;
+
         [SerializeField] private List<PolePosition> polePositions = new()
         {
             PolePosition.LeftTop,
@@ -30,7 +31,9 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
         private readonly List<GameObject> poles = new();
 
         [SerializeField] private GameObject floorIndicatorPrefab;
+
         private GameObject _floorIndicator;
+
         // Calibration Result Indicator
         [SerializeField] private GameObject calibrationResultPrefab;
         private GameObject _calibrationResultIndicator;
@@ -40,7 +43,6 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
 
         protected override void Prepare()
         {
-
             base.Prepare();
             if (!polePrefab)
             {
@@ -86,7 +88,8 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
             {
                 logger.W("Calibration", "Pole positions are not set properly.");
                 hud.SetTitle("Calibration Warning")
-                    .SetContent("Pole positions are not set properly. Please make sure you set the pole positions correctly in the inspector.")
+                    .SetContent(
+                        "Pole positions are not set properly. Please make sure you set the pole positions correctly in the inspector.")
                     .ShowAll();
                 return "";
             }
@@ -103,13 +106,15 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
             PolePosition.LeftBottom => "Left Bottom",
             _ => throw new ArgumentOutOfRangeException()
         };
+
         public void UpdatePolePositionsInSettings()
         {
             if (poles.Count != 4)
             {
                 logger.W("Calibration", "Poles are not set properly.");
                 hud.SetTitle("Calibration Warning")
-                    .SetContent("Poles are not set properly. Please make sure you set the poles correctly in the inspector.")
+                    .SetContent(
+                        "Poles are not set properly. Please make sure you set the poles correctly in the inspector.")
                     .ShowAll();
                 return;
             }
@@ -118,14 +123,14 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
             {
                 logger.W("Calibration", "Pole positions are not set properly.");
                 hud.SetTitle("Calibration Warning")
-                    .SetContent("Pole positions are not set properly. Please make sure you set the pole positions correctly in the inspector.")
+                    .SetContent(
+                        "Pole positions are not set properly. Please make sure you set the pole positions correctly in the inspector.")
                     .ShowAll();
                 return;
             }
 
             foreach (var (positionType, pole) in polePositions.Zip(poles, (position, pole) => (position, pole)))
             {
-
                 var position = pole.transform.position;
                 switch (positionType)
                 {
@@ -150,24 +155,35 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
         // Floor Indicator
         public void UpdateFloorPositionInSettings()
         {
+            if (!_floorIndicator) return;
             settings.space.groundY = _floorIndicator.transform.position.y;
             logger.I("calibration", $"Floor position updated to {settings.space.groundY}.");
         }
 
-        private void InitializeFloorIndicator()
+        public void InitializeFloorIndicator()
         {
+            if (_floorIndicator)
+            {
+                Destroy(_floorIndicator);
+            }
+
             _floorIndicator = Instantiate(floorIndicatorPrefab, Vector3.zero, Quaternion.identity);
         }
 
         public void UpdateFloorIndicator()
         {
-            if (!_floorIndicator)
-            {
-                InitializeFloorIndicator();
-            }
+            if (!_floorIndicator) return;
             var position = _rightHandAnchor.transform.position;
             position.y -= settings.calibration.controllerHeight;
             _floorIndicator.transform.position = position;
+        }
+
+        public void RemoveFloorIndicator()
+        {
+            if (_floorIndicator)
+            {
+                Destroy(_floorIndicator);
+            }
         }
 
 
@@ -180,7 +196,8 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
                 Destroy(_calibrationResultIndicator);
             }
 
-            _calibrationResultIndicator = Instantiate(calibrationResultPrefab, position, Quaternion.LookRotation(forward));
+            _calibrationResultIndicator =
+                Instantiate(calibrationResultPrefab, position, Quaternion.LookRotation(forward));
         }
 
         public void RemoveCalibrationResultIndicator()
