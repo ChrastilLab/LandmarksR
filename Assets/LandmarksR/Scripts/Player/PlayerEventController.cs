@@ -1,49 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using LandmarksR.Scripts.Experiment.Log;
 using UnityEngine;
 
 namespace LandmarksR.Scripts.Player
 {
-
     public class PlayerEventController : MonoBehaviour
     {
         public delegate void KeyboardEventHandler();
+
         private readonly Dictionary<KeyCode, KeyboardEventHandler> _keyboardEvents = new();
 
         public delegate void VRInputEventHandler();
+
         private readonly Dictionary<OVRInput.Button, VRInputEventHandler> _vrButtonInputEvents = new();
 
-        public class TimedHandle
+        public delegate void TimedUpdateHandler(float elapsedTime);
+
+        private class TimedHandle
         {
             public float elapsedTime;
             public readonly float totalTime;
             public VRInputEventHandler vrInputEventHandler;
+            public TimedUpdateHandler updateHandler;
 
-            public TimedHandle(VRInputEventHandler vrInputEventHandler, float totalTime)
+            public TimedHandle(VRInputEventHandler vrInputEventHandler, float totalTime,
+                TimedUpdateHandler updateHandler = null)
             {
                 this.vrInputEventHandler = vrInputEventHandler;
                 this.totalTime = totalTime;
+                this.updateHandler = updateHandler;
             }
         }
 
-        // private readonly Dictionary<OVRInput.Button, TimedHandle> _vrButtonTimedInputEvents = new();
         private readonly Dictionary<OVRInput.Button, Dictionary<float, TimedHandle>> _vrButtonTimedInputEvents = new();
 
 
-
         public delegate void InputEventHandler();
+
         private InputEventHandler _onConfirm;
 
         public delegate void TriggerEventHandler(Collider collider);
+
         private TriggerEventHandler _onTriggerEnter;
 
 
         public delegate void CollisionEventHandler(Collision collider);
+
         private CollisionEventHandler _onCollisionEnter;
+
+        private ExperimentLogger _logger;
 
         private void Start()
         {
+            _logger = ExperimentLogger.Instance;
             RegisterKeyHandler(KeyCode.Return, Confirm);
             RegisterVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, Confirm);
         }
@@ -82,18 +92,27 @@ namespace LandmarksR.Scripts.Player
         {
             foreach (var selectedButtonDictionaryPair in _vrButtonTimedInputEvents)
             {
-                foreach (var timeHandle in selectedButtonDictionaryPair.Value.Select(timeHandlePair => _vrButtonTimedInputEvents[selectedButtonDictionaryPair.Key][timeHandlePair.Key]))
+                foreach (var timeHandle in selectedButtonDictionaryPair.Value.Select(timeHandlePair =>
+                             _vrButtonTimedInputEvents[selectedButtonDictionaryPair.Key][timeHandlePair.Key]))
                 {
                     if (OVRInput.Get(selectedButtonDictionaryPair.Key))
                     {
                         timeHandle.elapsedTime += Time.deltaTime;
-                        if (!(timeHandle.elapsedTime >= timeHandle.totalTime)) continue;
-                        timeHandle.vrInputEventHandler?.Invoke();
-                        timeHandle.elapsedTime = 0;
+                        timeHandle.updateHandler?.Invoke(timeHandle.elapsedTime);
+
+                        if ((timeHandle.elapsedTime >= timeHandle.totalTime))
+                        {
+                            timeHandle.vrInputEventHandler?.Invoke();
+                            timeHandle.elapsedTime = 0;
+                            timeHandle.updateHandler?.Invoke(timeHandle.elapsedTime);
+                            return;
+                        }
                     }
-                    else
+
+                    if (OVRInput.GetUp(selectedButtonDictionaryPair.Key))
                     {
                         timeHandle.elapsedTime = 0;
+                        timeHandle.updateHandler?.Invoke(timeHandle.elapsedTime);
                     }
                 }
             }
@@ -135,50 +154,42 @@ namespace LandmarksR.Scripts.Player
             _keyboardEvents.Clear();
         }
 
-        // public void RegisterTimedVRInputHandler(OVRInput.Button input, VRInputEventHandler vrInputEventHandler, float time)
-        // {
-        //     if (!_vrButtonTimedInputEvents.ContainsKey(input))
-        //     {
-        //         _vrButtonTimedInputEvents.Add(input, new TimedHandle(vrInputEventHandler, time));
-        //     }
-        //     else
-        //     {
-        //         var timeHandle = _vrButtonTimedInputEvents[input];
-        //         if (Math.Abs(timeHandle.totalTime - time) < 0.01f)
-        //         {
-        //             timeHandle.vrInputEventHandler += vrInputEventHandler;
-        //         }
-        //     }
-        // }
-        public void RegisterTimedVRInputHandler(OVRInput.Button input, VRInputEventHandler vrInputEventHandler,
-            float time)
+        public void RegisterTimedVRInputHandler(OVRInput.Button input, float time,
+            VRInputEventHandler vrInputEventHandler,
+            TimedUpdateHandler updateAction = null)
         {
             if (_vrButtonTimedInputEvents.ContainsKey(input))
             {
                 if (_vrButtonTimedInputEvents[input].ContainsKey(time))
                 {
                     _vrButtonTimedInputEvents[input][time].vrInputEventHandler += vrInputEventHandler;
+                    _vrButtonTimedInputEvents[input][time].updateHandler += updateAction;
+                    _logger.I("event", "Register A new callback for existing input and time: " + input + " " + time);
                 }
                 else
                 {
-                    _vrButtonTimedInputEvents[input].Add(time, new TimedHandle(vrInputEventHandler, time));
+                    _vrButtonTimedInputEvents[input]
+                        .Add(time, new TimedHandle(vrInputEventHandler, time, updateAction));
+                    _logger.I("event", "Register A new callback with a new timer for input: " + input + " " + time);
                 }
             }
             else
             {
-                _vrButtonTimedInputEvents.Add(input, new Dictionary<float, TimedHandle> {{time, new TimedHandle(vrInputEventHandler, time)}});
+                _vrButtonTimedInputEvents.Add(input,
+                    new Dictionary<float, TimedHandle>
+                        { { time, new TimedHandle(vrInputEventHandler, time, updateAction) } });
+                _logger.I("event", "Register A new callback with a new timer for a new input: " + input + " " + time);
             }
         }
 
-        public void UnregisterTimedVRInputHandler(OVRInput.Button input, VRInputEventHandler vrInputEventHandler, float time)
+        public void UnregisterTimedVRInputHandler(OVRInput.Button input, float time,
+            VRInputEventHandler vrInputEventHandler, TimedUpdateHandler updateAction = null)
         {
-            if (_vrButtonTimedInputEvents.ContainsKey(input))
-            {
-                if (_vrButtonTimedInputEvents[input].ContainsKey(time))
-                {
-                    _vrButtonTimedInputEvents[input][time].vrInputEventHandler -= vrInputEventHandler;
-                }
-            }
+            if (!_vrButtonTimedInputEvents.ContainsKey(input)) return;
+            if (!_vrButtonTimedInputEvents[input].ContainsKey(time)) return;
+            _vrButtonTimedInputEvents[input][time].vrInputEventHandler -= vrInputEventHandler;
+            _vrButtonTimedInputEvents[input][time].updateHandler -= updateAction;
+            _logger.I("event", "UnregisterTimedVRInputHandler: " + input + " " + time);
         }
 
         public void RegisterVRInputHandler(OVRInput.Button input, VRInputEventHandler vrInputEventHandler)
@@ -191,10 +202,8 @@ namespace LandmarksR.Scripts.Player
 
         public void UnregisterVRInputHandler(OVRInput.Button input, VRInputEventHandler vrInputEventHandler)
         {
-            if (_vrButtonInputEvents.ContainsKey(input))
-            {
-                _vrButtonInputEvents[input] -= vrInputEventHandler;
-            }
+            if (!_vrButtonInputEvents.ContainsKey(input)) return;
+            _vrButtonInputEvents[input] -= vrInputEventHandler;
         }
 
         public void UnregisterAllVRInputHandlers()
@@ -231,6 +240,5 @@ namespace LandmarksR.Scripts.Player
         {
             _onTriggerEnter -= triggerEventHandler;
         }
-
     }
 }

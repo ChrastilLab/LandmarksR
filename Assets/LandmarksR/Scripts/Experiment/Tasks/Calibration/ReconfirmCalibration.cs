@@ -1,6 +1,4 @@
-﻿using LandmarksR.Scripts.Player;
-
-namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
+﻿namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
 {
     public class ReconfirmCalibration: InstructionTask
     {
@@ -9,6 +7,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
         protected override void Prepare()
         {
             base.Prepare();
+            UnregisterConfirmHandler(); // Unregister the confirm handler from the parent class, because we want to redefine it here
 
             _parentTask = GetComponentInParent<CalibrateTask>();
             if (_parentTask == null)
@@ -20,19 +19,21 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
 
 
             // Register Event Handlers
-            playerEvent.RegisterVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, HandleIndexTrigger);
-            playerEvent.RegisterVRInputHandler(OVRInput.Button.One, HandleAButton);
+            playerEvent.RegisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, settings.ui.calibrationTriggerTime, HandleIndexTrigger, UpdateProgressBarForTrigger);
+            playerEvent.RegisterTimedVRInputHandler(OVRInput.Button.One, settings.ui.calibrationTriggerTime, HandleAButton, UpdateProgressBarForAButton);
+
+            hud.ShowProgressBar();
 
             settings.space.ApplyToEnvironment();
-
-
         }
 
         protected override void Finish()
         {
             base.Finish();
-            playerEvent.UnregisterVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, HandleIndexTrigger);
-            playerEvent.UnregisterVRInputHandler(OVRInput.Button.One, HandleAButton);
+            hud.HideProgressBar();
+
+            playerEvent.UnregisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, settings.ui.calibrationTriggerTime, HandleIndexTrigger, UpdateProgressBarForTrigger);
+            playerEvent.UnregisterTimedVRInputHandler(OVRInput.Button.One, settings.ui.calibrationTriggerTime, HandleAButton, UpdateProgressBarForAButton);
         }
 
         private void HandleIndexTrigger()
@@ -44,6 +45,15 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
         {
             _parentTask.ResetAll();
             isRunning = false;
+        }
+
+        private void UpdateProgressBarForTrigger(float time)
+        {
+            hud.SetProgress(time / settings.ui.calibrationTriggerTime);
+        }
+        private void UpdateProgressBarForAButton(float time)
+        {
+            hud.SetProgress(time / settings.ui.calibrationTriggerTime);
         }
     }
 }

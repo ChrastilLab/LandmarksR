@@ -18,6 +18,11 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             playerEvent.RegisterConfirmHandler(OnConfirm);
         }
 
+        protected void UnregisterConfirmHandler()
+        {
+            playerEvent.UnregisterConfirmHandler(OnConfirm);
+        }
+
         private void OnConfirm()
         {
             if (!isRunning) return;

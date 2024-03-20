@@ -208,6 +208,14 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
             }
         }
 
+        public void ComputeCalibration()
+        {
+            UpdateFloorPositionInSettings();
+            UpdatePolePositionsInSettings(); // Update the pole positions in the settings
+            settings.space.CalibrateSpace(); // Calibrate the space based on the pole positions
+            ShowCalibrationResultIndicator(settings.space.center, settings.space.forward);
+        }
+
         public void ResetAll()
         {
             foreach (var pole in poles)

@@ -92,6 +92,12 @@ namespace LandmarksR.Scripts.Experiment
         public float loggingIntervalInMillisecond;
     }
 
+    [Serializable]
+    public class UISettings
+    {
+        public float calibrationTriggerTime = 1.25f;
+    }
+
 
     public class Settings : MonoBehaviour
     {
@@ -168,6 +174,6 @@ namespace LandmarksR.Scripts.Experiment
             loggingIntervalInMillisecond = 200f
         };
 
-
+        public UISettings ui = new();
     }
 }

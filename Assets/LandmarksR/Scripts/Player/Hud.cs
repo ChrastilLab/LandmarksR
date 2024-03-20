@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using LandmarksR.Scripts.Attributes;
 using LandmarksR.Scripts.Experiment;
 using LandmarksR.Scripts.Experiment.Log;
+using LandmarksR.Scripts.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,6 +28,7 @@ namespace LandmarksR.Scripts.Player
         [SerializeField] private TMP_Text titleText;
         [SerializeField] private TMP_Text contentText;
         [SerializeField] private Button confirmButton;
+        [SerializeField] private ProgressBar progressBar;
 
         private Camera _camera;
 
@@ -94,6 +96,26 @@ namespace LandmarksR.Scripts.Player
         public Hud ShowButton()
         {
             confirmButton.gameObject.SetActive(true);
+            return this;
+        }
+
+        public Hud ShowProgressBar()
+        {
+            progressBar.gameObject.SetActive(true);
+            progressBar.SetMaxWidth(_settings.displayReference?.hudScreenSize.x ?? 1080);
+            return this;
+        }
+
+        public Hud HideProgressBar()
+        {
+            progressBar.gameObject.SetActive(false);
+            return this;
+        }
+
+
+        public Hud SetProgress(float value)
+        {
+            progressBar.SetProgress(value);
             return this;
         }
 

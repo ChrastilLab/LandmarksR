@@ -1,4 +1,6 @@
-﻿namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
+﻿using OVR.OpenVR;
+
+namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
 {
     public class ConfirmCalibration : InstructionTask
     {
@@ -7,6 +9,8 @@
         protected override void Prepare()
         {
             base.Prepare();
+            UnregisterConfirmHandler(); // Unregister the confirm handler from the parent class, because we want to redefine it here
+
             // Check references
             _parentTask = GetComponentInParent<CalibrateTask>();
             if (_parentTask == null)
@@ -17,16 +21,29 @@
             }
 
             // Register Event Handlers
+            playerEvent.RegisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, settings.ui.calibrationTriggerTime, HandleIndexTrigger, UpdateProgressBarForTrigger);
             playerEvent.RegisterVRInputHandler(OVRInput.Button.One, HandleAButton);
 
-            ComputeCalibration();
+            hud.ShowProgressBar();
+
+            // Compute Calibration
+            _parentTask.ComputeCalibration();
         }
 
 
         protected override void Finish()
         {
             base.Finish();
+            hud.HideProgressBar();
+
+            playerEvent.UnregisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, settings.ui.calibrationTriggerTime, HandleIndexTrigger, UpdateProgressBarForTrigger);
             playerEvent.UnregisterVRInputHandler(OVRInput.Button.One, HandleAButton);
+        }
+
+
+        private void HandleIndexTrigger()
+        {
+            isRunning = false;
         }
 
         private void HandleAButton()
@@ -36,12 +53,10 @@
             isRunning = false;
         }
 
-        private void ComputeCalibration()
+        private void UpdateProgressBarForTrigger(float time)
         {
-            _parentTask.UpdateFloorPositionInSettings();
-            _parentTask.UpdatePolePositionsInSettings(); // Update the pole positions in the settings
-            settings.space.CalibrateSpace(); // Calibrate the space based on the pole positions
-            _parentTask.ShowCalibrationResultIndicator(settings.space.center, settings.space.forward);
+            logger.I("calibration", "UpdateProgressBarForTrigger: " + time);
+            hud.SetProgress(time / settings.ui.calibrationTriggerTime);
         }
     }
 }

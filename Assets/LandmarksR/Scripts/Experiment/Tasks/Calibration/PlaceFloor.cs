@@ -1,25 +1,20 @@
-﻿using LandmarksR.Scripts.Player;
-using UnityEngine;
-
-namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
+﻿namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
 {
-    public class PlaceFloor : BaseTask
+    public class PlaceFloor : InstructionTask
     {
-
         private CalibrateTask _parentTask;
+
         protected override void Prepare()
         {
             base.Prepare();
+            UnregisterConfirmHandler(); // Unregister the confirm handler from the parent class, because we want to redefine it here
+
             _parentTask = GetComponentInParent<CalibrateTask>();
 
-            // playerEvent.RegisterVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, HandleIndexTrigger);
-            playerEvent.RegisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, HandleIndexTrigger, 2.0f);
+            playerEvent.RegisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, settings.ui.calibrationTriggerTime, HandleIndexTrigger, UpdateProgressBar);
             playerEvent.RegisterVRInputHandler(OVRInput.Button.One, HandleAButton);
 
-            hud.SetTitle("Calibrate Floor")
-                .SetContent(
-                    "Please place the controller on the floor and press the trigger button to set the floor position.")
-                .ShowAll();
+            hud.ShowProgressBar();
 
             _parentTask.InitializeFloorIndicator();
         }
@@ -27,13 +22,15 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
         protected override void Finish()
         {
             base.Finish();
-            // playerEvent.UnregisterVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, HandleIndexTrigger);
+            hud.HideProgressBar();
+
+            playerEvent.UnregisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, settings.ui.calibrationTriggerTime, HandleIndexTrigger, UpdateProgressBar);
             playerEvent.UnregisterVRInputHandler(OVRInput.Button.One, HandleAButton);
+
         }
 
         private void HandleIndexTrigger()
         {
-            // Set the floor position
             isRunning = false;
         }
 
@@ -43,6 +40,11 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
             _parentTask.RemoveLastPole();
             _parentTask.RemoveFloorIndicator();
             isRunning = false;
+        }
+
+        private void UpdateProgressBar(float time)
+        {
+            hud.SetProgress(time / settings.ui.calibrationTriggerTime);
         }
 
         private void Update()

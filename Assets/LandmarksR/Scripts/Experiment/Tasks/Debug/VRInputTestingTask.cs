@@ -7,9 +7,9 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Debug
         protected override void Prepare()
         {
             base.Prepare();
-            Player.playerEvent.RegisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, () => Logger.I("input", "PrimaryIndexTrigger 2s"), 2f);
-            Player.playerEvent.RegisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, () => Logger.I("input", "PrimaryIndexTrigger 3s"), 3f);
-            Player.playerEvent.RegisterTimedVRInputHandler(OVRInput.Button.PrimaryHandTrigger, () => Logger.I("input", "PrimaryHandTrigger 1.5s"), 1.5f);
+            Player.playerEvent.RegisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, 2f, () => Logger.I("input", "PrimaryIndexTrigger 2s"));
+            Player.playerEvent.RegisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, 3f, () => Logger.I("input", "PrimaryIndexTrigger 3s"));
+            Player.playerEvent.RegisterTimedVRInputHandler(OVRInput.Button.PrimaryHandTrigger, 1.5f,() => Logger.I("input", "PrimaryHandTrigger 1.5s"));
             Player.playerEvent.RegisterVRInputHandler(OVRInput.Button.One, () => Logger.I("input", "One/A"));
             Player.playerEvent.RegisterVRInputHandler(OVRInput.Button.Two, () => Logger.I("input", "Two/B"));
             Player.playerEvent.RegisterVRInputHandler(OVRInput.Button.Three, () => Logger.I("input", "Three/X"));
