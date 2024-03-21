@@ -51,7 +51,7 @@ namespace LandmarksR.Scripts.Player
         public void SetCamera(Camera cam)
         {
             _camera = cam;
-            canvas.worldCamera = cam;
+            // canvas.worldCamera = cam;
         }
 
         public Camera GetCamera() => _camera;

@@ -1,18 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetObjectSelection : MonoBehaviour
+namespace Taylors.Scripts
 {
-    // Start is called before the first frame update
-    void Start()
+    public class TargetObjectSelection : MonoBehaviour
     {
-        
-    }
+        public void SelectObject()
+        {
+            Debug.Log("Object Selected");
+        }
+        // Start is called before the first frame update
+        void Start()
+        {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }

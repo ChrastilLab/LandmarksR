@@ -11,7 +11,7 @@
 
             hud.SetTitle($"Explore the environment for {timer} seconds")
                 .ShowAll()
-                .HideAllAfter(3f);
+                .HideAllAfter(3000f);
 
 
         }

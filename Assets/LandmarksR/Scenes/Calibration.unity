@@ -445,7 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 0124d23067640b54688893085cd99cf9, type: 2}
   m_Color: {r: 0, g: 0, b: 0, a: 0.68235296}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -3535,6 +3535,8 @@ MonoBehaviour:
     remoteStatusUrl: http://66.42.102.82:3000/status
     remoteLogUrl: http://66.42.102.82:3000/log
     loggingIntervalInMillisecond: 200
+  ui:
+    calibrationTriggerTime: 1.25
 --- !u!4 &1840446357
 Transform:
   m_ObjectHideFlags: 0
