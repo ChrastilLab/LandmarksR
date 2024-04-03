@@ -22,6 +22,12 @@ namespace LandmarksR.Scripts.Experiment
     }
 
     [Serializable]
+    public class InteractionSettings
+    {
+        public float hudColliderThickness = 0.05f;
+    }
+
+    [Serializable]
     public class CalibrationSettings
     {
         public float controllerHeight = 0.15f; //unit is centimeter
@@ -160,6 +166,8 @@ namespace LandmarksR.Scripts.Experiment
 
 
         public DisplaySettings displayReference = new();
+
+        public InteractionSettings interaction = new();
 
         public SpaceSettings space = new();
 

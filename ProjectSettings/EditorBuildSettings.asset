@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/LandmarksR/Scenes/LandmarksR Demo.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Taylors/Scenes/TaylorSelect.unity
+    guid: 918e9e9c09db5534499fb6ba6444417a
+  - enabled: 1
+    path: Assets/LandmarksR/Scenes/Interactable Demo.unity
+    guid: 9b42ac2677cd4f54f80dfffacda8fa4b
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: cf03f7369d058dd40a3b10a65fe3165b, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cba04676956e2304cb98ccea58c33df2, type: 2}

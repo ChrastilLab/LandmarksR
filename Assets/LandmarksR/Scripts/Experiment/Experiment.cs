@@ -36,6 +36,8 @@ namespace LandmarksR.Scripts.Experiment
 
         private void Start()
         {
+            Debug.Assert(playerController != null, "PlayerController is not set");
+
             var rootTaskGameObject = GameObject.FindGameObjectWithTag("RootTask");
             if (rootTaskGameObject == null)
             {

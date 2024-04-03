@@ -17,6 +17,9 @@ TagManager:
   - StartPole
   - HUD
   - Task
+  - Target_Model
+  - PlayerCollider
+  - ControllerCollider
   layers:
   - Default
   - TransparentFX

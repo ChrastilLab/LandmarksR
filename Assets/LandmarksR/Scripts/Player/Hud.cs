@@ -23,6 +23,7 @@ namespace LandmarksR.Scripts.Player
         private Settings _settings;
         private ExperimentLogger _logger;
         [NotEditable, SerializeField] private HudMode hudMode;
+        [SerializeField] private Transform hudTransform;
         [SerializeField] private Canvas canvas;
         [SerializeField] private GameObject panel;
         [SerializeField] private TMP_Text titleText;
@@ -30,10 +31,20 @@ namespace LandmarksR.Scripts.Player
         [SerializeField] private Button confirmButton;
         [SerializeField] private ProgressBar progressBar;
 
+        [Header("Interactive Properties")]
+        [SerializeField] private Transform colliderTransform;
+        [SerializeField] private Transform planeSurfaceTransform;
+
         private Camera _camera;
 
         private void Start()
         {
+            Debug.Assert(hudTransform != null, "HUD Transform is not set");
+            Debug.Assert(canvas != null, "Canvas is not set");
+            Debug.Assert(panel != null, "Panel is not set");
+            Debug.Assert(colliderTransform != null, "Box Collider Transform is not set");
+            Debug.Assert(planeSurfaceTransform != null, "Plane Surface Transform is not set");
+
             _settings = Settings.Instance;
             _logger = ExperimentLogger.Instance;
 
@@ -231,33 +242,39 @@ namespace LandmarksR.Scripts.Player
             var camForward = camTransform.forward;
             var camUp = camTransform.up;
 
-            // Set the position of the canvas to the camera position + the camera forward vector * distanceToCam
-            canvas.transform.position = camPos + camForward * distanceToCam.Value;
-            canvas.transform.rotation = Quaternion.LookRotation(camForward, camUp);
+            SetTransformPosition(canvas.transform, camPos + camForward * distanceToCam.Value, camForward, camUp);
+            SetTransformPosition(colliderTransform, camPos + camForward * distanceToCam.Value, camForward, camUp);
+            SetTransformPosition(planeSurfaceTransform, camPos + camForward * distanceToCam.Value, camForward, camUp);
         }
 
 
-        public void SetCanvasPosition(Vector3 position, Vector3 lookAt, Vector3 upward)
+        private static void SetTransformPosition(Transform tr, Vector3 position, Vector3 lookAt, Vector3 upward)
         {
-            if (hudMode != HudMode.Fixed) return;
+            tr.position = position;
+            tr.rotation = Quaternion.LookRotation(lookAt, upward);
+        }
 
-            canvas.transform.position = position;
-            canvas.transform.rotation = Quaternion.LookRotation(lookAt, upward);
+        private static void SetTransformScale(Transform tr, Vector3 scale)
+        {
+            tr.localScale = scale;
         }
 
         private void AdjustScale(Vector2? size)
         {
             if (!size.HasValue) return;
-            var scaleFactor = CalculateScaleFactor(size.Value);
-            canvas.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
-        }
-        private float CalculateScaleFactor(Vector2 size)
-        {
+
             // This is a simple heuristic. You might need to adjust this formula based on your specific needs
             // and camera settings. This formula assumes a FOV of 60 degrees.
-            var h = 2.0f *  Mathf.Tan(0.5f * canvas.worldCamera.fieldOfView * Mathf.Deg2Rad);
-            var scaleFactor = h / size.y;
-            return scaleFactor;
+            var h = CalculateCanvasHeight();
+            var canvasScale = h / size.Value.y;
+            SetTransformScale(canvas.transform, new Vector3(canvasScale, canvasScale, canvasScale));
+
+            var w = canvasScale * size.Value.x;
+            SetTransformScale(colliderTransform, new Vector3(w, h, _settings.interaction.hudColliderThickness));
+        }
+        private float CalculateCanvasHeight()
+        {
+            return 2.0f *  Mathf.Tan(0.5f * canvas.worldCamera.fieldOfView * Mathf.Deg2Rad);
         }
 
         public void HideByLayer(string layerName)
