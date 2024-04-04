@@ -55,7 +55,6 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
 
         private void UpdateProgressBarForTrigger(float time)
         {
-            logger.I("calibration", "UpdateProgressBarForTrigger: " + time);
             hud.SetProgress(time / settings.ui.calibrationTriggerTime);
         }
     }

@@ -1229,7 +1229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2464148789445986651}
   m_Layer: 7
-  m_Name: Objects
+  m_Name: Buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3524,7 +3524,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8660096154200498806}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3585,7 +3585,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerButton: 8192
-  buttonParentTransform: {fileID: 2464148789445986651}
+  buttons:
+  - button: {fileID: 8465492945557642618}
+    collider: {fileID: 652450469875195600}
+    originalColor: {r: 0, g: 0, b: 0, a: 0}
+  - button: {fileID: 5832638309802695326}
+    collider: {fileID: 2022364566354564624}
+    originalColor: {r: 0, g: 0, b: 0, a: 0}
+  - button: {fileID: 130790874901818912}
+    collider: {fileID: 7155178721594796397}
+    originalColor: {r: 0, g: 0, b: 0, a: 0}
+  - button: {fileID: 5340932050319399458}
+    collider: {fileID: 1502031833311483713}
+    originalColor: {r: 0, g: 0, b: 0, a: 0}
+  - button: {fileID: 5674665677183463593}
+    collider: {fileID: 8004270359108340779}
+    originalColor: {r: 0, g: 0, b: 0, a: 0}
+  - button: {fileID: 8542275224303632420}
+    collider: {fileID: 7215460120233804896}
+    originalColor: {r: 0, g: 0, b: 0, a: 0}
+  - button: {fileID: 302590267872542897}
+    collider: {fileID: 3961861522695187083}
+    originalColor: {r: 0, g: 0, b: 0, a: 0}
+  - button: {fileID: 394282031368534498}
+    collider: {fileID: 4879432754843274801}
+    originalColor: {r: 0, g: 0, b: 0, a: 0}
+  - button: {fileID: 6017937446718573216}
+    collider: {fileID: 8777500225986739937}
+    originalColor: {r: 0, g: 0, b: 0, a: 0}
+  targetInfos:
+  - targetName: Barrel_Model
+    sprite: {fileID: 21300000, guid: 52eaf3fce4b504c78a082e0b5809fe91, type: 3}
+  - targetName: Phone_Model
+    sprite: {fileID: 21300000, guid: 88faef9f55c884b3db9766ffdb1e2b52, type: 3}
+  - targetName: Guitar_Model
+    sprite: {fileID: 21300000, guid: f3959fa9c2d4a4e939d5308467cc2647, type: 3}
+  - targetName: Tree_Model
+    sprite: {fileID: 21300000, guid: 5c180068f978445239ff29264d7581d7, type: 3}
+  - targetName: Trash_Model
+    sprite: {fileID: 21300000, guid: c2a7c4dab8d6c4734b9c642774dbae9d, type: 3}
+  - targetName: Mailbox_Model
+    sprite: {fileID: 21300000, guid: f4b2ca405c9404638825cd3f70c9192e, type: 3}
+  - targetName: Target_Model
+    sprite: {fileID: 21300000, guid: ccade9a12877a49aaac4c444e52db566, type: 3}
+  - targetName: Well_Model
+    sprite: {fileID: 21300000, guid: 3d6f7422237ad42028ad4d0cc7753e67, type: 3}
+  - targetName: Clock_Model
+    sprite: {fileID: 21300000, guid: 5f1effdf105634e23b2a52a95c03784b, type: 3}
+  randomizeButtonOrder: 0
   targetSelected:
     m_PersistentCalls:
       m_Calls: []

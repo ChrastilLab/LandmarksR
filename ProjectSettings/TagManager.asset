@@ -9,17 +9,17 @@ TagManager:
   - Hud
   - Target
   - Environment
-  - HudPositionTag
-  - AlcoveLocationColliders
   - LocationColliders
   - Wall
   - Sky
-  - StartPole
-  - HUD
   - Task
   - Target_Model
   - PlayerCollider
   - ControllerCollider
+  - Footprint
+  - HUD
+  - AlcoveLocationColliders
+  - Floor
   layers:
   - Default
   - TransparentFX

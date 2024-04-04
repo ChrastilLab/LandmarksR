@@ -1,4 +1,6 @@
-﻿namespace LandmarksR.Scripts.Experiment.Tasks
+﻿using LandmarksR.Scripts.Player;
+
+namespace LandmarksR.Scripts.Experiment.Tasks
 {
     public class ExploreTask : BaseTask
     {
@@ -7,11 +9,16 @@
         {
             base.Prepare();
 
+
             playerController.TryEnableDesktopInput();
 
+            settings.displayReference.hudMode = HudMode.Fixed;
+            hud.ApplySettingChanges();
+
             hud.SetTitle($"Explore the environment for {timer} seconds")
-                .ShowAll()
-                .HideAllAfter(3000f);
+                .SetContent("Other Instruction here")
+                .ShowButton()
+                .ShowAll();
 
 
         }

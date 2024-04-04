@@ -16,6 +16,8 @@
                 return;
             }
 
+            hud.FixedRecenter(2f);
+
             // Register Event Handlers
             playerEvent.RegisterVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, HandleIndexTrigger);
             playerEvent.RegisterVRInputHandler(OVRInput.Button.One, HandleAButton);

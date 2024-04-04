@@ -52,7 +52,7 @@ namespace LandmarksR.Scripts.Experiment.Log
             _textLogger.I(messageTag, message);
 #if UNITY_EDITOR
             if (CheckTag(messageTag))
-                Debug.Log($"<color=green>INFO</color> | {messageTag} | {message}");
+                Debug.Log($"[LMR] <color=green>INFO</color> | {messageTag} | {message}");
 #endif
         }
 
@@ -60,7 +60,7 @@ namespace LandmarksR.Scripts.Experiment.Log
         {
             _textLogger.W(messageTag, message);
 #if UNITY_EDITOR
-            Debug.LogWarning($"<color=yellow>WARNING</color> | {messageTag} | {message}");
+            Debug.LogWarning($"[LMR] <color=yellow>WARNING</color> | {messageTag} | {message}");
 #endif
         }
 
@@ -68,7 +68,7 @@ namespace LandmarksR.Scripts.Experiment.Log
         {
             _textLogger.E(messageTag, message);
 #if UNITY_EDITOR
-            Debug.LogError($"<color=red>ERROR</color> | {messageTag} | {message}");
+            Debug.LogError($"[LMR] <color=red>ERROR</color> | {messageTag} | {message}");
             EditorApplication.isPlaying = false;
 #endif
         }

@@ -7,6 +7,7 @@ using LandmarksR.Scripts.Experiment.Log;
 using LandmarksR.Scripts.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace LandmarksR.Scripts.Player
@@ -22,6 +23,7 @@ namespace LandmarksR.Scripts.Player
     {
         private Settings _settings;
         private ExperimentLogger _logger;
+        private PlayerController _playerController;
         [NotEditable, SerializeField] private HudMode hudMode;
         [SerializeField] private Transform hudTransform;
         [SerializeField] private Canvas canvas;
@@ -39,38 +41,37 @@ namespace LandmarksR.Scripts.Player
 
         private void Start()
         {
-            Debug.Assert(hudTransform != null, "HUD Transform is not set");
-            Debug.Assert(canvas != null, "Canvas is not set");
-            Debug.Assert(panel != null, "Panel is not set");
-            Debug.Assert(colliderTransform != null, "Box Collider Transform is not set");
-            Debug.Assert(planeSurfaceTransform != null, "Plane Surface Transform is not set");
+            Assert.IsNotNull(hudTransform, "HUD Transform is not set");
+            Assert.IsNotNull(canvas, "Canvas is not set");
+            Assert.IsNotNull(panel, "Panel is not set");
+            Assert.IsNotNull(colliderTransform, "Box Collider Transform is not set");
+            Assert.IsNotNull(planeSurfaceTransform, "Plane Surface Transform is not set");
 
             _settings = Settings.Instance;
             _logger = ExperimentLogger.Instance;
+            _playerController = PlayerController.Instance;
 
-            if (!_settings) return;
-            _logger.I("hud", "Settings found");
+            Assert.IsNotNull(_settings, "Failed to obtain Settings instance");
+            Assert.IsNotNull(_logger, "Failed to obtain ExperimentLogger instance");
+            Assert.IsNotNull(_playerController, "Failed to obtain PlayerController instance");
+
+            _camera = _playerController.GetMainCamera();
             SwitchHudMode(_settings.displayReference?.hudMode);
+
+            StartCoroutine(WaitForRecenter());
         }
 
         public void ApplySettingChanges()
         {
-            if (!_settings) return;
+            if (!_settings)
+            {
+                _logger.E("hud", "Applying Setting Changes Failed");
+                return;
+            }
             SwitchHudMode(_settings.displayReference?.hudMode);
         }
 
-        public void SetCamera(Camera cam)
-        {
-            _camera = cam;
-            // canvas.worldCamera = cam;
-        }
-
-        public Camera GetCamera() => _camera;
-
-        public void SetCameraToFollow()
-        {
-            canvas.renderMode = RenderMode.WorldSpace;
-        }
+        #region Hud Content
 
         public Hud SetTitle(string text)
         {
@@ -160,6 +161,11 @@ namespace LandmarksR.Scripts.Player
             return this;
         }
 
+        public void HideAllAction()
+        {
+            HideAll();
+        }
+
         public void HideAllAfter(float seconds)
         {
             StartCoroutine(HideAllAfterCoroutine(seconds));
@@ -170,6 +176,8 @@ namespace LandmarksR.Scripts.Player
             yield return new WaitForSeconds(seconds);
             HideAll();
         }
+
+        #endregion
 
 
         public Hud SwitchHudMode(HudMode? mode)
@@ -196,8 +204,9 @@ namespace LandmarksR.Scripts.Player
         private void SetModeFollow()
         {
             if (!_settings) return;
-            _logger.I("hud", "SetModeFollow");
             hudMode = HudMode.Follow;
+            _logger.I("hud", "SetModeFollow");
+
             AdjustScale(_settings.displayReference?.hudScreenSize);
             canvas.renderMode = RenderMode.WorldSpace;
         }
@@ -206,6 +215,7 @@ namespace LandmarksR.Scripts.Player
             if (!_settings) return;
             hudMode = HudMode.Fixed;
             _logger.I("hud", "SetModeFixed");
+
             AdjustScale(_settings.displayReference?.hudScreenSize);
             Recenter(_settings.displayReference?.hudDistance);
 
@@ -216,6 +226,7 @@ namespace LandmarksR.Scripts.Player
         {
             hudMode = HudMode.Overlay;
             _logger.I("hud", "SetModeOverlay");
+
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         }
 
@@ -236,8 +247,9 @@ namespace LandmarksR.Scripts.Player
         private void Recenter(float? distanceToCam)
         {
             if (!distanceToCam.HasValue) return;
+
             // Get the camera position
-            var camTransform = canvas.worldCamera.transform;
+            var camTransform = _camera.transform;
             var camPos = camTransform.position;
             var camForward = camTransform.forward;
             var camUp = camTransform.up;
@@ -245,6 +257,12 @@ namespace LandmarksR.Scripts.Player
             SetTransformPosition(canvas.transform, camPos + camForward * distanceToCam.Value, camForward, camUp);
             SetTransformPosition(colliderTransform, camPos + camForward * distanceToCam.Value, camForward, camUp);
             SetTransformPosition(planeSurfaceTransform, camPos + camForward * distanceToCam.Value, camForward, camUp);
+        }
+
+        private IEnumerator WaitForRecenter()
+        {
+            yield return new WaitUntil(() => _camera.transform.localPosition != Vector3.zero);
+            Recenter(_settings.displayReference?.hudDistance);
         }
 
 
@@ -274,7 +292,7 @@ namespace LandmarksR.Scripts.Player
         }
         private float CalculateCanvasHeight()
         {
-            return 2.0f *  Mathf.Tan(0.5f * canvas.worldCamera.fieldOfView * Mathf.Deg2Rad);
+            return 2.0f *  Mathf.Tan(0.5f * _camera.fieldOfView * Mathf.Deg2Rad);
         }
 
         public void HideByLayer(string layerName)

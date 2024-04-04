@@ -29,6 +29,22 @@ namespace LandmarksR.Scripts.Player
         private ExperimentLogger _logger;
         private bool _playerLogging = true;
 
+        public static PlayerController Instance { get; private set; }
+
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this);
+            }
+            else
+            {
+                Instance = this;
+                DontDestroyOnLoad(this);
+            }
+        }
+
+
         private void Start()
         {
             _settings = Settings.Instance;
@@ -40,6 +56,7 @@ namespace LandmarksR.Scripts.Player
             StartCoroutine(PlayerLoggingCoroutine(waitTime));
         }
 
+        #region Logging
         private IEnumerator PlayerLoggingCoroutine(float interval = 0.2f)
         {
             while (_playerLogging)
@@ -51,7 +68,7 @@ namespace LandmarksR.Scripts.Player
 
         private void HandleVRLogging()
         {
-            var vrTransform = hud.GetCamera().transform;
+            var vrTransform = vrPlayerControllerReference.mainCamera.transform;
             var position = vrTransform.position;
             var rotation = vrTransform.rotation.eulerAngles;
             _logger.I("player", $"Position: {position}|Rotation: {rotation}");
@@ -59,11 +76,12 @@ namespace LandmarksR.Scripts.Player
 
         private void HandleDesktopLogging()
         {
-            var desktopTransform = hud.GetCamera().transform;
+            var desktopTransform = desktopPlayerControllerReference.mainCamera.transform;
             var position = desktopTransform.position;
             var rotation = desktopTransform.rotation.eulerAngles;
             _logger.I("player", $"Position: {position}|Rotation: {rotation}");
         }
+        #endregion
 
         public void Teleport(Vector3 position, Vector3 rotation)
         {
@@ -73,7 +91,17 @@ namespace LandmarksR.Scripts.Player
             }
         }
 
-        public void SwitchDisplayMode(DisplayMode displayMode)
+        public Camera GetMainCamera()
+        {
+            return _settings.displayReference.displayMode switch
+            {
+                DisplayMode.Desktop => desktopPlayerControllerReference.mainCamera,
+                DisplayMode.VR => vrPlayerControllerReference.mainCamera,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+
+        private void SwitchDisplayMode(DisplayMode displayMode)
         {
             switch (displayMode)
             {
@@ -82,8 +110,6 @@ namespace LandmarksR.Scripts.Player
 
                     vrPlayerControllerReference.gameObject.SetActive(false);
                     desktopPlayerControllerReference.gameObject.SetActive(true);
-                    hud.SetCamera(desktopPlayerControllerReference.mainCamera);
-                    hud.ApplySettingChanges();
 
                     firstPersonController = desktopPlayerControllerReference.GetComponent<FirstPersonController>();
                     playerEvent = desktopPlayerControllerReference.GetComponent<PlayerEventController>();
@@ -95,8 +121,6 @@ namespace LandmarksR.Scripts.Player
 
                     desktopPlayerControllerReference.gameObject.SetActive(false);
                     vrPlayerControllerReference.gameObject.SetActive(true);
-                    hud.SetCamera(vrPlayerControllerReference.mainCamera);
-                    hud.ApplySettingChanges();
 
                     firstPersonController = null;
                     playerEvent = vrPlayerControllerReference.GetComponent<PlayerEventController>();

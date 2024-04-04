@@ -1,47 +1,74 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Taylors.Scripts
 {
+    [Serializable]
+    public class TargetInfo
+    {
+        public string targetName;
+        public Sprite sprite;
+    }
+
+    [Serializable]
     public class HighlightableButton
     {
-        public HighlightableButton(Button button, Color originalColor)
-        {
-            this.button = button;
-            this.originalColor = originalColor;
-        }
-        public readonly Button button;
-        public readonly Color originalColor;
+        public Button button;
+        public Collider collider;
+        public Color originalColor;
     }
+
     public class TargetObjectSelection : MonoBehaviour
     {
         // Start is called before the first frame update
         [SerializeField] private OVRInput.Button triggerButton = OVRInput.Button.PrimaryIndexTrigger;
-        [SerializeField] private Transform buttonParentTransform;
-        private Dictionary<string, HighlightableButton> buttonGroup;
-        [CanBeNull] private Button highlightedButton;
+        [SerializeField] private List<HighlightableButton> buttons = new();
+        [CanBeNull] private TargetInfo _highlightedInfo;
 
-        [SerializeField] private UnityEvent<string> targetSelected;
+        [SerializeField] private List<TargetInfo> targetInfos = new();
 
+        private List<Tuple<TargetInfo, HighlightableButton>> _targetButtonPairs = new();
+        [SerializeField] private bool randomizeButtonOrder = false;
+        [SerializeField] private float randomizingSeed = 1024;
+
+        public UnityEvent<string> targetSelected;
         private void Start()
         {
-            Debug.Assert(buttonParentTransform != null, "Button Parent is not set");
-
-            targetSelected.AddListener(Debug.Log);
-
-            buttonGroup = new Dictionary<string, HighlightableButton>();
-
-            foreach (Transform child in buttonParentTransform.transform)
+            foreach (var button in buttons)
             {
-                if (child.TryGetComponent<Button>(out var button))
+                button.originalColor = button.button.image.color;
+            }
+
+            // Order by sibling index
+            buttons = buttons.OrderBy(a => a.button.transform.GetSiblingIndex()).ToList();
+
+            Assert.IsTrue(targetInfos.Count > 0, "Target Buttons are not set");
+            Assert.AreEqual(targetInfos.Count, buttons.Count, "Target Infos and Buttons are not the same size");
+
+            // Randomize the order of the target info that's gonna be mapped to the buttons
+            if (randomizeButtonOrder)
+            {
+                var random = new System.Random((int) randomizingSeed);
+                targetInfos = targetInfos.OrderBy(a => random.Next()).ToList();
+            }
+
+            // Map the target info to the buttons
+            _targetButtonPairs = targetInfos
+                .Zip(buttons, (info, button) => new Tuple<TargetInfo, HighlightableButton>(info, button)).ToList();
+
+            foreach (var pair in _targetButtonPairs)
+            {
+                pair.Item2.button.image.sprite = pair.Item1.sprite;
+                pair.Item2.button.onClick.AddListener(() =>
                 {
-                    Debug.Assert(buttonGroup.TryAdd(child.name, new HighlightableButton(button, button.image.color)), $"Button {child.name} already exists in the dictionary, make sure all buttons have unique names");
-                    button.onClick.AddListener(() => { if (!highlightedButton) targetSelected?.Invoke(child.name); });
-                }
+                    if (_highlightedInfo == null) targetSelected?.Invoke(pair.Item1.targetName);
+                });
             }
         }
 
@@ -49,24 +76,22 @@ namespace Taylors.Scripts
         {
             if (OVRInput.GetDown(triggerButton))
             {
-                if (highlightedButton) targetSelected?.Invoke(highlightedButton.name);
+                if (_highlightedInfo != null) targetSelected?.Invoke(_highlightedInfo.targetName);
             }
         }
 
-        public void HighlightButton(string buttonName)
+        public void HighlightButton(Collider buttonCollider)
         {
-            Debug.Log("Highlighting button: " + buttonName);
-            // Set the button normal color to white
-            foreach (var button in buttonGroup)
+            foreach (var pair in _targetButtonPairs)
             {
-                if (button.Key == buttonName)
+                if (pair.Item2.collider == buttonCollider)
                 {
-                    ApplyButtonAlpha(button.Value.button, 1f);
-                    highlightedButton = button.Value.button;
+                    _highlightedInfo = pair.Item1;
+                    ApplyButtonAlpha(pair.Item2.button, pair.Item2.originalColor.a);
                 }
                 else
                 {
-                    ApplyButtonAlpha(button.Value.button, 0.3f);
+                    ApplyButtonAlpha(pair.Item2.button, 0.3f);
                 }
             }
         }
@@ -74,12 +99,12 @@ namespace Taylors.Scripts
 
         public void UnhighlightAllButtons()
         {
-            foreach (var button in buttonGroup)
+            foreach (var pair in _targetButtonPairs)
             {
-                ApplyButtonAlpha(button.Value.button, button.Value.originalColor.a);
+                ApplyButtonAlpha(pair.Item2.button, pair.Item2.originalColor.a);
             }
 
-            highlightedButton = null;
+            _highlightedInfo = null;
         }
 
         private static void ApplyButtonAlpha(Selectable button, float alpha)

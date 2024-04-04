@@ -2,6 +2,7 @@
 using LandmarksR.Scripts.Attributes;
 using LandmarksR.Scripts.Player;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace LandmarksR.Scripts.Experiment
 {
@@ -80,7 +81,13 @@ namespace LandmarksR.Scripts.Experiment
         {
             // apply the settings to the environment
             var environment = GameObject.FindGameObjectWithTag("Environment");
-            if (!environment) return;
+            Assert.IsNotNull(environment, "Can't find environment object, please add a GameObject with the tag 'Environment'");
+
+            // var floor = GameObject.FindGameObjectWithTag("Floor");
+            // Assert.IsNotNull(floor, "Can't find environment object, please add a GameObject with the tag 'Floor'");
+            // var floorTransform = floor.transform;
+            // floorTransform.position = center;
+            // floorTransform.forward = forward;
 
             var environmentTransform = environment.transform;
             environmentTransform.position = center;
