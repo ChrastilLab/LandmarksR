@@ -41,30 +41,6 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
         // Other references
         private GameObject _rightHandAnchor;
 
-        protected override void Prepare()
-        {
-            base.Prepare();
-            if (!polePrefab)
-            {
-                logger.E("calibration", "Pole Prefab is not set.");
-            }
-
-            if (!floorIndicatorPrefab)
-            {
-                logger.E("calibration", "Floor Indicator Prefab is not set.");
-            }
-
-            if (!calibrationResultPrefab)
-            {
-                logger.E("calibration", "Calibration Result Prefab is not set.");
-            }
-
-            _rightHandAnchor = playerController.vrPlayerControllerReference.rightHandAnchor;
-
-            // Update HUD
-            settings.displayReference.hudMode = HudMode.Follow;
-            hud.ApplySettingChanges();
-        }
 
         public void AddPole()
         {
@@ -216,7 +192,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
             ShowCalibrationResultIndicator(settings.space.center, settings.space.forward);
         }
 
-        public void ResetAll()
+        private void DeleteAllIndicators()
         {
             foreach (var pole in poles)
             {
@@ -233,8 +209,42 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
             {
                 Destroy(_floorIndicator);
             }
-
+        }
+        public void ResetAll()
+        {
+            DeleteAllIndicators();
             ResetNode();
+        }
+
+        protected override void Prepare()
+        {
+            base.Prepare();
+            _rightHandAnchor = playerController.vrPlayerControllerReference.rightHandAnchor;
+
+            // Update HUD
+            settings.displayReference.hudMode = HudMode.Follow;
+            hud.ApplySettingChanges();
+            hud.HideButton()
+               .ShowProgressBar();
+        }
+
+        protected override void Finish()
+        {
+            base.Finish();
+            var environment = GameObject.FindGameObjectWithTag("Environment");
+            if (environment)
+            {
+                foreach (Transform tr in environment.transform)
+                {
+                    tr.gameObject.SetActive(true);
+                }
+            }
+
+            var calibrationSpace = GameObject.FindGameObjectWithTag("Calibration");
+            calibrationSpace.SetActive(false);
+
+            hud.HideProgressBar();
+            DeleteAllIndicators();
         }
     }
 }

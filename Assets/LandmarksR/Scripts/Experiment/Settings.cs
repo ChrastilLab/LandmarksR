@@ -83,15 +83,16 @@ namespace LandmarksR.Scripts.Experiment
             var environment = GameObject.FindGameObjectWithTag("Environment");
             Assert.IsNotNull(environment, "Can't find environment object, please add a GameObject with the tag 'Environment'");
 
-            // var floor = GameObject.FindGameObjectWithTag("Floor");
-            // Assert.IsNotNull(floor, "Can't find environment object, please add a GameObject with the tag 'Floor'");
-            // var floorTransform = floor.transform;
-            // floorTransform.position = center;
-            // floorTransform.forward = forward;
+            var calibrationSpace = GameObject.FindGameObjectWithTag("Calibration");
+            Assert.IsNotNull(calibrationSpace, "Can't find calibration object, please add a GameObject with the tag 'Calibration'");
 
             var environmentTransform = environment.transform;
             environmentTransform.position = center;
             environmentTransform.forward = forward;
+
+            var calibrationSpaceTransform = calibrationSpace.transform;
+            calibrationSpaceTransform.position = center;
+            calibrationSpaceTransform.forward = forward;
         }
     }
 

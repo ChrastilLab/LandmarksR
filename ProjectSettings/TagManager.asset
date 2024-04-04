@@ -20,6 +20,7 @@ TagManager:
   - HUD
   - AlcoveLocationColliders
   - Floor
+  - Calibration
   layers:
   - Default
   - TransparentFX

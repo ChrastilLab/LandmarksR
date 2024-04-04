@@ -12,6 +12,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         private Footprint _footprint;
 
         [SerializeField] private bool toOrigin;
+        [SerializeField] private Vector3 originOffset;
         private bool _isPlayerOnFootprint;
         private bool _readyToConfirm;
         private GameObject _environment;
@@ -50,7 +51,10 @@ namespace LandmarksR.Scripts.Experiment.Tasks
                 target = new GameObject("Origin").transform;
 
                 var position = settings.space.calibrated ? settings.space.center : Vector3.zero;
-                position += playerController.transform.localPosition;
+                position += _environment.transform.rotation * originOffset;
+
+                logger.I("calibration", $"origin position: {originOffset}");
+                logger.I("calibration", $"Target position: {position}");
 
                 var rotation = settings.space.calibrated ? Quaternion.LookRotation(settings.space.forward) : Quaternion.identity;
                 target.transform.SetPositionAndRotation(position, rotation);
