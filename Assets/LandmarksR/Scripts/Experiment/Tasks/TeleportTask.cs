@@ -9,13 +9,8 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         protected override void Prepare()
         {
             base.Prepare();
-            Experiment.Instance.playerController.Teleport(position, rotation);
+            playerController.Teleport(position, rotation);
             isRunning = false;
-        }
-
-        protected override void Finish()
-        {
-            base.Finish();
         }
     }
 }

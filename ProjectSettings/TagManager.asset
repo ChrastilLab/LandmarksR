@@ -9,6 +9,18 @@ TagManager:
   - Hud
   - Target
   - Environment
+  - LocationColliders
+  - Wall
+  - Sky
+  - Task
+  - Target_Model
+  - PlayerCollider
+  - ControllerCollider
+  - Footprint
+  - HUD
+  - AlcoveLocationColliders
+  - Floor
+  - Calibration
   layers:
   - Default
   - TransparentFX
@@ -16,11 +28,11 @@ TagManager:
   - 
   - Water
   - UI
-  - Ground
+  - Floor
+  - Objects
   - 
   - 
-  - 
-  - 
+  - Hud
   - 
   - 
   - 

@@ -1,22 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 namespace LandmarksR.Scripts.Experiment.Tasks
 {
-
     public enum NodeMoveDirection
     {
-        None,
         Next,
         Previous,
     }
+
     public class CollectionTask : BaseTask
     {
         private LinkedList<BaseTask> _taskList;
         private LinkedListNode<BaseTask> _currentNode;
-        private NodeMoveDirection _nodeMoveDirection = NodeMoveDirection.None;
+        private NodeMoveDirection _nodeMoveDirection = NodeMoveDirection.Next;
+
         protected override void Prepare()
         {
             base.Prepare();
@@ -40,13 +38,9 @@ namespace LandmarksR.Scripts.Experiment.Tasks
                 {
                     case NodeMoveDirection.Previous when _currentNode.Previous != null:
                         _currentNode = _currentNode.Previous;
-                        _nodeMoveDirection = NodeMoveDirection.None;
+                        _nodeMoveDirection = NodeMoveDirection.Next;
                         break;
                     case NodeMoveDirection.Next when _currentNode.Next != null:
-                        _currentNode = _currentNode.Next;
-                        _nodeMoveDirection = NodeMoveDirection.None;
-                        break;
-                    case NodeMoveDirection.None:
                     default:
                         _currentNode = _currentNode.Next;
                         break;
@@ -56,14 +50,22 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             Finish();
         }
 
-        public void MoveToNext()
+        public void SkipNext()
         {
-            _nodeMoveDirection = NodeMoveDirection.Next;
+            if (_currentNode.Next != null)
+            {
+                _currentNode = _currentNode.Next;
+            }
         }
 
         public void MoveToPrevious()
         {
             _nodeMoveDirection = NodeMoveDirection.Previous;
+        }
+
+        protected void ResetNode()
+        {
+            _currentNode = _taskList.First;
         }
     }
 }

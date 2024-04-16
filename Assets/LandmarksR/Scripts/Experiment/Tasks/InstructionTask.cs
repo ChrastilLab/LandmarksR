@@ -1,12 +1,9 @@
-﻿using LandmarksR.Scripts.Player;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace LandmarksR.Scripts.Experiment.Tasks
 {
     public class InstructionTask : BaseTask
     {
-        protected Hud Hud;
-        protected PlayerEventController PlayerEvent;
         [SerializeField] private string instructionTitle;
         [TextArea(3, 10)]
         [SerializeField] private string instructionContent;
@@ -14,13 +11,16 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         {
             base.Prepare();
 
-            Hud = Experiment.Instance.playerController.hud;
-            Hud.SetTitle(instructionTitle)
+            hud.SetTitle(instructionTitle)
                 .SetContent(instructionContent)
                 .ShowAll();
 
-            PlayerEvent = Experiment.Instance.playerController.playerEvent;
-            PlayerEvent.RegisterConfirmHandler(OnConfirm);
+            playerEvent.RegisterConfirmHandler(OnConfirm);
+        }
+
+        protected void UnregisterConfirmHandler()
+        {
+            playerEvent.UnregisterConfirmHandler(OnConfirm);
         }
 
         private void OnConfirm()
@@ -32,8 +32,8 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         protected override void Finish()
         {
             base.Finish();
-            Hud.HideAll();
-            PlayerEvent.UnregisterConfirmHandler(OnConfirm);
+            hud.HideAll();
+            playerEvent.UnregisterConfirmHandler(OnConfirm);
         }
     }
 }

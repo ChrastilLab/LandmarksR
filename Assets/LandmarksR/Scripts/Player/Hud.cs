@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections;
+using JetBrains.Annotations;
 using LandmarksR.Scripts.Attributes;
 using LandmarksR.Scripts.Experiment;
+using LandmarksR.Scripts.Experiment.Log;
+using LandmarksR.Scripts.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace LandmarksR.Scripts.Player
@@ -18,39 +22,56 @@ namespace LandmarksR.Scripts.Player
     public class Hud : MonoBehaviour
     {
         private Settings _settings;
-        private DisplaySettings DisplaySettingsReference => _settings.displayReference;
+        private ExperimentLogger _logger;
+        private PlayerController _playerController;
         [NotEditable, SerializeField] private HudMode hudMode;
+        [SerializeField] private Transform hudTransform;
         [SerializeField] private Canvas canvas;
         [SerializeField] private GameObject panel;
         [SerializeField] private TMP_Text titleText;
         [SerializeField] private TMP_Text contentText;
         [SerializeField] private Button confirmButton;
+        [SerializeField] private ProgressBar progressBar;
+
+        [Header("Interactive Properties")]
+        [SerializeField] private Transform colliderTransform;
+        [SerializeField] private Transform planeSurfaceTransform;
 
         private Camera _camera;
 
         private void Start()
         {
+            Assert.IsNotNull(hudTransform, "HUD Transform is not set");
+            Assert.IsNotNull(canvas, "Canvas is not set");
+            Assert.IsNotNull(panel, "Panel is not set");
+            Assert.IsNotNull(colliderTransform, "Box Collider Transform is not set");
+            Assert.IsNotNull(planeSurfaceTransform, "Plane Surface Transform is not set");
 
+            _settings = Settings.Instance;
+            _logger = ExperimentLogger.Instance;
+            _playerController = PlayerController.Instance;
+
+            Assert.IsNotNull(_settings, "Failed to obtain Settings instance");
+            Assert.IsNotNull(_logger, "Failed to obtain ExperimentLogger instance");
+            Assert.IsNotNull(_playerController, "Failed to obtain PlayerController instance");
+
+            _camera = _playerController.GetMainCamera();
+            SwitchHudMode(_settings.displayReference?.hudMode);
+
+            StartCoroutine(WaitForRecenter());
         }
 
-        public void UpdateSettings(Settings settings)
+        public void ApplySettingChanges()
         {
-            _settings = settings;
-            SwitchHudMode(DisplaySettingsReference.hudMode);
+            if (!_settings)
+            {
+                _logger.E("hud", "Applying Setting Changes Failed");
+                return;
+            }
+            SwitchHudMode(_settings.displayReference?.hudMode);
         }
 
-        public void SetCamera(Camera cam)
-        {
-            _camera = cam;
-            canvas.worldCamera = cam;
-        }
-
-        public Camera GetCamera() => _camera;
-
-        public void SetCameraToFollow()
-        {
-            canvas.renderMode = RenderMode.WorldSpace;
-        }
+        #region Hud Content
 
         public Hud SetTitle(string text)
         {
@@ -90,6 +111,26 @@ namespace LandmarksR.Scripts.Player
             return this;
         }
 
+        public Hud ShowProgressBar()
+        {
+            progressBar.gameObject.SetActive(true);
+            progressBar.SetMaxWidth(_settings.displayReference?.hudScreenSize.x ?? 1080);
+            return this;
+        }
+
+        public Hud HideProgressBar()
+        {
+            progressBar.gameObject.SetActive(false);
+            return this;
+        }
+
+
+        public Hud SetProgress(float value)
+        {
+            progressBar.SetProgress(value);
+            return this;
+        }
+
         public Hud ShowAll()
         {
             panel.SetActive(true);
@@ -120,6 +161,11 @@ namespace LandmarksR.Scripts.Player
             return this;
         }
 
+        public void HideAllAction()
+        {
+            HideAll();
+        }
+
         public void HideAllAfter(float seconds)
         {
             StartCoroutine(HideAllAfterCoroutine(seconds));
@@ -131,10 +177,13 @@ namespace LandmarksR.Scripts.Player
             HideAll();
         }
 
+        #endregion
 
-        public Hud SwitchHudMode(HudMode mode)
+
+        public Hud SwitchHudMode(HudMode? mode)
         {
-            switch (mode)
+            if (!mode.HasValue) return this;
+            switch (mode.Value)
             {
                 case HudMode.Follow:
                     SetModeFollow();
@@ -148,22 +197,27 @@ namespace LandmarksR.Scripts.Player
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
             return this;
         }
 
 
         private void SetModeFollow()
         {
+            if (!_settings) return;
             hudMode = HudMode.Follow;
-            AdjustScale(DisplaySettingsReference.hudScreenSize);
+            _logger.I("hud", "SetModeFollow");
+
+            AdjustScale(_settings.displayReference?.hudScreenSize);
             canvas.renderMode = RenderMode.WorldSpace;
         }
         private void SetModeFixed()
         {
+            if (!_settings) return;
             hudMode = HudMode.Fixed;
-            AdjustScale(DisplaySettingsReference.hudScreenSize);
-            Recenter(DisplaySettingsReference.hudDistance);
+            _logger.I("hud", "SetModeFixed");
+
+            AdjustScale(_settings.displayReference?.hudScreenSize);
+            Recenter(_settings.displayReference?.hudDistance);
 
             canvas.renderMode = RenderMode.WorldSpace;
         }
@@ -171,6 +225,8 @@ namespace LandmarksR.Scripts.Player
         private void SetModeOverlay()
         {
             hudMode = HudMode.Overlay;
+            _logger.I("hud", "SetModeOverlay");
+
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         }
 
@@ -183,44 +239,60 @@ namespace LandmarksR.Scripts.Player
 
         private void FollowRecenter()
         {
-            if (hudMode != HudMode.Follow || _settings == null) return;
-            Recenter(DisplaySettingsReference.hudDistance);
+            if (!_settings) return;
+            if (hudMode != HudMode.Follow) return;
+            Recenter(_settings.displayReference?.hudDistance);
         }
 
-        private void Recenter(float distanceToCam)
+        private void Recenter(float? distanceToCam)
         {
+            if (!distanceToCam.HasValue) return;
+
             // Get the camera position
-            var camTransform = canvas.worldCamera.transform;
+            var camTransform = _camera.transform;
             var camPos = camTransform.position;
             var camForward = camTransform.forward;
             var camUp = camTransform.up;
 
-            // Set the position of the canvas to the camera position + the camera forward vector * distanceToCam
-            canvas.transform.position = camPos + camForward * distanceToCam;
-            canvas.transform.rotation = Quaternion.LookRotation(camForward, camUp);
+            SetTransformPosition(canvas.transform, camPos + camForward * distanceToCam.Value, camForward, camUp);
+            SetTransformPosition(colliderTransform, camPos + camForward * distanceToCam.Value, camForward, camUp);
+            SetTransformPosition(planeSurfaceTransform, camPos + camForward * distanceToCam.Value, camForward, camUp);
+        }
+
+        private IEnumerator WaitForRecenter()
+        {
+            yield return new WaitUntil(() => _camera.transform.localPosition != Vector3.zero);
+            Recenter(_settings.displayReference?.hudDistance);
         }
 
 
-        public void SetCanvasPosition(Vector3 position, Vector3 lookAt, Vector3 upward)
+        private static void SetTransformPosition(Transform tr, Vector3 position, Vector3 lookAt, Vector3 upward)
         {
-            if (hudMode != HudMode.Fixed) return;
-
-            canvas.transform.position = position;
-            canvas.transform.rotation = Quaternion.LookRotation(lookAt, upward);
+            tr.position = position;
+            tr.rotation = Quaternion.LookRotation(lookAt, upward);
         }
 
-        private void AdjustScale(Vector2 size)
+        private static void SetTransformScale(Transform tr, Vector3 scale)
         {
-            var scaleFactor = CalculateScaleFactor(size);
-            canvas.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+            tr.localScale = scale;
         }
-        private float CalculateScaleFactor(Vector2 size)
+
+        private void AdjustScale(Vector2? size)
         {
+            if (!size.HasValue) return;
+
             // This is a simple heuristic. You might need to adjust this formula based on your specific needs
             // and camera settings. This formula assumes a FOV of 60 degrees.
-            var h = 2.0f *  Mathf.Tan(0.5f * canvas.worldCamera.fieldOfView * Mathf.Deg2Rad);
-            var scaleFactor = h / size.y;
-            return scaleFactor;
+            var h = CalculateCanvasHeight();
+            var canvasScale = h / size.Value.y;
+            SetTransformScale(canvas.transform, new Vector3(canvasScale, canvasScale, canvasScale));
+
+            var w = canvasScale * size.Value.x;
+            SetTransformScale(colliderTransform, new Vector3(w, h, _settings.interaction.hudColliderThickness));
+        }
+        private float CalculateCanvasHeight()
+        {
+            return 2.0f *  Mathf.Tan(0.5f * _camera.fieldOfView * Mathf.Deg2Rad);
         }
 
         public void HideByLayer(string layerName)

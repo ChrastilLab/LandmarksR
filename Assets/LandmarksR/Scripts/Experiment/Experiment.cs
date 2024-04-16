@@ -36,6 +36,8 @@ namespace LandmarksR.Scripts.Experiment
 
         private void Start()
         {
+            Debug.Assert(playerController != null, "PlayerController is not set");
+
             var rootTaskGameObject = GameObject.FindGameObjectWithTag("RootTask");
             if (rootTaskGameObject == null)
             {
@@ -46,7 +48,7 @@ namespace LandmarksR.Scripts.Experiment
 
             if (rootTask == null)
             {
-                throw new Exception("No RootTask Component found");
+                throw new Exception("No Collection Component found");
             }
 
             StartCoroutine(rootTask.ExecuteAll());
