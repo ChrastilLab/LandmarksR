@@ -5,6 +5,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
     public class ExploreTask : BaseTask
     {
 
+        private HudMode _previousHudMode;
         protected override void Prepare()
         {
             base.Prepare();
@@ -12,21 +13,23 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
             playerController.TryEnableDesktopInput();
 
+            _previousHudMode = settings.displayReference.hudMode;
             settings.displayReference.hudMode = HudMode.Fixed;
             hud.ApplySettingChanges();
 
-            hud.SetTitle($"Explore the environment for {timer} seconds")
-                .SetContent("Other Instruction here")
-                .ShowButton()
-                .ShowAllComponents();
+            hud.SetContent($"Explore the environment for {timer} seconds").SetTitle("");
 
-
+            hud.SetOpacity(0.8f);
+            hud.ShowByLayer("Environment");
         }
 
         protected override void Finish()
         {
             base.Finish();
             playerController.DisableDesktopInput();
+            settings.displayReference.hudMode = _previousHudMode;
+            hud.ApplySettingChanges();
+            hud.SetOpacity(0);
         }
 
 

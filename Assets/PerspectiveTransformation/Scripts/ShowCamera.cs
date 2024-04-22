@@ -6,8 +6,8 @@ namespace PerspectiveTransformation.Scripts
 {
     public class ShowCamera : BaseTask
     {
-        public Vector3 TargetPosition { get; private set; }
-        public Vector3 TargetRotation { get; private set; }
+        private Vector3 _targetPosition;
+        private Vector3 _targetRotation;
 
         [SerializeField] private GameObject arrow;
         [SerializeField] private bool isFirstShow = true;
@@ -18,10 +18,22 @@ namespace PerspectiveTransformation.Scripts
 
         private Camera _camera;
 
+        [SerializeField] private bool isStaticLook;
+
 
         protected override void Prepare()
         {
             base.Prepare();
+            _camera = playerController.GetMainCamera();
+
+            if (isStaticLook)
+            {
+                _camera.transform.position = new Vector3(0, 100, -4f);
+                _camera.transform.rotation = Quaternion.Euler(90, 0, 0);
+                _camera.orthographic = true;
+                _camera.orthographicSize = 40;
+                return;
+            }
 
             var repeatTask = GetComponentInParent<RepeatTask>();
             Assert.IsNotNull(repeatTask, "Move Camera must be a child of Repeat Task");
@@ -31,7 +43,6 @@ namespace PerspectiveTransformation.Scripts
 
 
 
-            _camera = playerController.GetMainCamera();
 
             _transformationStringIndex = isFirstShow ? 0 : 1;
 
@@ -44,8 +55,8 @@ namespace PerspectiveTransformation.Scripts
 
             var current = table.Enumerator.GetCurrent();
 
-            TargetPosition = Utilities.GetPositionFromDataFrame(current);
-            TargetRotation = Utilities.GetRotationFromDataFrame(current);
+            _targetPosition = Utilities.GetPositionFromDataFrame(current);
+            _targetRotation = Utilities.GetRotationFromDataFrame(current);
             isTopDown = Utilities.GetOrderFromDataFrame(current)[_transformationStringIndex] == 'T';
 
             if (isTopDown)
@@ -56,8 +67,8 @@ namespace PerspectiveTransformation.Scripts
 
         private void HandleFirstPerson()
         {
-            _camera.transform.position = TargetPosition;
-            _camera.transform.rotation = Quaternion.Euler(TargetRotation);
+            _camera.transform.position = _targetPosition;
+            _camera.transform.rotation = Quaternion.Euler(_targetRotation);
             _camera.orthographic = false;
 
             arrow.SetActive(false);
@@ -73,24 +84,24 @@ namespace PerspectiveTransformation.Scripts
             _camera.orthographicSize = 40;
 
             arrow.SetActive(true);
-            arrow.transform.position = TargetPosition;
-            arrow.transform.rotation = Quaternion.Euler(TargetRotation);
+            arrow.transform.position = _targetPosition;
+            arrow.transform.rotation = Quaternion.Euler(_targetRotation);
         }
 
         private void HandleResponseYes()
         {
-
+            isRunning = false;
         }
 
         private void HandleResponseNo()
         {
-
+            isRunning = false;
         }
 
         protected override void Finish()
         {
             base.Finish();
-            if (!isFirstShow)
+            if (!isFirstShow && !isStaticLook)
             {
                 responsePanel.SetActive(false);
                 playerEvent.UnregisterKeyHandler(KeyCode.F, HandleResponseYes);
