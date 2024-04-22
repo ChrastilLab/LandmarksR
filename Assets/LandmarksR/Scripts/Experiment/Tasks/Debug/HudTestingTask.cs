@@ -14,7 +14,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Debug
         protected override void Start()
         {
             base.Start();
-            AddKeyAction(KeyCode.Alpha1, ()=>Hud.ShowAll(), "Show All");
+            AddKeyAction(KeyCode.Alpha1, ()=>Hud.ShowAllComponents(), "Show All");
             AddKeyAction(KeyCode.Alpha2, ()=>Hud.HideAll(), "Hide All");
             AddKeyAction(KeyCode.Y, ()=>Hud.SwitchHudMode(HudMode.Follow), "Set Hud Mode Follow");
             AddKeyAction(KeyCode.F, ()=>Hud.SwitchHudMode(HudMode.Fixed), "Set Hud Mode Fixed");

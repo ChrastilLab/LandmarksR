@@ -71,7 +71,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
             hud.SetTitle("")
                 .SetContent($"Please look for a footprint and step on it.")
-                .ShowAll()
+                .ShowAllComponents()
                 .HideButton();
 
             playerController.TryEnableDesktopInput(3f);
@@ -94,7 +94,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
             hud.FixedRecenter(2f);
             hud.SetContent("Please align your foot with the footprint.")
-                .ShowAll();
+                .ShowAllComponents();
         }
 
         private void HandlePlayerTriggerExit(Collider other)

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace LandmarksR.Scripts.Experiment.Tasks
 {
@@ -7,13 +8,23 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         [SerializeField] private string instructionTitle;
         [TextArea(3, 10)]
         [SerializeField] private string instructionContent;
+
+        [SerializeField] private float opacity = 0.5f;
+        [SerializeField] private List<string> layersToHide = new();
         protected override void Prepare()
         {
             base.Prepare();
 
             hud.SetTitle(instructionTitle)
                 .SetContent(instructionContent)
-                .ShowAll();
+                .ShowAllComponents();
+
+            hud.ShowAllLayer();
+            foreach (var layer in layersToHide)
+            {
+                hud.HideByLayer(layer);
+            }
+
 
             playerEvent.RegisterConfirmHandler(OnConfirm);
         }
@@ -34,6 +45,11 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             base.Finish();
             hud.HideAll();
             playerEvent.UnregisterConfirmHandler(OnConfirm);
+
+            foreach (var layer in layersToHide)
+            {
+                hud.ShowByLayer(layer);
+            }
         }
     }
 }

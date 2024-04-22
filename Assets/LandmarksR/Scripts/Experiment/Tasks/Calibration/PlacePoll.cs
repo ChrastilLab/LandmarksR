@@ -27,7 +27,7 @@
                 .SetContent(
                     $"Please place the pole at the {_parentTask.GetCurrentPolePosition()} corner of the space and press the trigger button." +
                     "If you want to go back to the previous task, press the A button.")
-                .ShowAll();
+                .ShowAllComponents();
         }
 
         protected override void Finish()

@@ -66,7 +66,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
                 hud.SetTitle("Calibration Warning")
                     .SetContent(
                         "Pole positions are not set properly. Please make sure you set the pole positions correctly in the inspector.")
-                    .ShowAll();
+                    .ShowAllComponents();
                 return "";
             }
 
@@ -91,7 +91,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
                 hud.SetTitle("Calibration Warning")
                     .SetContent(
                         "Poles are not set properly. Please make sure you set the poles correctly in the inspector.")
-                    .ShowAll();
+                    .ShowAllComponents();
                 return;
             }
 
@@ -101,7 +101,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
                 hud.SetTitle("Calibration Warning")
                     .SetContent(
                         "Pole positions are not set properly. Please make sure you set the pole positions correctly in the inspector.")
-                    .ShowAll();
+                    .ShowAllComponents();
                 return;
             }
 

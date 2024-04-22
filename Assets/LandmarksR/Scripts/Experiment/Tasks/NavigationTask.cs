@@ -1,5 +1,7 @@
 ﻿using LandmarksR.Scripts.Attributes;
+using LandmarksR.Scripts.Experiment.Data;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace LandmarksR.Scripts.Experiment.Tasks
 {
@@ -13,16 +15,26 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         {
             base.Prepare();
 
+
             if (transform.parent.TryGetComponent<RepeatTask>(out var repeatTask))
+            {
+                var currentTrialData = repeatTask.table.Enumerator.GetCurrent();
+                target = currentTrialData[0, "Target"] as string;
+
+                Assert.IsNotNull(target, "NavigationTask target is null. Check your data table!");
+
                 // _parentRepeatTask = repeatTask;
-                target = repeatTask.table.GetValue("Target");
+                // target = repeatTask.textTable.GetValue("Target");
+            }
             else
+            {
                 logger.I("task", "Parent task is not a repeat task.");
+            }
 
 
             hud.SetTitle("Navigation Task")
                 .SetContent($"You will have {timer} seconds to find the target: {target}")
-                .ShowAll()
+                .ShowAllComponents()
                 .HideAllAfter(3f);
 
             playerController.TryEnableDesktopInput(3f);

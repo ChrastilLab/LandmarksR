@@ -11,6 +11,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         [Tooltip("This overrides the number of repeat")]
         [SerializeField] private bool useTable;
         [SerializeField] public Table table;
+        private IEnumerator _enumerator;
         [SerializeField] private int numberOfRepeat = 3;
 
         [Tooltip("Current SubTask Number (0-indexed)")]
@@ -26,9 +27,9 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         protected override void Prepare()
         {
             base.Prepare();
-            if (useTable && table != null)
+            if (useTable && table )
             {
-                numberOfRepeat = table.GetRowCount();
+                numberOfRepeat = table.Count;
                 _executeAll = ExecuteByTable;
             }
             else
@@ -45,11 +46,10 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         private IEnumerator ExecuteByTable()
         {
             isSubTaskRunning = true;
-            while (table.HasNextRow())
+            while (table.Enumerator.MoveNext())
             {
                 yield return ExecuteSubTasks();
                 ResetSubtasks();
-                table.MoveNext();
                 currentRepeat++;
             }
             isSubTaskRunning = false;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using LandmarksR.Scripts.Attributes;
 using LandmarksR.Scripts.Experiment;
@@ -105,6 +106,14 @@ namespace LandmarksR.Scripts.Player
             return this;
         }
 
+        public Hud SetOpacity(float opacity)
+        {
+            var color = panel.GetComponent<Image>().color;
+            color.a = opacity;
+            panel.GetComponent<Image>().color = color;
+            return this;
+        }
+
         public Hud ShowButton()
         {
             confirmButton.gameObject.SetActive(true);
@@ -131,7 +140,7 @@ namespace LandmarksR.Scripts.Player
             return this;
         }
 
-        public Hud ShowAll()
+        public Hud ShowAllComponents()
         {
             panel.SetActive(true);
             return this;
@@ -175,6 +184,20 @@ namespace LandmarksR.Scripts.Player
         {
             yield return new WaitForSeconds(seconds);
             HideAll();
+        }
+
+        public void ShowAllLayer()
+        {
+            canvas.worldCamera.cullingMask = -1;
+        }
+        public void HideByLayer(string layerName)
+        {
+            canvas.worldCamera.cullingMask &= ~(1 << LayerMask.NameToLayer(layerName));
+        }
+
+        public void ShowByLayer(string layerName)
+        {
+            canvas.worldCamera.cullingMask |= (1 << LayerMask.NameToLayer(layerName));
         }
 
         #endregion
@@ -250,13 +273,13 @@ namespace LandmarksR.Scripts.Player
 
             // Get the camera position
             var camTransform = _camera.transform;
-            var camPos = camTransform.position;
+            var camPosition = camTransform.position;
             var camForward = camTransform.forward;
             var camUp = camTransform.up;
 
-            SetTransformPosition(canvas.transform, camPos + camForward * distanceToCam.Value, camForward, camUp);
-            SetTransformPosition(colliderTransform, camPos + camForward * distanceToCam.Value, camForward, camUp);
-            SetTransformPosition(planeSurfaceTransform, camPos + camForward * distanceToCam.Value, camForward, camUp);
+            SetTransformPosition(canvas.transform, camPosition + camForward * distanceToCam.Value, camForward, camUp);
+            SetTransformPosition(colliderTransform, camPosition + camForward * distanceToCam.Value, camForward, camUp);
+            SetTransformPosition(planeSurfaceTransform, camPosition + camForward * distanceToCam.Value, camForward, camUp);
         }
 
         private IEnumerator WaitForRecenter()
@@ -295,15 +318,6 @@ namespace LandmarksR.Scripts.Player
             return 2.0f *  Mathf.Tan(0.5f * _camera.fieldOfView * Mathf.Deg2Rad);
         }
 
-        public void HideByLayer(string layerName)
-        {
-            canvas.GetComponent<Canvas>().worldCamera.cullingMask &= ~(1 << LayerMask.NameToLayer(layerName));
-        }
-
-        public void ShowByLayer(string layerName)
-        {
-            canvas.GetComponent<Canvas>().worldCamera.cullingMask |= (1 << LayerMask.NameToLayer(layerName));
-        }
 
         private void Update()
         {

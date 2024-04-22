@@ -23,7 +23,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         protected ExperimentLogger logger;
 
         // Subtasks (if any) are directly loaded from the children of the task
-        protected List<BaseTask> subTasks;
+        protected List<BaseTask> subTasks = new();
 
         [Header("Time")]
         [SerializeField] protected float timer = Mathf.Infinity;
@@ -55,6 +55,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
             isCompleted = false;
             isRunning = true;
+            elapsedTime = 0;
             StartTimer();
         }
 
@@ -79,6 +80,12 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             yield return new WaitUntil(() => !isRunning);
 
             isSubTaskRunning = true;
+            if (subTasks == null)
+            {
+                Finish();
+                yield break;
+            }
+
             foreach (var task in subTasks)
             {
                 yield return task.ExecuteAll();
@@ -94,7 +101,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             return subTasks.Aggregate("", (current, task) => current + (task.name + " "));
         }
 
-        private void StartTimer()
+        protected void StartTimer()
         {
             StartCoroutine(TimerCoroutine());
         }

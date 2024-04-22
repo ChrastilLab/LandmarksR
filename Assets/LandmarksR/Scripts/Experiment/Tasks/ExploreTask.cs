@@ -18,7 +18,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             hud.SetTitle($"Explore the environment for {timer} seconds")
                 .SetContent("Other Instruction here")
                 .ShowButton()
-                .ShowAll();
+                .ShowAllComponents();
 
 
         }

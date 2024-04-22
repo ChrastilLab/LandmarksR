@@ -133,7 +133,7 @@ namespace LandmarksR.Scripts.Player
             _onConfirm?.Invoke();
         }
 
-        private void RegisterKeyHandler(KeyCode code, KeyboardEventHandler keyboardEventHandler)
+        public void RegisterKeyHandler(KeyCode code, KeyboardEventHandler keyboardEventHandler)
         {
             if (!_keyboardEvents.TryAdd(code, keyboardEventHandler))
             {
@@ -141,7 +141,7 @@ namespace LandmarksR.Scripts.Player
             }
         }
 
-        private void UnregisterKeyHandler(KeyCode code, KeyboardEventHandler keyboardEventHandler)
+        public void UnregisterKeyHandler(KeyCode code, KeyboardEventHandler keyboardEventHandler)
         {
             if (_keyboardEvents.ContainsKey(code))
             {
