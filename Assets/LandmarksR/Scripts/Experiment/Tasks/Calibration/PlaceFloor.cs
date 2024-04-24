@@ -11,10 +11,10 @@
 
             _parentTask = GetComponentInParent<CalibrateTask>();
 
-            playerEvent.RegisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, settings.ui.calibrationTriggerTime, HandleIndexTrigger, UpdateProgressBar);
-            playerEvent.RegisterVRInputHandler(OVRInput.Button.One, HandleAButton);
+            PlayerEvent.RegisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, Settings.ui.calibrationTriggerTime, HandleIndexTrigger, UpdateProgressBar);
+            PlayerEvent.RegisterVRInputHandler(OVRInput.Button.One, HandleAButton);
 
-            hud.ShowProgressBar();
+            HUD.ShowProgressBar();
 
             _parentTask.InitializeFloorIndicator();
         }
@@ -22,10 +22,10 @@
         protected override void Finish()
         {
             base.Finish();
-            hud.HideProgressBar();
+            HUD.HideProgressBar();
 
-            playerEvent.UnregisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, settings.ui.calibrationTriggerTime, HandleIndexTrigger, UpdateProgressBar);
-            playerEvent.UnregisterVRInputHandler(OVRInput.Button.One, HandleAButton);
+            PlayerEvent.UnregisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, Settings.ui.calibrationTriggerTime, HandleIndexTrigger, UpdateProgressBar);
+            PlayerEvent.UnregisterVRInputHandler(OVRInput.Button.One, HandleAButton);
 
         }
 
@@ -44,7 +44,7 @@
 
         private void UpdateProgressBar(float time)
         {
-            hud.SetProgress(time / settings.ui.calibrationTriggerTime);
+            HUD.SetProgress(time / Settings.ui.calibrationTriggerTime);
         }
 
         private void Update()

@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 26680387}
   - component: {fileID: 26680388}
   m_Layer: 0
-  m_Name: Practice Instruction (1)
+  m_Name: Practice Instruction 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enable: 1
   id: 0
-  timer: 2
+  timer: 10
   elapsedTime: 0
   isRunning: 0
   isSubTaskRunning: 0
@@ -1081,7 +1081,7 @@ GameObject:
   - component: {fileID: 392821353}
   - component: {fileID: 392821354}
   m_Layer: 0
-  m_Name: ShowCamera P1 (1)
+  m_Name: Top Down View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1417,11 +1417,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enable: 1
   id: 0
-  timer: 3
+  timer: 4
   elapsedTime: 0
   isRunning: 0
   isSubTaskRunning: 0
   isCompleted: 0
+  instructionTitle: 
+  instructionContent: You will explore the environment for X seconds.
+  opacity: 0.8
+  layersToHide: []
+  hideInstructionAfter: 3
 --- !u!1 &700978258
 GameObject:
   m_ObjectHideFlags: 0
@@ -1468,7 +1473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enable: 1
   id: 0
-  timer: 2
+  timer: 10
   elapsedTime: 0
   isRunning: 0
   isSubTaskRunning: 0
@@ -2961,6 +2966,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1767186809}
   m_CullTransparentMesh: 1
+--- !u!114 &1806451534 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1064353328440664294, guid: 99f76e22df5988c4db811f676591ef1d, type: 3}
+  m_PrefabInstance: {fileID: 398481992458577966}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1840446355
 GameObject:
   m_ObjectHideFlags: 0
@@ -3692,20 +3708,12 @@ PrefabInstance:
       objectReference: {fileID: 1651426110}
     - target: {fileID: 3700846728312776526, guid: 99f76e22df5988c4db811f676591ef1d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: HideAllAction
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3700846728312776526, guid: 99f76e22df5988c4db811f676591ef1d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: LandmarksR.Scripts.Player.Hud, Assembly-CSharp
       objectReference: {fileID: 0}
-    - target: {fileID: 3813215285608364524, guid: 99f76e22df5988c4db811f676591ef1d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3920756664871317901, guid: 99f76e22df5988c4db811f676591ef1d, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 2100000, guid: 6752336ad31e312448bd59895ff5d692, type: 2}
     - target: {fileID: 4168040326050060501, guid: 99f76e22df5988c4db811f676591ef1d, type: 3}
       propertyPath: m_fontColor.b
       value: 0.3137255
@@ -3799,9 +3807,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 398481992458577967}
     - target: {fileID: 5734761318297084721, guid: 99f76e22df5988c4db811f676591ef1d, type: 3}
-      propertyPath: progressBar
+      propertyPath: panelImage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1806451534}
+    - target: {fileID: 5734761318297084721, guid: 99f76e22df5988c4db811f676591ef1d, type: 3}
+      propertyPath: instructionPanel
+      value: 
+      objectReference: {fileID: 1806451534}
     - target: {fileID: 6179782508322299581, guid: 99f76e22df5988c4db811f676591ef1d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.75

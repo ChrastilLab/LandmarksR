@@ -15,16 +15,16 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
             _parentTask = GetComponentInParent<CalibrateTask>();
             if (_parentTask == null)
             {
-                logger.E("calibration",
+                Logger.E("calibration",
                     "ConfirmCalibrationTask is not a child of CalibrateTask. Please make sure ConfirmCalibrationTask is a child of CalibrateTask.");
                 return;
             }
 
             // Register Event Handlers
-            playerEvent.RegisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, settings.ui.calibrationTriggerTime, HandleIndexTrigger, UpdateProgressBarForTrigger);
-            playerEvent.RegisterVRInputHandler(OVRInput.Button.One, HandleAButton);
+            PlayerEvent.RegisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, Settings.ui.calibrationTriggerTime, HandleIndexTrigger, UpdateProgressBarForTrigger);
+            PlayerEvent.RegisterVRInputHandler(OVRInput.Button.One, HandleAButton);
 
-            hud.ShowProgressBar();
+            HUD.ShowProgressBar();
 
             // Compute Calibration
             _parentTask.ComputeCalibration();
@@ -34,10 +34,10 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
         protected override void Finish()
         {
             base.Finish();
-            hud.HideProgressBar();
+            HUD.HideProgressBar();
 
-            playerEvent.UnregisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, settings.ui.calibrationTriggerTime, HandleIndexTrigger, UpdateProgressBarForTrigger);
-            playerEvent.UnregisterVRInputHandler(OVRInput.Button.One, HandleAButton);
+            PlayerEvent.UnregisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, Settings.ui.calibrationTriggerTime, HandleIndexTrigger, UpdateProgressBarForTrigger);
+            PlayerEvent.UnregisterVRInputHandler(OVRInput.Button.One, HandleAButton);
         }
 
 
@@ -55,7 +55,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
 
         private void UpdateProgressBarForTrigger(float time)
         {
-            hud.SetProgress(time / settings.ui.calibrationTriggerTime);
+            HUD.SetProgress(time / Settings.ui.calibrationTriggerTime);
         }
     }
 }

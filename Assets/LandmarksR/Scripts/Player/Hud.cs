@@ -28,7 +28,7 @@ namespace LandmarksR.Scripts.Player
         [NotEditable, SerializeField] private HudMode hudMode;
         [SerializeField] private Transform hudTransform;
         [SerializeField] private Canvas canvas;
-        [SerializeField] private GameObject panel;
+        [SerializeField] private Image instructionPanel;
         [SerializeField] private TMP_Text titleText;
         [SerializeField] private TMP_Text contentText;
         [SerializeField] private Button confirmButton;
@@ -44,7 +44,7 @@ namespace LandmarksR.Scripts.Player
         {
             Assert.IsNotNull(hudTransform, "HUD Transform is not set");
             Assert.IsNotNull(canvas, "Canvas is not set");
-            Assert.IsNotNull(panel, "Panel is not set");
+            Assert.IsNotNull(instructionPanel, "Panel is not set");
             Assert.IsNotNull(colliderTransform, "Box Collider Transform is not set");
             Assert.IsNotNull(planeSurfaceTransform, "Plane Surface Transform is not set");
 
@@ -72,8 +72,9 @@ namespace LandmarksR.Scripts.Player
             SwitchHudMode(_settings.displayReference?.hudMode);
         }
 
-        #region Hud Content
+        #region Canvas Components
 
+        #region Text
         public Hud SetTitle(string text)
         {
             titleText.text = text;
@@ -87,12 +88,12 @@ namespace LandmarksR.Scripts.Player
             return this;
         }
 
-        public Hud SetButtonText(string text)
+        public Hud ClearAllText()
         {
-            confirmButton.GetComponentInChildren<TMP_Text>().text = text;
+            SetTitle("");
+            SetContent("");
             return this;
         }
-
 
         public Hud ShowTitle()
         {
@@ -106,43 +107,15 @@ namespace LandmarksR.Scripts.Player
             return this;
         }
 
-        public Hud SetOpacity(float opacity)
+        public Hud ShowPanel()
         {
-            var color = panel.GetComponent<Image>().color;
-            color.a = opacity;
-            panel.GetComponent<Image>().color = color;
+            instructionPanel.gameObject.SetActive(true);
             return this;
         }
 
-        public Hud ShowButton()
+        public Hud HidePanel()
         {
-            confirmButton.gameObject.SetActive(true);
-            return this;
-        }
-
-        public Hud ShowProgressBar()
-        {
-            progressBar.gameObject.SetActive(true);
-            progressBar.SetMaxWidth(_settings.displayReference?.hudScreenSize.x ?? 1080);
-            return this;
-        }
-
-        public Hud HideProgressBar()
-        {
-            progressBar.gameObject.SetActive(false);
-            return this;
-        }
-
-
-        public Hud SetProgress(float value)
-        {
-            progressBar.SetProgress(value);
-            return this;
-        }
-
-        public Hud ShowAllComponents()
-        {
-            panel.SetActive(true);
+            instructionPanel.gameObject.SetActive(false);
             return this;
         }
 
@@ -164,20 +137,73 @@ namespace LandmarksR.Scripts.Player
             return this;
         }
 
-        public Hud HideAll()
+
+        public Hud SetOpacity(float opacity)
         {
-            panel.SetActive(false);
+            var color = instructionPanel.color;
+            color.a = opacity;
+            instructionPanel.color = color;
+            return this;
+        }
+        #endregion
+
+        #region Confirmation Button
+        public Hud SetButtonText(string text)
+        {
+            confirmButton.GetComponentInChildren<TMP_Text>().text = text;
+            return this;
+        }
+        public Hud ShowButton()
+        {
+            confirmButton.gameObject.SetActive(true);
+            return this;
+        }
+        #endregion
+
+        # region Progress Bar
+        public Hud ShowProgressBar()
+        {
+            progressBar.gameObject.SetActive(true);
+            progressBar.SetMaxWidth(_settings.displayReference?.hudScreenSize.x ?? 1080);
             return this;
         }
 
-        public void HideAllAction()
+        public Hud HideProgressBar()
         {
-            HideAll();
+            progressBar.gameObject.SetActive(false);
+            return this;
         }
 
-        public void HideAllAfter(float seconds)
+        public Hud SetProgress(float value)
+        {
+            progressBar.SetProgress(value);
+            return this;
+        }
+
+        #endregion
+
+
+        public Hud ShowAll()
+        {
+            ShowPanel();
+            ShowTitle();
+            ShowContent();
+            ShowAllLayer();
+            return this;
+        }
+
+        public Hud HideAll()
+        {
+            HidePanel();
+            return this;
+        }
+
+        #endregion
+
+        public Hud HideAllAfter(float seconds)
         {
             StartCoroutine(HideAllAfterCoroutine(seconds));
+            return this;
         }
 
         private IEnumerator HideAllAfterCoroutine(float seconds)
@@ -186,21 +212,45 @@ namespace LandmarksR.Scripts.Player
             HideAll();
         }
 
-        public void ShowAllLayer()
+        public Hud ShowAllLayer()
         {
             canvas.worldCamera.cullingMask = -1;
+            return this;
         }
-        public void HideByLayer(string layerName)
+
+        public Hud ShowLayers(IEnumerable<string> layers)
+        {
+            foreach (var layer in layers)
+            {
+                ShowLayer(layer);
+            }
+
+            return this;
+        }
+
+        public Hud HideLayers(IEnumerable<string> layers)
+        {
+            foreach (var layer in layers)
+            {
+                HideLayer(layer);
+            }
+
+            return this;
+        }
+
+
+        public Hud HideLayer(string layerName)
         {
             canvas.worldCamera.cullingMask &= ~(1 << LayerMask.NameToLayer(layerName));
+            return this;
         }
 
-        public void ShowByLayer(string layerName)
+        public Hud ShowLayer(string layerName)
         {
             canvas.worldCamera.cullingMask |= (1 << LayerMask.NameToLayer(layerName));
+            return this;
         }
 
-        #endregion
 
 
         public Hud SwitchHudMode(HudMode? mode)

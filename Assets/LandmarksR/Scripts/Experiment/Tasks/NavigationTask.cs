@@ -28,17 +28,17 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             }
             else
             {
-                logger.I("task", "Parent task is not a repeat task.");
+                Logger.I("task", "Parent task is not a repeat task.");
             }
 
 
-            hud.SetTitle("Navigation Task")
+            HUD.SetTitle("Navigation Task")
                 .SetContent($"You will have {timer} seconds to find the target: {target}")
-                .ShowAllComponents()
+                .ShowAll()
                 .HideAllAfter(3f);
 
-            playerController.TryEnableDesktopInput(3f);
-            playerEvent.RegisterTriggerEnterHandler(HandlePlayerTriggerEnter);
+            Player.TryEnableDesktopInput(3f);
+            PlayerEvent.RegisterTriggerEnterHandler(HandlePlayerTriggerEnter);
         }
 
         private void HandlePlayerTriggerEnter(Collider other)
@@ -52,8 +52,8 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         protected override void Finish()
         {
             base.Finish();
-            playerController.DisableDesktopInput();
-            playerEvent.UnregisterTriggerEnterHandler(HandlePlayerTriggerEnter);
+            Player.DisableDesktopInput();
+            PlayerEvent.UnregisterTriggerEnterHandler(HandlePlayerTriggerEnter);
         }
     }
 }

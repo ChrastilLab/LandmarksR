@@ -50,13 +50,13 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             {
                 target = new GameObject("Origin").transform;
 
-                var position = settings.space.calibrated ? settings.space.center : Vector3.zero;
+                var position = Settings.space.calibrated ? Settings.space.center : Vector3.zero;
                 position += _environment.transform.rotation * originOffset;
 
-                logger.I("calibration", $"origin position: {originOffset}");
-                logger.I("calibration", $"Target position: {position}");
+                Logger.I("calibration", $"origin position: {originOffset}");
+                Logger.I("calibration", $"Target position: {position}");
 
-                var rotation = settings.space.calibrated ? Quaternion.LookRotation(settings.space.forward) : Quaternion.identity;
+                var rotation = Settings.space.calibrated ? Quaternion.LookRotation(Settings.space.forward) : Quaternion.identity;
                 target.transform.SetPositionAndRotation(position, rotation);
             }
 
@@ -69,13 +69,13 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             _footprint.onTriggerExit += HandlePlayerTriggerExit;
 
 
-            hud.SetTitle("")
+            HUD.SetTitle("")
                 .SetContent($"Please look for a footprint and step on it.")
-                .ShowAllComponents()
+                .ShowAll()
                 .HideButton();
 
-            playerController.TryEnableDesktopInput(3f);
-            playerEvent.RegisterConfirmHandler(HandleConfirm);
+            Player.TryEnableDesktopInput(3f);
+            PlayerEvent.RegisterConfirmHandler(HandleConfirm);
         }
 
         private void HandleConfirm()
@@ -92,9 +92,9 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
             _isPlayerOnFootprint = true;
 
-            hud.FixedRecenter(2f);
-            hud.SetContent("Please align your foot with the footprint.")
-                .ShowAllComponents();
+            HUD.FixedRecenter(2f);
+            HUD.SetContent("Please align your foot with the footprint.")
+                .ShowAll();
         }
 
         private void HandlePlayerTriggerExit(Collider other)
@@ -105,7 +105,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             _isPlayerOnFootprint = false;
             _readyToConfirm = false;
 
-            hud.HideAll();
+            HUD.HideAll();
         }
 
         private void Update()
@@ -113,20 +113,20 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             if (!isRunning) return;
             if (!_isPlayerOnFootprint) return;
 
-            hud.FixedRecenter(2f);
+            HUD.FixedRecenter(2f);
             var angleDifference = ComputeAngleDifference();
             switch (angleDifference)
             {
                 case < 10 and > -10:
-                    hud.SetContent("Aligned! Press Trigger to continue.");
+                    HUD.SetContent("Aligned! Press Trigger to continue.");
                     _readyToConfirm = true;
                     break;
                 case < -10:
-                    hud.SetContent($"You are not aligned. slowly rotate to your left to align");
+                    HUD.SetContent($"You are not aligned. slowly rotate to your left to align");
                     _readyToConfirm = false;
                     break;
                 default:
-                    hud.SetContent($"You are not aligned. slowly rotate to your right to align");
+                    HUD.SetContent($"You are not aligned. slowly rotate to your right to align");
                     _readyToConfirm = false;
                     break;
             }
@@ -139,8 +139,8 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         {
             base.Finish();
             ShowEnvironment();
-            playerController.DisableDesktopInput();
-            playerEvent.UnregisterConfirmHandler(HandleConfirm);
+            Player.DisableDesktopInput();
+            PlayerEvent.UnregisterConfirmHandler(HandleConfirm);
 
             if (_footprint)
                 Destroy(_footprint.gameObject);
@@ -148,7 +148,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
         private float ComputeAngleDifference()
         {
-            var playerForward = playerController.GetMainCamera().transform.forward;
+            var playerForward = Player.GetMainCamera().transform.forward;
             var targetForward = _footprint.transform.forward;
 
             return Vector3.SignedAngle(playerForward, targetForward, Vector3.up);

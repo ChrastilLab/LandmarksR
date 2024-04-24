@@ -62,11 +62,11 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
         {
             if (polePositions.Count != 4)
             {
-                logger.W("Calibration", "Pole positions are not set properly.");
-                hud.SetTitle("Calibration Warning")
+                Logger.W("Calibration", "Pole positions are not set properly.");
+                HUD.SetTitle("Calibration Warning")
                     .SetContent(
                         "Pole positions are not set properly. Please make sure you set the pole positions correctly in the inspector.")
-                    .ShowAllComponents();
+                    .ShowAll();
                 return "";
             }
 
@@ -87,21 +87,21 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
         {
             if (poles.Count != 4)
             {
-                logger.W("Calibration", "Poles are not set properly.");
-                hud.SetTitle("Calibration Warning")
+                Logger.W("Calibration", "Poles are not set properly.");
+                HUD.SetTitle("Calibration Warning")
                     .SetContent(
                         "Poles are not set properly. Please make sure you set the poles correctly in the inspector.")
-                    .ShowAllComponents();
+                    .ShowAll();
                 return;
             }
 
             if (polePositions.Count != 4)
             {
-                logger.W("Calibration", "Pole positions are not set properly.");
-                hud.SetTitle("Calibration Warning")
+                Logger.W("Calibration", "Pole positions are not set properly.");
+                HUD.SetTitle("Calibration Warning")
                     .SetContent(
                         "Pole positions are not set properly. Please make sure you set the pole positions correctly in the inspector.")
-                    .ShowAllComponents();
+                    .ShowAll();
                 return;
             }
 
@@ -111,16 +111,16 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
                 switch (positionType)
                 {
                     case PolePosition.LeftTop:
-                        settings.space.leftTop = position;
+                        Settings.space.leftTop = position;
                         break;
                     case PolePosition.RightTop:
-                        settings.space.rightTop = position;
+                        Settings.space.rightTop = position;
                         break;
                     case PolePosition.RightBottom:
-                        settings.space.rightBottom = position;
+                        Settings.space.rightBottom = position;
                         break;
                     case PolePosition.LeftBottom:
-                        settings.space.leftBottom = position;
+                        Settings.space.leftBottom = position;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -132,8 +132,8 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
         public void UpdateFloorPositionInSettings()
         {
             if (!_floorIndicator) return;
-            settings.space.groundY = _floorIndicator.transform.position.y;
-            logger.I("calibration", $"Floor position updated to {settings.space.groundY}.");
+            Settings.space.groundY = _floorIndicator.transform.position.y;
+            Logger.I("calibration", $"Floor position updated to {Settings.space.groundY}.");
         }
 
         public void InitializeFloorIndicator()
@@ -150,7 +150,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
         {
             if (!_floorIndicator) return;
             var position = _rightHandAnchor.transform.position;
-            position.y -= settings.calibration.controllerHeight;
+            position.y -= Settings.calibration.controllerHeight;
             _floorIndicator.transform.position = position;
         }
 
@@ -188,8 +188,8 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
         {
             UpdateFloorPositionInSettings();
             UpdatePolePositionsInSettings(); // Update the pole positions in the settings
-            settings.space.CalibrateSpace(); // Calibrate the space based on the pole positions
-            ShowCalibrationResultIndicator(settings.space.center, settings.space.forward);
+            Settings.space.CalibrateSpace(); // Calibrate the space based on the pole positions
+            ShowCalibrationResultIndicator(Settings.space.center, Settings.space.forward);
         }
 
         private void DeleteAllIndicators()
@@ -219,12 +219,12 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
         protected override void Prepare()
         {
             base.Prepare();
-            _rightHandAnchor = playerController.vrPlayerControllerReference.rightHandAnchor;
+            _rightHandAnchor = Player.vrPlayerControllerReference.rightHandAnchor;
 
             // Update HUD
-            settings.displayReference.hudMode = HudMode.Follow;
-            hud.ApplySettingChanges();
-            hud.HideButton()
+            Settings.displayReference.hudMode = HudMode.Follow;
+            HUD.ApplySettingChanges();
+            HUD.HideButton()
                .ShowProgressBar();
         }
 
@@ -243,7 +243,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
             var calibrationSpace = GameObject.FindGameObjectWithTag("Calibration");
             calibrationSpace.SetActive(false);
 
-            hud.HideProgressBar();
+            HUD.HideProgressBar();
             DeleteAllIndicators();
         }
     }

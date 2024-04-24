@@ -24,7 +24,7 @@ namespace PerspectiveTransformation.Scripts
         protected override void Prepare()
         {
             base.Prepare();
-            _camera = playerController.GetMainCamera();
+            _camera = Player.GetMainCamera();
 
             if (isStaticLook)
             {
@@ -49,8 +49,8 @@ namespace PerspectiveTransformation.Scripts
             if (!isFirstShow)
             {
                 responsePanel.SetActive(true);
-                playerEvent.RegisterKeyHandler(KeyCode.F, HandleResponseYes);
-                playerEvent.RegisterKeyHandler(KeyCode.J, HandleResponseNo);
+                PlayerEvent.RegisterKeyHandler(KeyCode.F, HandleResponseYes);
+                PlayerEvent.RegisterKeyHandler(KeyCode.J, HandleResponseNo);
             }
 
             var current = table.Enumerator.GetCurrent();
@@ -104,8 +104,8 @@ namespace PerspectiveTransformation.Scripts
             if (!isFirstShow && !isStaticLook)
             {
                 responsePanel.SetActive(false);
-                playerEvent.UnregisterKeyHandler(KeyCode.F, HandleResponseYes);
-                playerEvent.UnregisterKeyHandler(KeyCode.J, HandleResponseNo);
+                PlayerEvent.UnregisterKeyHandler(KeyCode.F, HandleResponseYes);
+                PlayerEvent.UnregisterKeyHandler(KeyCode.J, HandleResponseNo);
             }
         }
     }

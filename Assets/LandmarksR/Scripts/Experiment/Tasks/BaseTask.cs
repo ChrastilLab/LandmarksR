@@ -15,15 +15,15 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         [SerializeField] protected bool enable = true;
         [NotEditable] public uint id;
 
-        protected Settings settings;
-        protected Experiment experiment;
-        protected PlayerController playerController;
-        protected PlayerEventController playerEvent;
-        protected Hud hud;
-        protected ExperimentLogger logger;
+        protected Settings Settings { get; private set; }
+        private Experiment Experiment { get; set; }
+        protected PlayerController Player { get; private set; }
+        protected PlayerEventController PlayerEvent { get; private set; }
+        protected Hud HUD { get; private set; }
+        protected ExperimentLogger Logger { get; set; }
 
         // Subtasks (if any) are directly loaded from the children of the task
-        protected List<BaseTask> subTasks = new();
+        protected List<BaseTask> _subTasks = new();
 
         [Header("Time")]
         [SerializeField] protected float timer = Mathf.Infinity;
@@ -31,7 +31,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
         protected virtual void Start()
         {
-            subTasks = transform.Cast<Transform>()
+            _subTasks = transform.Cast<Transform>()
                 .OrderBy(tr => tr.GetSiblingIndex())
                 .Select(tr => tr.GetComponent<BaseTask>())
                 .Where(component => component != null)
@@ -44,14 +44,14 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
         protected virtual void Prepare()
         {
-            settings = Settings.Instance;
-            experiment = Experiment.Instance;
-            playerController = experiment.playerController;
-            playerEvent = playerController.playerEvent;
-            hud = playerController.hud;
-            logger = ExperimentLogger.Instance;
+            Settings = Settings.Instance;
+            Experiment = Experiment.Instance;
+            Player = Experiment.playerController;
+            PlayerEvent = Player.playerEvent;
+            HUD = Player.hud;
+            Logger = ExperimentLogger.Instance;
 
-            logger.I("task", $"{name} started");
+            Logger.I("task", $"{name} started");
 
             isCompleted = false;
             isRunning = true;
@@ -61,7 +61,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
         protected virtual void Finish()
         {
-            logger.I("task", $"{name} Finished");
+            Logger.I("task", $"{name} Finished");
             isCompleted = true;
         }
 
@@ -80,13 +80,13 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             yield return new WaitUntil(() => !isRunning);
 
             isSubTaskRunning = true;
-            if (subTasks == null)
+            if (_subTasks == null)
             {
                 Finish();
                 yield break;
             }
 
-            foreach (var task in subTasks)
+            foreach (var task in _subTasks)
             {
                 yield return task.ExecuteAll();
             }
@@ -98,16 +98,17 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         //method to join all the subtasks name
         private string GetSubTasksName()
         {
-            return subTasks.Aggregate("", (current, task) => current + (task.name + " "));
+            return _subTasks.Aggregate("", (current, task) => current + (task.name + " "));
         }
 
         protected void StartTimer()
         {
             StartCoroutine(TimerCoroutine());
         }
+
         private IEnumerator TimerCoroutine()
         {
-            while (elapsedTime < timer)
+            while (elapsedTime < timer && isRunning)
             {
                 elapsedTime += Time.deltaTime;
                 yield return null;

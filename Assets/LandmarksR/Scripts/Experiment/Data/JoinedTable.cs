@@ -33,13 +33,12 @@ namespace LandmarksR.Scripts.Experiment.Data
 
         private void TestIterate()
         {
-            Debug.Log("[Testing] Iterating through joined table.");
+            Logger.I("data", "Iterate Joined Table");
             while (Enumerator.MoveNext())
             {
                 var current = Enumerator.GetCurrent();
-                Debug.Log(current);
+                Logger.I("data", current.ToString());
             }
-
 
             Enumerator.Reset();
         }

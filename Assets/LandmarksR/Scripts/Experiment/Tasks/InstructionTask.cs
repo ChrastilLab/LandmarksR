@@ -15,23 +15,18 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         {
             base.Prepare();
 
-            hud.SetTitle(instructionTitle)
+            HUD.SetTitle(instructionTitle)
                 .SetContent(instructionContent)
-                .ShowAllComponents();
+                .ShowAll()
+                .SetOpacity(opacity)
+                .HideLayers(layersToHide);
 
-            hud.ShowAllLayer();
-            foreach (var layer in layersToHide)
-            {
-                hud.HideByLayer(layer);
-            }
-
-
-            playerEvent.RegisterConfirmHandler(OnConfirm);
+            PlayerEvent.RegisterConfirmHandler(OnConfirm);
         }
 
         protected void UnregisterConfirmHandler()
         {
-            playerEvent.UnregisterConfirmHandler(OnConfirm);
+            PlayerEvent.UnregisterConfirmHandler(OnConfirm);
         }
 
         private void OnConfirm()
@@ -43,13 +38,10 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         protected override void Finish()
         {
             base.Finish();
-            hud.HideAll();
-            playerEvent.UnregisterConfirmHandler(OnConfirm);
+            PlayerEvent.UnregisterConfirmHandler(OnConfirm);
 
-            foreach (var layer in layersToHide)
-            {
-                hud.ShowByLayer(layer);
-            }
+            HUD.HideAll()
+                .ShowAllLayer();
         }
     }
 }

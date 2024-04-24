@@ -19,7 +19,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         {
             base.Prepare();
             isRunning = false;
-            _taskList = new LinkedList<BaseTask>(subTasks);
+            _taskList = new LinkedList<BaseTask>(_subTasks);
         }
 
         public override IEnumerator ExecuteAll()

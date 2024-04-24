@@ -12,28 +12,28 @@
             _parentTask = GetComponentInParent<CalibrateTask>();
             if (_parentTask == null)
             {
-                logger.E("calibration",
+                Logger.E("calibration",
                     "ReconfirmCalibrationTask is not a child of CalibrateTask. Please make sure ReconfirmCalibrationTask is a child of CalibrateTask.");
                 return;
             }
 
 
             // Register Event Handlers
-            playerEvent.RegisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, settings.ui.calibrationTriggerTime, HandleIndexTrigger, UpdateProgressBarForTrigger);
-            playerEvent.RegisterTimedVRInputHandler(OVRInput.Button.One, settings.ui.calibrationTriggerTime, HandleAButton, UpdateProgressBarForAButton);
+            PlayerEvent.RegisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, Settings.ui.calibrationTriggerTime, HandleIndexTrigger, UpdateProgressBarForTrigger);
+            PlayerEvent.RegisterTimedVRInputHandler(OVRInput.Button.One, Settings.ui.calibrationTriggerTime, HandleAButton, UpdateProgressBarForAButton);
 
-            hud.ShowProgressBar();
+            HUD.ShowProgressBar();
 
-            settings.space.ApplyToEnvironment();
+            Settings.space.ApplyToEnvironment();
         }
 
         protected override void Finish()
         {
             base.Finish();
-            hud.HideProgressBar();
+            HUD.HideProgressBar();
 
-            playerEvent.UnregisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, settings.ui.calibrationTriggerTime, HandleIndexTrigger, UpdateProgressBarForTrigger);
-            playerEvent.UnregisterTimedVRInputHandler(OVRInput.Button.One, settings.ui.calibrationTriggerTime, HandleAButton, UpdateProgressBarForAButton);
+            PlayerEvent.UnregisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, Settings.ui.calibrationTriggerTime, HandleIndexTrigger, UpdateProgressBarForTrigger);
+            PlayerEvent.UnregisterTimedVRInputHandler(OVRInput.Button.One, Settings.ui.calibrationTriggerTime, HandleAButton, UpdateProgressBarForAButton);
         }
 
         private void HandleIndexTrigger()
@@ -49,11 +49,11 @@
 
         private void UpdateProgressBarForTrigger(float time)
         {
-            hud.SetProgress(time / settings.ui.calibrationTriggerTime);
+            HUD.SetProgress(time / Settings.ui.calibrationTriggerTime);
         }
         private void UpdateProgressBarForAButton(float time)
         {
-            hud.SetProgress(time / settings.ui.calibrationTriggerTime);
+            HUD.SetProgress(time / Settings.ui.calibrationTriggerTime);
         }
     }
 }

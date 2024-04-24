@@ -6,13 +6,13 @@
         {
             base.Prepare();
 
-            if (settings.space.calibrated)
+            if (Settings.space.calibrated)
             {
-                settings.space.ApplyToEnvironment();
+                Settings.space.ApplyToEnvironment();
             }
             else
             {
-                logger.W("task", "Calibration not found.");
+                Logger.W("task", "Calibration not found.");
             }
 
             isRunning = false;

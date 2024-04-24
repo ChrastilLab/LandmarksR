@@ -7,8 +7,8 @@ namespace LandmarksR.Scripts.Experiment.Tasks
     {
         protected override void Prepare()
         {
-            logger = ExperimentLogger.Instance;
-            logger.I("app", "Start Application");
+            Logger = ExperimentLogger.Instance;
+            Logger.I("app", "Start Application");
         }
         protected override void Finish()
         {
@@ -18,17 +18,17 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             var nextSceneIndex = currentSceneIndex + 1;
 
             // Check if next scene is available
-            logger.I("app", $"Next Scene Index: {nextSceneIndex}");
-            logger.I("app", $"Total Scenes: {UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings}");
+            Logger.I("app", $"Next Scene Index: {nextSceneIndex}");
+            Logger.I("app", $"Total Scenes: {UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings}");
 
             if (nextSceneIndex < UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings)
             {
-                logger.I("app", "Load Next Scene");
+                Logger.I("app", "Load Next Scene");
                 UnityEngine.SceneManagement.SceneManager.LoadScene(nextSceneIndex);
                 return;
             }
 
-            logger.I("app", "Finish Application");
+            Logger.I("app", "Finish Application");
 
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;

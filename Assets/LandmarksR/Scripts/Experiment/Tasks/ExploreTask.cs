@@ -1,37 +1,28 @@
-﻿using LandmarksR.Scripts.Player;
+﻿using System.Collections.Generic;
+using System.Linq;
+using LandmarksR.Scripts.Player;
+using UnityEngine;
 
 namespace LandmarksR.Scripts.Experiment.Tasks
 {
-    public class ExploreTask : BaseTask
+    public class ExploreTask : InstructionTask
     {
-
-        private HudMode _previousHudMode;
+        [SerializeField] private float hideInstructionAfter = 3;
         protected override void Prepare()
         {
             base.Prepare();
 
+            Player.TryEnableDesktopInput();
 
-            playerController.TryEnableDesktopInput();
-
-            _previousHudMode = settings.displayReference.hudMode;
-            settings.displayReference.hudMode = HudMode.Fixed;
-            hud.ApplySettingChanges();
-
-            hud.SetContent($"Explore the environment for {timer} seconds").SetTitle("");
-
-            hud.SetOpacity(0.8f);
-            hud.ShowByLayer("Environment");
+            HUD.HideAllAfter(timer <= hideInstructionAfter ? timer - 0.5f : hideInstructionAfter); // ensure that the instruction is hidden before the task ends
         }
 
         protected override void Finish()
         {
             base.Finish();
-            playerController.DisableDesktopInput();
-            settings.displayReference.hudMode = _previousHudMode;
-            hud.ApplySettingChanges();
-            hud.SetOpacity(0);
+            Player.DisableDesktopInput();
+            HUD.ClearAllText()
+                .ShowAllLayer();
         }
-
-
     }
 }

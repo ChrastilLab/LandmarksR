@@ -11,30 +11,30 @@
             _parentTask = GetComponentInParent<CalibrateTask>();
             if (_parentTask == null)
             {
-                logger.E("calibration",
+                Logger.E("calibration",
                     "PlacePollTask is not a child of CollectionTask. Please make sure PlacePollTask is a child of CollectionTask.");
                 return;
             }
 
-            hud.FixedRecenter(2f);
+            HUD.FixedRecenter(2f);
 
             // Register Event Handlers
-            playerEvent.RegisterVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, HandleIndexTrigger);
-            playerEvent.RegisterVRInputHandler(OVRInput.Button.One, HandleAButton);
+            PlayerEvent.RegisterVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, HandleIndexTrigger);
+            PlayerEvent.RegisterVRInputHandler(OVRInput.Button.One, HandleAButton);
 
             // Show Instruction
-            hud.SetTitle("Calibration")
+            HUD.SetTitle("Calibration")
                 .SetContent(
                     $"Please place the pole at the {_parentTask.GetCurrentPolePosition()} corner of the space and press the trigger button." +
                     "If you want to go back to the previous task, press the A button.")
-                .ShowAllComponents();
+                .ShowAll();
         }
 
         protected override void Finish()
         {
             base.Finish();
-            playerEvent.UnregisterVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, HandleIndexTrigger);
-            playerEvent.UnregisterVRInputHandler(OVRInput.Button.One, HandleAButton);
+            PlayerEvent.UnregisterVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, HandleIndexTrigger);
+            PlayerEvent.UnregisterVRInputHandler(OVRInput.Button.One, HandleAButton);
         }
 
         private void HandleIndexTrigger()
