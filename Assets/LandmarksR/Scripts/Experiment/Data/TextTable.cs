@@ -6,20 +6,40 @@ using UnityEngine;
 
 namespace LandmarksR.Scripts.Experiment.Data
 {
+    [Serializable]
+    public class DelimiterOption
+    {
+        public int delimiterIndex;
+
+        public string customValue;
+
+        public string Value => delimiterIndex switch
+        {
+            0 => ",",
+            1 => "\t",
+            2 => ";",
+            3 => " ",
+            4 => customValue,
+            _ => ","
+        };
+
+        public static readonly string[] Options = { "Comma", "Tab", "Semicolon", "Space", "Custom" };
+    }
 
     public class TextTable : Table
     {
-
         [SerializeField] private bool randomize;
         [SerializeField] private List<string> rows;
         [SerializeField] private bool hasHeader = true;
         [SerializeField] private List<string> headers;
-        [SerializeField] private string delimiter = ",";
+        [SerializeField] private DelimiterOption delimiterOption;
         [SerializeField] private string dataPath;
-        [SerializeField] private List<int> debugSelectedRows;
+        [SerializeField] private string indexesToExclude;
 
         public DataFrame Data = new();
         public override int Count => Data.RowCount;
+
+        public IReadOnlyList<string> StringRows => rows;
 
         protected override void Prepare()
         {
@@ -37,43 +57,124 @@ namespace LandmarksR.Scripts.Experiment.Data
             rows = stringRows;
         }
 
-        private void Parse()
+        public void AppendStringRows(List<string> stringRows)
         {
-            var counter = 0;
-            if (string.IsNullOrEmpty(delimiter))
-            {
-                ExperimentLogger.Instance.E("data", "Delimiter is not set.");
-                return;
-            }
-
-
-            if (headers is { Count: > 0 })
-                Data.SetHeaders(headers);
-
-            foreach (var values in rows.Select(row => row.Split(delimiter).Cast<object>().ToList()))
-            {
-                Data.Add(new DataSequence(values));
-                counter++;
-            }
-
-
-            if (debugSelectedRows.Count > 0)
-            {
-                Data = Data.Where((_, i) => debugSelectedRows.Contains(i)).ConcatByRow();
-                ExperimentLogger.Instance.I("data",$"Selected rows are {string.Join(",", debugSelectedRows)}");
-            }
-
-            if (randomize)
-            {
-                var random = new System.Random();
-                Data = Data.OrderBy(_ => random.Next()).ConcatByRow();
-                ExperimentLogger.Instance.I("data",$"Data is randomized.");
-            }
-
-            ExperimentLogger.Instance.I("data",$"{counter} rows are created");
-            Enumerator = new TextTableEnumerator(Data);
+            var newRows = new List<string>();
+            newRows.AddRange(rows);
+            newRows.AddRange(stringRows);
+            rows = newRows;
         }
 
+        private void Parse()
+        {
+            try
+            {
+                var counter = 0;
+                if (string.IsNullOrEmpty(delimiterOption.Value))
+                {
+                    ExperimentLogger.Instance.E("data", "Delimiter is not set.");
+                    return;
+                }
+
+                if (!string.IsNullOrEmpty(indexesToExclude) || !string.IsNullOrWhiteSpace(indexesToExclude))
+                {
+                    RemoveBySlice(indexesToExclude);
+                }
+
+                foreach (var values in rows.Select(row => row.Split(delimiterOption.Value).Cast<object>().ToList()))
+                {
+                    Data.AppendRow(values);
+                    counter++;
+                }
+
+                if (headers is { Count: > 0 })
+                    Data.SetColumnNames(headers);
+
+
+                if (randomize)
+                {
+                    var random = new System.Random();
+                    // TODO: Implement randomization
+                    ExperimentLogger.Instance.I("data", $"Data is randomized.");
+                }
+
+                ExperimentLogger.Instance.I("data", $"{counter} rows are created");
+                Enumerator = new DataEnumerator(Data);
+            }
+            catch (Exception e)
+            {
+                ExperimentLogger.Instance.E("data",
+                    $"<{name}> Error parsing data: {e.Message}\n Check your header, rows and delimiter settings.");
+            }
+        }
+
+        private void RemoveBySlice(string slice)
+        {
+            if (string.IsNullOrEmpty(slice))
+                return;
+
+            // Split the slice string by commas to handle multiple slices
+            var slices = slice.Split(',');
+
+            // List to hold the ranges to be removed
+            var removals = new List<(int start, int count)>();
+
+            foreach (var singleSlice in slices)
+            {
+                // Parse each slice part
+                int start = 0, end = rows.Count;
+                bool startSet = false, endSet = false;
+
+                var parts = singleSlice.Split(':');
+                if (parts.Length == 2)
+                {
+                    if (!string.IsNullOrEmpty(parts[0]))
+                    {
+                        start = Convert.ToInt32(parts[0]);
+                        startSet = true;
+                    }
+
+                    if (!string.IsNullOrEmpty(parts[1]))
+                    {
+                        end = Convert.ToInt32(parts[1]);
+                        endSet = true;
+                    }
+                }
+
+                // Adjust negative indices
+                if (start < 0)
+                    start = rows.Count + start;
+                if (end < 0)
+                    end = rows.Count + end;
+
+                // Ensure indices are within bounds
+                start = Math.Max(start, 0);
+                end = Math.Min(end, rows.Count);
+
+                if (startSet && endSet)
+                {
+                    removals.Add((start, end - start));
+                }
+                else if (startSet)
+                {
+                    removals.Add((start, rows.Count - start));
+                }
+                else if (endSet)
+                {
+                    removals.Add((0, end));
+                }
+            }
+
+            // Sort removal ranges by starting index in descending order to avoid shifting issues
+            removals.Sort((a, b) => b.start.CompareTo(a.start));
+
+            // Remove the calculated ranges
+            foreach (var removal in removals)
+            {
+                if (removal.start < rows.Count) // Check needed if previous removals make indices out of range
+                    rows.RemoveRange(removal.start, Math.Min(removal.count, rows.Count - removal.start));
+            }
+        }
 
 
         public void LoadFromFile()
@@ -99,7 +200,7 @@ namespace LandmarksR.Scripts.Experiment.Data
                     // If the first line is a header, process it separately
                     if (isFirstLine && hasHeader)
                     {
-                        headers = line.Split(delimiter).ToList();
+                        headers = line.Split(delimiterOption.Value).ToList();
                         isFirstLine = false;
                         continue;
                     }
@@ -120,27 +221,28 @@ namespace LandmarksR.Scripts.Experiment.Data
             }
         }
 
-        private class TextTableEnumerator : IDataEnumerator
+        public void SaveToFile()
         {
-            private readonly IEnumerator<DataSequence> _enumerator;
+            try
+            {
+                // Using StreamWriter to write to a file
+                using var writer = new System.IO.StreamWriter(dataPath + "_output.txt");
 
-            public TextTableEnumerator(DataFrame data)
-            {
-                _enumerator = data.GetEnumerator();
-            }
-            public bool MoveNext()
-            {
-                return _enumerator.MoveNext();
-            }
+                // Writing headers if they exist
+                if (headers is { Count: > 0 })
+                {
+                    writer.WriteLine(string.Join(delimiterOption.Value, headers));
+                }
 
-            public void Reset()
-            {
-                _enumerator.Reset();
+                // Writing rows
+                foreach (var row in rows)
+                {
+                    writer.WriteLine(row);
+                }
             }
-
-            public DataFrame GetCurrent()
+            catch (Exception e)
             {
-                return new DataFrame(_enumerator.Current);
+                throw;
             }
         }
     }

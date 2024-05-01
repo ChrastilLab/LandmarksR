@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using LandmarksR.Scripts.Attributes;
 using LandmarksR.Scripts.Experiment.Data;
 using LandmarksR.Scripts.Experiment.Log;
@@ -6,13 +7,19 @@ using UnityEngine;
 
 namespace LandmarksR.Scripts.Experiment.Tasks
 {
+    [Serializable]
+    public class RepeatOption
+    {
+        public bool useTable;
+        public Table table;
+        public int numberOfRepeat = 3;
+    }
+
     public class RepeatTask : BaseTask
     {
-        [Tooltip("This overrides the number of repeat")]
-        [SerializeField] private bool useTable;
-        [SerializeField] public Table table;
-        private IEnumerator _enumerator;
-        [SerializeField] private int numberOfRepeat = 3;
+        [Header("Repeat Task Settings")]
+
+        [SerializeField] private RepeatOption repeatOption;
 
         [Tooltip("Current SubTask Number (0-indexed)")]
         [NotEditable] public int currentRepeat = 1;
@@ -20,6 +27,9 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         [Tooltip("Current SubTask Number (1-indexed)")]
         [NotEditable] public int currentSubTaskNumber = 1;
 
+        public Table CurrentTable => repeatOption.table;
+        public DataFrame CurrentData => repeatOption.table.Enumerator.GetCurrent();
+        public DataFrame CurrentDataByTable(int tableIndex) => repeatOption.table.Enumerator.GetCurrentByTable(tableIndex);
         private delegate IEnumerator ExecuteAllDelegate();
         private ExecuteAllDelegate _executeAll;
 
@@ -27,9 +37,9 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         protected override void Prepare()
         {
             base.Prepare();
-            if (useTable && table )
+            if (repeatOption.useTable && repeatOption.table )
             {
-                numberOfRepeat = table.Count;
+                repeatOption.numberOfRepeat = repeatOption.table.Count;
                 _executeAll = ExecuteByTable;
             }
             else
@@ -46,7 +56,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         private IEnumerator ExecuteByTable()
         {
             isSubTaskRunning = true;
-            while (table.Enumerator.MoveNext())
+            while (repeatOption.table.Enumerator.MoveNext())
             {
                 yield return ExecuteSubTasks();
                 ResetSubtasks();
@@ -58,7 +68,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         private IEnumerator ExecuteByRepeat()
         {
             isSubTaskRunning = true;
-            while (currentRepeat <= numberOfRepeat)
+            while (currentRepeat <= repeatOption.numberOfRepeat)
             {
                 yield return ExecuteSubTasks();
                 ResetSubtasks();
@@ -103,7 +113,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         private void OnGUI()
         {
             if (!isSubTaskRunning) return;
-            GUI.Label(new Rect(10, 10, 100, 20), $"Repeat: {currentRepeat}/{numberOfRepeat}");
+            GUI.Label(new Rect(10, 10, 100, 20), $"Repeat: {currentRepeat}/{repeatOption.numberOfRepeat}");
             GUI.Label(new Rect( 10, 30, 100, 20), $"SubTask: {currentSubTaskNumber}/{_subTasks.Count}");
         }
     }

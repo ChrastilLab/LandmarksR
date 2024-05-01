@@ -9,13 +9,6 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Debug
 {
     public class TestingTask : BaseTask
     {
-        protected static Settings Settings => Settings.Instance;
-        protected static Experiment Experiment => Experiment.Instance;
-        protected static PlayerController Player => Experiment.Instance.playerController;
-        protected static Hud Hud => Experiment.Instance.playerController.hud;
-
-        protected static ExperimentLogger Logger => ExperimentLogger.Instance;
-
         private List<Action> _keyActions = new();
 
         private string _keyActionInstructions = "";

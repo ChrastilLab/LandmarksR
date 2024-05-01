@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Unity.VisualScripting.FullSerializer;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -8,7 +7,7 @@ using UnityEngine.UIElements;
 namespace LandmarksR.Scripts.Experiment.Data.Editor
 {
     [CustomEditor(typeof(TextTable))]
-    public class TableUI : UnityEditor.Editor
+    public class TextTableEditor : UnityEditor.Editor
     {
         private SerializedProperty _seed;
         private SerializedProperty _randomize;
@@ -29,14 +28,14 @@ namespace LandmarksR.Scripts.Experiment.Data.Editor
 
             _hasHeader = serializedObject.FindProperty("hasHeader");
 
-            _delimiter = serializedObject.FindProperty("delimiter");
+            _delimiter = serializedObject.FindProperty("delimiterOption");
 
             _dataPath = serializedObject.FindProperty("dataPath");
 
             _headers = serializedObject.FindProperty("headers");
             _headers.isExpanded = true;
 
-            _debugSelectedRows = serializedObject.FindProperty("debugSelectedRows");
+            _debugSelectedRows = serializedObject.FindProperty("indexesToExclude");
         }
 
         public override void OnInspectorGUI()
@@ -76,7 +75,21 @@ namespace LandmarksR.Scripts.Experiment.Data.Editor
                 }
                 else
                 {
-                    LoadPopup.Popup(textTable.LoadFromFile);
+                    LoadPopup.Popup("Confirm your delimiter option", textTable.LoadFromFile);
+                }
+            }
+
+            if (GUILayout.Button("Save To File"))
+            {
+                // check if the path is a valid file using system io
+                if (!File.Exists(_dataPath.stringValue))
+                {
+                    // show a dialog box
+                    EditorUtility.DisplayDialog("File not found", "The path is invalid or the file does not exist", "OK");
+                }
+                else
+                {
+                    LoadPopup.Popup("Confirm again", textTable.SaveToFile);
                 }
             }
         }
@@ -85,7 +98,8 @@ namespace LandmarksR.Scripts.Experiment.Data.Editor
     public class LoadPopup: EditorWindow
     {
         private Action _onConfirm;
-        public static void Popup(Action onConfirm)
+        private string _text;
+        public static void Popup(string text, Action onConfirm)
         {
             var window = CreateInstance<LoadPopup>();
             // Get cursor position and set the window position to cursor position
@@ -93,12 +107,13 @@ namespace LandmarksR.Scripts.Experiment.Data.Editor
 
             window.position = new Rect(cursorPosition.x, cursorPosition.y, 250, 100);
             window._onConfirm = onConfirm;
+            window._text = text;
             window.ShowPopup();
         }
 
         private void CreateGUI()
         {
-            var label = new Label("Confirm the delimiter and path");
+            var label = new Label(_text);
             rootVisualElement.Add(label);
             var button = new Button(() =>
             {

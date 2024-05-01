@@ -1,0 +1,8 @@
+Type%Arg1%Arg2
+64	Rotate	Capsule	 X90
+1	Permute Wall	ABDC	
+0	No Foil	NA	NA
+24	Swap Position	"Sphere, Capsule"	
+94	Arrow	90	
+0	No Foil	NA	NA
+109	Swap Color	"Sphere, Capsule"	

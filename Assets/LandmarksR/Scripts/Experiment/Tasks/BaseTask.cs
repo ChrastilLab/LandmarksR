@@ -51,7 +51,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             HUD = Player.hud;
             Logger = ExperimentLogger.Instance;
 
-            Logger.I("task", $"{name} started");
+            Logger.I("task", $"<{name}> started");
 
             isCompleted = false;
             isRunning = true;
@@ -61,7 +61,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
         protected virtual void Finish()
         {
-            Logger.I("task", $"{name} Finished");
+            Logger.I("task", $"<{name}> Finished");
             isCompleted = true;
         }
 

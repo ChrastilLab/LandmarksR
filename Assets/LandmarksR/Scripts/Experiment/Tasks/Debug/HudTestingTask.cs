@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace LandmarksR.Scripts.Experiment.Tasks.Debug
 {
-    public class HudTestingTask: TestingTask
+    public class HUDTestingTask: TestingTask
     {
         protected override void Prepare()
         {
@@ -14,12 +14,12 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Debug
         protected override void Start()
         {
             base.Start();
-            AddKeyAction(KeyCode.Alpha1, ()=>Hud.ShowAll(), "Show All");
-            AddKeyAction(KeyCode.Alpha2, ()=>Hud.HideAll(), "Hide All");
-            AddKeyAction(KeyCode.Y, ()=>Hud.SwitchHudMode(HudMode.Follow), "Set Hud Mode Follow");
-            AddKeyAction(KeyCode.F, ()=>Hud.SwitchHudMode(HudMode.Fixed), "Set Hud Mode Fixed");
-            AddKeyAction(KeyCode.O, ()=>Hud.SwitchHudMode(HudMode.Overlay), "Set Hud Mode Overlay");
-            AddKeyAction(KeyCode.Space, () => Hud.FixedRecenter(1.5f), "Recenter Hud");
+            AddKeyAction(KeyCode.Alpha1, ()=>HUD.ShowAll(), "Show All");
+            AddKeyAction(KeyCode.Alpha2, ()=>HUD.HideAll(), "Hide All");
+            AddKeyAction(KeyCode.Y, ()=>HUD.SwitchHudMode(HudMode.Follow), "Set HUD Mode Follow");
+            AddKeyAction(KeyCode.F, ()=>HUD.SwitchHudMode(HudMode.Fixed), "Set HUD Mode Fixed");
+            AddKeyAction(KeyCode.O, ()=>HUD.SwitchHudMode(HudMode.Overlay), "Set HUD Mode Overlay");
+            AddKeyAction(KeyCode.Space, () => HUD.FixedRecenter(1.5f), "Recenter HUD");
         }
 
         protected override void Finish()

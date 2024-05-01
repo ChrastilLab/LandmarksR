@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using LandmarksR.Scripts.Attributes;
 using LandmarksR.Scripts.Experiment;
 using LandmarksR.Scripts.Experiment.Log;
@@ -354,8 +353,6 @@ namespace LandmarksR.Scripts.Player
         {
             if (!size.HasValue) return;
 
-            // This is a simple heuristic. You might need to adjust this formula based on your specific needs
-            // and camera settings. This formula assumes a FOV of 60 degrees.
             var h = CalculateCanvasHeight();
             var canvasScale = h / size.Value.y;
             SetTransformScale(canvas.transform, new Vector3(canvasScale, canvasScale, canvasScale));

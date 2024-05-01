@@ -11,7 +11,7 @@ namespace LandmarksR.Scripts.Experiment.Data
     public abstract class Table : BaseTask
     {
         public virtual int Count { get; protected set; }
-        public IDataEnumerator Enumerator { get; protected set; }
+        public DataEnumerator Enumerator { get; protected set; }
 
         protected override void Prepare()
         {

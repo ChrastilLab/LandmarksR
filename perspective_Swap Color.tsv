@@ -1,0 +1,11 @@
+Type	Arg1	Arg2
+Swap Color	Sphere, Capsule	
+Swap Color	Sphere, Cylinder	
+Swap Color	Sphere, Pyramid	
+Swap Color	Sphere, Cube	
+Swap Color	Capsule, Cylinder	
+Swap Color	Capsule, Pyramid	
+Swap Color	Capsule, Cube	
+Swap Color	Cylinder, Pyramid	
+Swap Color	Cylinder, Cube	
+Swap Color	Pyramid, Cube	

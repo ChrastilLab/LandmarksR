@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace LandmarksR.Scripts.Experiment.Log
 {
@@ -19,6 +18,8 @@ namespace LandmarksR.Scripts.Experiment.Log
 
         public void EnableLocalLog(string filePath = "log.txt")
         {
+
+            Debug.Log("Local log writes to: " + filePath);
             _localLogger = new LocalLogger(filePath);
             _enableLocalLog = true;
         }
@@ -32,9 +33,9 @@ namespace LandmarksR.Scripts.Experiment.Log
 
 
 
-        protected virtual void Log(string messageTag, LogPriority priority, string message)
+        protected virtual void Log(string messageTag, LogPriority priority, object message)
         {
-            var logMessage = new LogMessage( DateTime.Now.ToString("yyyy-M-d HH:mm:ss"), messageTag, priority, message);
+            var logMessage = new LogMessage( DateTime.Now.ToString("yyyy-M-d HH:mm:ss"), messageTag, priority, message.ToString());
             if (_enableLocalLog)
             {
                 _localLogger.Log(logMessage);
@@ -59,9 +60,9 @@ namespace LandmarksR.Scripts.Experiment.Log
             }
         }
 
-        public virtual void I(string messageTag, string message) => Log(messageTag, LogPriority.Info, message);
-        public virtual void W(string messageTag, string message) => Log(messageTag, LogPriority.Warning, message);
-        public virtual void E(string messageTag, string message) => Log(messageTag, LogPriority.Error, message);
+        public virtual void I(string messageTag, object message) => Log(messageTag, LogPriority.Info, message);
+        public virtual void W(string messageTag, object message) => Log(messageTag, LogPriority.Warning, message);
+        public virtual void E(string messageTag, object message) => Log(messageTag, LogPriority.Error, message);
 
         private string GetFileName()
         {

@@ -1,0 +1,41 @@
+Type	Arg1	Arg2
+Swap Position	Sphere, Capsule	
+Swap Position	Sphere, Cylinder	
+Swap Position	Sphere, Pyramid	
+Swap Position	Sphere, Cube	
+Swap Position	Capsule, Cylinder	
+Swap Position	Capsule, Pyramid	
+Swap Position	Capsule, Cube	
+Swap Position	Cylinder, Pyramid	
+Swap Position	Cylinder, Cube	
+Swap Position	Pyramid, Cube	
+Swap Position	Sphere, Capsule	Cylinder, Pyramid
+Swap Position	Sphere, Capsule	Cylinder, Cube
+Swap Position	Sphere, Capsule	Pyramid, Cube
+Swap Position	Sphere, Cylinder	Capsule, Pyramid
+Swap Position	Sphere, Cylinder	Capsule, Cube
+Swap Position	Sphere, Cylinder	Pyramid, Cube
+Swap Position	Sphere, Pyramid	Capsule, Cylinder
+Swap Position	Sphere, Pyramid	Capsule, Cube
+Swap Position	Sphere, Pyramid	Cylinder, Cube
+Swap Position	Sphere, Cube	Capsule, Cylinder
+Swap Position	Sphere, Cube	Capsule, Pyramid
+Swap Position	Sphere, Cube	Cylinder, Pyramid
+Swap Position	Capsule, Cylinder	Sphere, Pyramid
+Swap Position	Capsule, Cylinder	Sphere, Cube
+Swap Position	Capsule, Cylinder	Pyramid, Cube
+Swap Position	Capsule, Pyramid	Sphere, Cylinder
+Swap Position	Capsule, Pyramid	Sphere, Cube
+Swap Position	Capsule, Pyramid	Cylinder, Cube
+Swap Position	Capsule, Cube	Sphere, Cylinder
+Swap Position	Capsule, Cube	Sphere, Pyramid
+Swap Position	Capsule, Cube	Cylinder, Pyramid
+Swap Position	Cylinder, Pyramid	Sphere, Capsule
+Swap Position	Cylinder, Pyramid	Sphere, Cube
+Swap Position	Cylinder, Pyramid	Capsule, Cube
+Swap Position	Cylinder, Cube	Sphere, Capsule
+Swap Position	Cylinder, Cube	Sphere, Pyramid
+Swap Position	Cylinder, Cube	Capsule, Pyramid
+Swap Position	Pyramid, Cube	Sphere, Capsule
+Swap Position	Pyramid, Cube	Sphere, Cylinder
+Swap Position	Pyramid, Cube	Capsule, Cylinder

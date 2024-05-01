@@ -1,4 +1,6 @@
-﻿using LandmarksR.Scripts.Experiment.Tasks;
+﻿using LandmarksR.Scripts.Experiment.Data;
+using LandmarksR.Scripts.Experiment.Log;
+using LandmarksR.Scripts.Experiment.Tasks;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -38,9 +40,9 @@ namespace PerspectiveTransformation.Scripts
             var repeatTask = GetComponentInParent<RepeatTask>();
             Assert.IsNotNull(repeatTask, "Move Camera must be a child of Repeat Task");
 
-            var table = repeatTask.table;
-            Assert.IsNotNull(table, "Table must be assigned to Repeat Task");
 
+            HUD.HideAll()
+                .ShowAllLayer();
 
 
 
@@ -53,20 +55,29 @@ namespace PerspectiveTransformation.Scripts
                 PlayerEvent.RegisterKeyHandler(KeyCode.J, HandleResponseNo);
             }
 
-            var current = table.Enumerator.GetCurrent();
+            var currentFoilData = repeatTask.CurrentDataByTable(0);
+            var currentCameraData = repeatTask.CurrentDataByTable(1);
 
-            _targetPosition = Utilities.GetPositionFromDataFrame(current);
-            _targetRotation = Utilities.GetRotationFromDataFrame(current);
-            isTopDown = Utilities.GetOrderFromDataFrame(current)[_transformationStringIndex] == 'T';
+            // Logger.I("data", currentFoilData);
+            // Logger.I("data", currentCameraData);
+
+            _targetPosition = Utilities.GetPositionFromDataFrame(currentCameraData);
+            _targetRotation = Utilities.GetRotationFromDataFrame(currentCameraData);
+
+            isTopDown = Utilities.GetOrderFromDataFrame(currentCameraData)[_transformationStringIndex] == 'T';
 
             if (isTopDown)
+            {
+                _targetRotation = FoilControl.ApplyFoilDirectionToArrow(currentFoilData, _targetRotation); // Apply foil direction conditionally
                 HandleTopDown();
+            }
             else
                 HandleFirstPerson();
         }
 
         private void HandleFirstPerson()
         {
+            _targetPosition.y = 1.5f;
             _camera.transform.position = _targetPosition;
             _camera.transform.rotation = Quaternion.Euler(_targetRotation);
             _camera.orthographic = false;
@@ -91,16 +102,24 @@ namespace PerspectiveTransformation.Scripts
         private void HandleResponseYes()
         {
             isRunning = false;
+            Logger.I("response", "Same");
         }
 
         private void HandleResponseNo()
         {
             isRunning = false;
+            Logger.I("response", "Different");
         }
 
         protected override void Finish()
         {
             base.Finish();
+            // Prevent flickering by pre-setting the position and rotation
+            if (isTopDown)
+                HandleFirstPerson();
+            else
+                HandleTopDown();
+
             if (!isFirstShow && !isStaticLook)
             {
                 responsePanel.SetActive(false);

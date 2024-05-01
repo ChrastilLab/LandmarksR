@@ -47,7 +47,7 @@ namespace LandmarksR.Scripts.Experiment.Log
             }
         }
 
-        public void I(string messageTag, string message)
+        public void I(string messageTag, object message)
         {
             _textLogger.I(messageTag, message);
 #if UNITY_EDITOR
@@ -56,7 +56,7 @@ namespace LandmarksR.Scripts.Experiment.Log
 #endif
         }
 
-        public void W(string messageTag, string message)
+        public void W(string messageTag, object message)
         {
             _textLogger.W(messageTag, message);
 #if UNITY_EDITOR
@@ -64,7 +64,7 @@ namespace LandmarksR.Scripts.Experiment.Log
 #endif
         }
 
-        public void E(string messageTag, string message)
+        public void E(string messageTag, object message)
         {
             _textLogger.E(messageTag, message);
 #if UNITY_EDITOR

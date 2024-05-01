@@ -49,13 +49,13 @@ namespace LandmarksR.Scripts.Experiment.Log
                 var response = await HttpClient.PostAsync(_logUrl, content);
                 if (!response.IsSuccessStatusCode)
                 {
-                    Debug.LogWarning("Failed to log message.");
+                    Debug.LogWarning("Failed to log message remotely.");
                     // Consider retrying or logging locally
                 }
             }
             catch (Exception ex)
             {
-                Debug.LogError($"Exception occurred while logging: {ex.Message}");
+                Debug.LogError($"Exception occurred while logging remotely: {ex.Message}");
                 // Consider retrying or logging locally
             }
         }

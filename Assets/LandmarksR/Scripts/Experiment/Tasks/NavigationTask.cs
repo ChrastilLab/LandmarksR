@@ -18,7 +18,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
             if (transform.parent.TryGetComponent<RepeatTask>(out var repeatTask))
             {
-                var currentTrialData = repeatTask.table.Enumerator.GetCurrent();
+                var currentTrialData = repeatTask.CurrentData;
                 target = currentTrialData[0, "Target"] as string;
 
                 Assert.IsNotNull(target, "NavigationTask target is null. Check your data table!");

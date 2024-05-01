@@ -1,0 +1,31 @@
+Type	Arg1	Arg2
+Arrow	270	
+Arrow	90	
+Arrow	180	
+Arrow	270	
+Permute Wall	ACDB	
+Permute Wall	BADC	
+Permute Wall	BDCA	
+Permute Wall	CBDA	
+Permute Wall	DACB	
+Permute Wall	DCBA	
+Rotate	Capsule	 X90
+Rotate	Pyramid	 X-60
+Rotate	Pyramid	 X90
+Rotate	Pyramid	 Z-30
+Rotate	Cube	 X45
+Rotate	Cylinder	 X-30
+Rotate	Cylinder	 Z-60
+Rotate	Cylinder	 Z90
+Swap Color	Sphere, Pyramid	
+Swap Color	Capsule, Cube	
+Swap Position	Sphere, Pyramid	
+Swap Position	Capsule, Cube	
+Swap Position	Sphere, Capsule	Cylinder, Pyramid
+Swap Position	Sphere, Cylinder	Capsule, Cube
+Swap Position	Sphere, Pyramid	Cylinder, Cube
+Swap Position	Capsule, Cylinder	Sphere, Pyramid
+Swap Position	Capsule, Pyramid	Sphere, Cube
+Swap Position	Capsule, Cube	Cylinder, Pyramid
+Swap Position	Cylinder, Cube	Sphere, Capsule
+Swap Position	Pyramid, Cube	Sphere, Cylinder

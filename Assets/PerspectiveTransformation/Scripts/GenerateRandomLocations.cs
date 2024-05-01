@@ -16,11 +16,13 @@ namespace PerspectiveTransformation.Scripts
 
 
         private TextTable _textTable;
+        private GameObject _object;
 
-        private float minRadius = 4;
-        private float maxRadius = 6;
-        private float minAngle = -40f;
-        private float maxAngle = 40f;
+        private float squareSideLength = 12;
+        // private float minRadius = 4;
+        // private float maxRadius = 6;
+        // private float minAngle = -40f;
+        // private float maxAngle = 40f;
         private int startingIndex = 1;
         private int numberOfLocations = 5;
 
@@ -39,11 +41,16 @@ namespace PerspectiveTransformation.Scripts
         {
 
             _textTable = EditorGUILayout.ObjectField("Text Table", _textTable, typeof(TextTable), true) as TextTable;
+            _object = EditorGUILayout.ObjectField("Object", _object, typeof(GameObject), true) as GameObject;
+
+
+            // Draw the square side length field
+            squareSideLength = EditorGUILayout.FloatField("Square Side Length", squareSideLength);
             // Draw the min and max radius fields
-            minRadius = EditorGUILayout.FloatField("Min Radius", minRadius);
-            maxRadius = EditorGUILayout.FloatField("Max Radius", maxRadius);
-            minAngle = EditorGUILayout.FloatField("Min Angle", minAngle);
-            maxAngle = EditorGUILayout.FloatField("Max Angle", maxAngle);
+            // minRadius = EditorGUILayout.FloatField("Min Radius", minRadius);
+            // maxRadius = EditorGUILayout.FloatField("Max Radius", maxRadius);
+            // minAngle = EditorGUILayout.FloatField("Min Angle", minAngle);
+            // maxAngle = EditorGUILayout.FloatField("Max Angle", maxAngle);
 
             startingIndex = EditorGUILayout.IntField("Starting Index", startingIndex);
             numberOfLocations = EditorGUILayout.IntField("Number of Locations", numberOfLocations);
@@ -62,7 +69,7 @@ namespace PerspectiveTransformation.Scripts
 
                 SetHeaders();
 
-                var checkLocations = new GameObject("CheckLocations");
+                var checkLocations = new GameObject($"{_object?.name} Locations for validation (Please delete)");
 
                 var stringRows = new List<string>();
                 for (var i = 0; i < numberOfLocations; i++)
@@ -70,8 +77,19 @@ namespace PerspectiveTransformation.Scripts
                     stringRows.Add(Generate(i, checkLocations));
                 }
 
-                if (_textTable != null) _textTable.SetStringRows(stringRows);
+                if (_textTable != null) _textTable.AppendStringRows(stringRows);
             }
+
+            if (GUILayout.Button("Clear"))
+            {
+                if (_textTable != null) _textTable.SetStringRows(new List<string>());
+            }
+
+            if (GUILayout.Button("Update Location of Selected Object in Locations For Validation"))
+            {
+                UpdateOnce();
+            }
+
         }
 
         private void SetHeaders()
@@ -91,15 +109,12 @@ namespace PerspectiveTransformation.Scripts
         private string Generate(int index, GameObject parent)
         {
             // First get the selected object
-            var selectedObject = Selection.activeGameObject;
-            if (selectedObject == null)
-            {
-                Debug.LogError("No object selected");
-                return "";
-            }
+            var selectedObject = _object;
 
             // Then generate a random position around the position of the selected object but must be 4 units away from the selected object
-            var randomPosition = GenerateRandomPosition(selectedObject.transform.position, minRadius, maxRadius);
+            // var randomPosition = GenerateRandomPositionAround(selectedObject.transform.position, minRadius, maxRadius);
+
+            var randomPosition = GenerateRandomPositionInSquare(selectedObject.transform.position, squareSideLength);
 
             // Then create a new game object at the random position
             var newObject = new GameObject("Random Location");
@@ -121,7 +136,46 @@ namespace PerspectiveTransformation.Scripts
             return ($"{randomPosition.x},{randomPosition.y},{randomPosition.z},{direction.x},{direction.y},{direction.z},{transformation}");
         }
 
-        private static Vector3 GenerateRandomPosition(Vector3 center, float minRadius, float maxRadius)
+        public void UpdateOnce()
+        {
+            if (_textTable == null)
+            {
+                Debug.LogError("No text table selected");
+                return;
+            }
+
+            // Get the selected object
+            var selectedObject = Selection.activeGameObject;
+            if (selectedObject == null)
+            {
+                Debug.LogError("No object selected");
+                return;
+            }
+
+            // Get the postion of the selected object
+            var pos = selectedObject.transform.position;
+
+            // Get the rotation of the selected object
+            var rot = selectedObject.transform.eulerAngles;
+
+            // Get the name of the selected object
+            if (!int.TryParse(selectedObject.name, out var index))
+            {
+                Debug.LogError("Selected object does not have a valid index");
+                return;
+            }
+
+            var stringRows = new List<string>(_textTable.StringRows);
+
+            var transformation = stringRows[index].Split(',')[^1];
+
+            stringRows[index] = $"{pos.x},{pos.y},{pos.z},{rot.x},{rot.y},{rot.z},{transformation}";
+            Debug.Log($"Updating location: {stringRows[index]}");
+
+            _textTable.SetStringRows(stringRows);
+        }
+
+        private static Vector3 GenerateRandomPositionAround(Vector3 center, float minRadius, float maxRadius)
         {
             Debug.Log("Generating random position around " + center + " with min radius " + minRadius + " and max radius " + maxRadius);
             // Get a random direction
@@ -135,6 +189,18 @@ namespace PerspectiveTransformation.Scripts
 
             return randomPosition;
         }
+
+        public static Vector3 GenerateRandomPositionInSquare(Vector3 center, float sideLength)
+        {
+            float halfSide = sideLength / 2;
+            return new Vector3(
+                center.x + Random.Range(-halfSide, halfSide),
+                center.y,
+                center.z + Random.Range(-halfSide, halfSide)
+            );
+        }
+
+
 
         private void RotateRandomlyWithinRange(GameObject target, float minAngle, float maxAngle)
         {

@@ -40,7 +40,6 @@ namespace LandmarksR.Scripts.Player
             else
             {
                 Instance = this;
-                DontDestroyOnLoad(this);
             }
         }
 
