@@ -60,6 +60,7 @@ namespace LandmarksR.Scripts.Experiment.Data
         public void Reset()
         {
             _position = -1;
+            _usedIndexes.Clear();
         }
 
         public DataFrame GetCurrent()
