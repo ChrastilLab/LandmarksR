@@ -36,7 +36,6 @@ namespace LandmarksR.Scripts.Experiment.Data
         [SerializeField] private string dataPath;
         [SerializeField] private string indexesToExclude;
 
-        public DataFrame Data = new();
         public override int Count => Data.RowCount;
 
         public IReadOnlyList<string> StringRows => rows;
@@ -67,6 +66,12 @@ namespace LandmarksR.Scripts.Experiment.Data
 
         private void Parse()
         {
+            if (rows is null || rows.Count == 0)
+            {
+                ExperimentLogger.Instance.W("data", $"({name}) Rows are empty.");
+                Data = new DataFrame();
+                return;
+            }
             try
             {
                 var counter = 0;
@@ -217,7 +222,7 @@ namespace LandmarksR.Scripts.Experiment.Data
             catch (System.IO.IOException ex)
             {
                 // Log the exception or handle it as needed
-                ExperimentLogger.Instance.E($"data", $"Error reading file: {ex.Message}");
+                Logger.E("data", $"Error reading file: {ex.Message}");
             }
         }
 

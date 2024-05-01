@@ -35,11 +35,10 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Prototype_512x512_Yellow
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_Parent: {fileID: 2100000, guid: 663834164c6a04740aaa1b778249ce7e, type: 2}
+  m_Parent: {fileID: 2100000, guid: ce3d5f71e24574f049f49b78b6c41aac, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _NORMALMAP
-  - _SPECULARHIGHLIGHTS_OFF
   m_InvalidKeywords:
   - _DISABLE_SSR_TRANSPARENT
   - _NORMALMAP_TANGENT_SPACE

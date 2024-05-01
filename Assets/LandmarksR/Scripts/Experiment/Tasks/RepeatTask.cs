@@ -55,6 +55,12 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
         private IEnumerator ExecuteByTable()
         {
+            if (repeatOption.table.Enumerator == null)
+            {
+                Logger.E("Repeat Task", "Enumerator is null. Check if the table is initialized and enabled.");
+                yield break;
+            }
+
             isSubTaskRunning = true;
             while (repeatOption.table.Enumerator.MoveNext())
             {

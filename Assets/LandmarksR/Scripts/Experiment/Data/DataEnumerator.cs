@@ -8,36 +8,53 @@ namespace LandmarksR.Scripts.Experiment.Data
     {
         private readonly List<DataFrame> _dataList = new();
         private int _position = -1;
-        private readonly int _count;
+        public int Count { get; }
+        private readonly MergeType _type;
+        private readonly HashSet<int> _usedIndexes = new();
+        private readonly int _randomSeed;
+        private readonly Random _random;
 
-        public DataEnumerator(DataFrame data, int minCount)
+        public DataEnumerator(DataFrame data, int randomSeed = 0)
         {
             _dataList.Add(data);
-            _count = minCount;
+            Count = data.RowCount;
+            _type = MergeType.Vertical;
+            _randomSeed = randomSeed;
+            if (_randomSeed > 0)
+            {
+                _random = new Random(_randomSeed);
+            }
         }
 
-        public DataEnumerator(DataFrame data)
+        public DataEnumerator(List<DataFrame> dataList, MergeType type, int randomSeed = 0)
         {
-            _dataList.Add(data);
-            _count = data.RowCount;
-        }
+            if (dataList.Count == 0)
+            {
+                throw new ArgumentException("Data list cannot be empty for enumeration.");
+            }
 
-        public DataEnumerator(List<DataFrame> dataList)
-        {
+            _type = type;
             _dataList = dataList;
-            _count = dataList.Select(df => df.RowCount).Prepend(int.MaxValue).Min(); // Get the minimum row count
-        }
+            Count = type switch
+            {
+                MergeType.Horizontal =>
+                    dataList.Select(df => df.RowCount).Prepend(int.MaxValue).Min() // Get the minimum row count
+                ,
+                MergeType.Vertical => dataList.Select(df => df.RowCount).Sum(),
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+            };
 
-        public DataEnumerator(List<DataFrame> dataList, int minCount)
-        {
-            _dataList = dataList;
-            _count = minCount;
+            _randomSeed = randomSeed;
+            if (_randomSeed > 0)
+            {
+                _random = new Random(_randomSeed);
+            }
         }
 
         public bool MoveNext()
         {
             _position++;
-            return _position < _count;
+            return _position < Count;
         }
 
         public void Reset()
@@ -47,16 +64,64 @@ namespace LandmarksR.Scripts.Experiment.Data
 
         public DataFrame GetCurrent()
         {
-            if (_dataList.Count == 1)
-                return _dataList[0].GetRow(_position);
-            var row = new DataFrame();
 
-            return _dataList.Aggregate(row, (current, df) => current.MergeColumns(df.GetRow(_position)));
+            var position = _position;
+            if (_randomSeed > 0)
+            {
+                var randomIndex = _random.Next(0, Count);
+                while (_usedIndexes.Contains(randomIndex))
+                {
+                    randomIndex = _random.Next(0, Count);
+                }
+
+                position = randomIndex;
+                _usedIndexes.Add(randomIndex);
+            }
+
+            switch (_type)
+            {
+                case MergeType.Horizontal:
+                    var row = new DataFrame();
+                    return _dataList.Aggregate(row, (current, df) => current.Merge(df.GetRow(position), MergeType.Horizontal));
+                case MergeType.Vertical:
+                    return GetDataFrameAtIndex(_dataList, position);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
         }
 
         public DataFrame GetCurrentByTable(int tableIndex)
         {
             return _dataList[tableIndex].GetRow(_position);
+        }
+
+        private static DataFrame GetDataFrameAtIndex(List<DataFrame> dataList, int index)
+        {
+            // Check if the index is valid
+            if (index < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(index), "Index must be non-negative.");
+            }
+
+            var runningCount = 0;
+
+            foreach (var dataframe in dataList)
+            {
+                if (dataframe != null)
+                {
+                    if (index < runningCount + dataframe.RowCount)
+                    {
+                        // The index is within the bounds of the current sublist
+                        return dataframe.GetRow(index - runningCount);
+                    }
+                    runningCount += dataframe.RowCount;
+                }
+            }
+
+            // If no sublist contains the index
+            throw new ArgumentOutOfRangeException(nameof(index), "Index is out of the bounds of the combined lists.");
         }
     }
 }

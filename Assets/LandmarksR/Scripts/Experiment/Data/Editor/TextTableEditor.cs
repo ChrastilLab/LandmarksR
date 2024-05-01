@@ -75,7 +75,7 @@ namespace LandmarksR.Scripts.Experiment.Data.Editor
                 }
                 else
                 {
-                    LoadPopup.Popup("Confirm your delimiter option", textTable.LoadFromFile);
+                    textTable.LoadFromFile();
                 }
             }
 

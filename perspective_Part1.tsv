@@ -2,7 +2,7 @@ Type	Arg1	Arg2
 Arrow	90	
 Arrow	180	
 Arrow	270	
-Arrow	270	
+Arrow	90	
 Permute Wall	ABDC	
 Permute Wall	ADCB	
 Permute Wall	BCDA	
@@ -14,7 +14,7 @@ Rotate	Capsule	 Z60
 Rotate	Pyramid	 X30
 Rotate	Pyramid	 Y60
 Rotate	Pyramid	 Z60
-Rotate	Cube	 Z45
+Rotate	Cube	 Y30
 Rotate	Cylinder	 X60
 Rotate	Cylinder	 Z30
 Swap Color	Sphere, Capsule	

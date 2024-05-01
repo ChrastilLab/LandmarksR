@@ -7,10 +7,15 @@ using Random = System.Random;
 
 namespace LandmarksR.Scripts.Experiment.Data
 {
+    public enum MergeType
+    {
+        Horizontal,
+        Vertical
+    }
     public class DataFrame
     {
         // Fields
-        private readonly ColumnNameMap _columnNameMap;
+        private ColumnNameMap _columnNameMap;
         private readonly List<List<object?>> _data = new();
 
         // Constructors
@@ -277,6 +282,11 @@ namespace LandmarksR.Scripts.Experiment.Data
             return GetColumn(col);
         }
 
+        public List<object?> GetRawRow(int row)
+        {
+            return _data[row];
+        }
+
 
         /// <summary>
         ///   Get a range of columns from the DataFrame.
@@ -335,9 +345,11 @@ namespace LandmarksR.Scripts.Experiment.Data
         /// <returns>A new Dataframe consisting of merged dataframe</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public DataFrame MergeColumns(DataFrame dataFrame)
+        private DataFrame MergeColumns(DataFrame dataFrame)
         {
             if (dataFrame == null) throw new ArgumentNullException(nameof(dataFrame));
+
+            if (dataFrame.RowCount == 0) return new DataFrame(this);
 
             if (dataFrame.RowCount != 0 && RowCount != 0 && dataFrame.RowCount != RowCount)
                 throw new ArgumentException("DataFrames must have the same number of rows.");
@@ -357,6 +369,43 @@ namespace LandmarksR.Scripts.Experiment.Data
             newDataFrame.AppendColumnNames(dataFrame._columnNameMap.GetOrderedNames());
             newDataFrame.UpdateColumnCount(ColumnCount + dataFrame.ColumnCount);
             return newDataFrame;
+        }
+
+        private DataFrame MergeRows(DataFrame dataFrame)
+        {
+            if (dataFrame == null) throw new ArgumentNullException(nameof(dataFrame));
+
+            if (dataFrame.RowCount == 0) return new DataFrame(this);
+
+            if (dataFrame.ColumnCount != 0 && ColumnCount != 0 && dataFrame.ColumnCount != ColumnCount)
+                throw new ArgumentException("DataFrames must have the same number of columns.");
+
+            var newDataFrame = new DataFrame(this);
+
+            if (newDataFrame.ColumnCount == 0)
+            {
+                newDataFrame.UpdateColumnCount(dataFrame.ColumnCount);
+                newDataFrame.SetColumnNames(dataFrame._columnNameMap.GetOrderedNames());
+            }
+
+            for (var i = 0; i < dataFrame.RowCount; i++)
+            {
+                newDataFrame.AppendRow(dataFrame._data[i]);
+            }
+
+
+
+            return newDataFrame;
+        }
+
+        public DataFrame Merge(DataFrame dataFrame, MergeType mergeType)
+        {
+            return mergeType switch
+            {
+                MergeType.Horizontal => MergeColumns(dataFrame),
+                MergeType.Vertical => MergeRows(dataFrame),
+                _ => throw new ArgumentOutOfRangeException(nameof(mergeType), mergeType, null)
+            };
         }
 
         /// <summary>
@@ -446,6 +495,7 @@ namespace LandmarksR.Scripts.Experiment.Data
                 _columnNameMap.TryAdd(GetUniqueColumnName(columnNames[i]), ColumnCount + i);
             }
         }
+
 
         private void AddEmptyRows(int count)
         {

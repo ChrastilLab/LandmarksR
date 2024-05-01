@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using LandmarksR.Scripts.Experiment.Data;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace LandmarksR.Scripts.Tests.Data
 {
@@ -169,7 +170,7 @@ namespace LandmarksR.Scripts.Tests.Data
         }
 
         [Test]
-        public void MergeColumns_CombinesTwoDataFrames()
+        public void Merge_CombinesTwoDataFramesHorizontally()
         {
             var df1 = new DataFrame();
             df1.AppendRow(new List<object?> { 1, 2 });
@@ -179,12 +180,67 @@ namespace LandmarksR.Scripts.Tests.Data
             df2.AppendRow(new List<object?> { 3 });
             df2.SetColumnNames(new List<string> { "C" });
 
-            var merged = df1.MergeColumns(df2);
+            var merged = df1.Merge(df2, MergeType.Horizontal);
+            Debug.Log(merged);
             Assert.AreEqual(3, merged.ColumnCount);
         }
 
         [Test]
-        public void MergeColumns_ThrowsExceptionIfRowCountMismatch()
+        public void Merge_CombinesEmptyOrPartialDataFramesHorizontally()
+        {
+            var df1 = new DataFrame();
+            var df2 = new DataFrame();
+            var merged = df1.Merge(df2, MergeType.Horizontal);
+            Debug.Log(merged);
+            Assert.AreEqual(0, merged.ColumnCount);
+
+            df1.AppendRow(new List<object?> { 1, 2 });
+            var merged2 = df1.Merge(df2, MergeType.Horizontal);
+            Debug.Log(merged2);
+            Assert.AreEqual(2, merged2.ColumnCount);
+
+            var merged3 = df2.Merge(df1, MergeType.Horizontal);
+            Debug.Log(merged3);
+            Assert.AreEqual(2, merged3.ColumnCount);
+        }
+
+        [Test]
+        public void Merge_CombinesTwoDataFramesVertically()
+        {
+            var df1 = new DataFrame();
+            df1.AppendRow(new List<object?> { 1, 2 });
+            df1.SetColumnNames(new List<string> { "A", "B" });
+
+            var df2 = new DataFrame();
+            df2.AppendRow(new List<object?> { 3, 4 });
+            df2.SetColumnNames(new List<string> { "C", "D" });
+
+            var merged = df1.Merge(df2, MergeType.Vertical);
+            Debug.Log(merged);
+            Assert.AreEqual(2, merged.RowCount);
+        }
+
+        [Test]
+        public void Merge_CombinesEmptyOrPartialDataFramesVertically()
+        {
+            var df1 = new DataFrame();
+            var df2 = new DataFrame();
+            var merged = df1.Merge(df2, MergeType.Vertical);
+            Debug.Log(merged);
+            Assert.AreEqual(0, merged.RowCount);
+
+            df1.AppendColumn(new List<object?> { 1, 2 }, "X");
+            var merged2 = df1.Merge(df2, MergeType.Vertical);
+            Debug.Log(merged2);
+            Assert.AreEqual(2, merged2.RowCount);
+
+            var merged3 = df2.Merge(df1, MergeType.Vertical);
+            Debug.Log(merged3);
+            Assert.AreEqual(2, merged3.RowCount);
+        }
+
+        [Test]
+        public void Merge_ThrowsExceptionIfRowCountMismatch()
         {
             var df1 = new DataFrame();
             df1.AppendRow(new List<object?> { 1, 2 });
@@ -192,7 +248,8 @@ namespace LandmarksR.Scripts.Tests.Data
             df2.AppendRow(new List<object?> { 3 });
             df2.AppendRow(new List<object?> { 4 });
 
-            Assert.Throws<System.ArgumentException>(() => df1.MergeColumns(df2));
+            Assert.Throws<System.ArgumentException>(() => df1.Merge(df2, MergeType.Horizontal));
         }
+
     }
 }
