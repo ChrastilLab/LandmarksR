@@ -22,6 +22,9 @@ namespace PerspectiveTransformation.Scripts
 
         [SerializeField] private bool isStaticLook;
 
+        private RepeatTask repeatTask;
+        private bool isFoil;
+
 
         protected override void Prepare()
         {
@@ -37,7 +40,7 @@ namespace PerspectiveTransformation.Scripts
                 return;
             }
 
-            var repeatTask = GetComponentInParent<RepeatTask>();
+            repeatTask = GetComponentInParent<RepeatTask>();
             Assert.IsNotNull(repeatTask, "Move Camera must be a child of Repeat Task");
 
 
@@ -58,8 +61,7 @@ namespace PerspectiveTransformation.Scripts
             var currentFoilData = repeatTask.CurrentDataByTable(0);
             var currentCameraData = repeatTask.CurrentDataByTable(1);
 
-            // Logger.I("data", currentFoilData);
-            // Logger.I("data", currentCameraData);
+            isFoil = currentFoilData.GetFirstInColumn<string>("Type").Equals("No Foil");
 
             _targetPosition = Utilities.GetPositionFromDataFrame(currentCameraData);
             _targetRotation = Utilities.GetRotationFromDataFrame(currentCameraData);
@@ -73,6 +75,8 @@ namespace PerspectiveTransformation.Scripts
             }
             else
                 HandleFirstPerson();
+
+            repeatTask.Context.Remove("Correctness");
         }
 
         private void HandleFirstPerson()
@@ -102,12 +106,14 @@ namespace PerspectiveTransformation.Scripts
         private void HandleResponseYes()
         {
             isRunning = false;
+            repeatTask.Context["Correctness"] = isFoil ? "1" : "0";
             Logger.I("response", "Same");
         }
 
         private void HandleResponseNo()
         {
             isRunning = false;
+            repeatTask.Context["Correctness"] = isFoil ? "0" : "1";
             Logger.I("response", "Different");
         }
 

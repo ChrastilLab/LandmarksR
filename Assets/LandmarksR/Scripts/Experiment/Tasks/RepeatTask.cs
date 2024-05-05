@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using LandmarksR.Scripts.Attributes;
 using LandmarksR.Scripts.Experiment.Data;
 using LandmarksR.Scripts.Experiment.Log;
@@ -27,11 +28,16 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         [Tooltip("Current SubTask Number (1-indexed)")]
         [NotEditable] public int currentSubTaskNumber = 1;
 
+        [SerializeField] private bool showDebug = true;
+
+        public Dictionary<string, string> Context = new();
         public Table CurrentTable => repeatOption.table;
         public DataFrame CurrentData => repeatOption.table.Enumerator.GetCurrent();
         public DataFrame CurrentDataByTable(int tableIndex) => repeatOption.table.Enumerator.GetCurrentByTable(tableIndex);
         private delegate IEnumerator ExecuteAllDelegate();
         private ExecuteAllDelegate _executeAll;
+
+
 
 
         protected override void Prepare()
@@ -114,11 +120,13 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             {
                 task.Reset();
             }
+
+            Context.Clear();
         }
 
         private void OnGUI()
         {
-            if (!isSubTaskRunning) return;
+            if (!isSubTaskRunning || !showDebug) return;
             GUI.Label(new Rect(10, 10, 100, 20), $"Repeat: {currentRepeat}/{repeatOption.numberOfRepeat}");
             GUI.Label(new Rect( 10, 30, 100, 20), $"SubTask: {currentSubTaskNumber}/{_subTasks.Count}");
         }
