@@ -65,7 +65,7 @@ namespace PerspectiveTransformation.Scripts
         {
             base.Finish();
             responsePanel.SetActive(false);
-            HUD.ShowAllLayer().HideAll();
+            PlayerEvent.UnregisterKeyHandler(KeyCode.Space, Confirm);
         }
 
         private void Confirm()

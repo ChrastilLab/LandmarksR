@@ -24,6 +24,8 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             PlayerEvent.RegisterConfirmHandler(OnConfirm);
         }
 
+        protected void UnregisterDefaultKeyHandler() => UnregisterConfirmHandler();
+
         protected void UnregisterConfirmHandler()
         {
             PlayerEvent.UnregisterConfirmHandler(OnConfirm);

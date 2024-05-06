@@ -7,6 +7,9 @@ namespace LandmarksR.Scripts.Player
 {
     public class PlayerEventController : MonoBehaviour
     {
+
+        [SerializeField] private KeyCode confirmKey = KeyCode.Return;
+
         public delegate void KeyboardEventHandler();
 
         private readonly Dictionary<KeyCode, KeyboardEventHandler> _keyboardEvents = new();
@@ -54,13 +57,13 @@ namespace LandmarksR.Scripts.Player
         private void Start()
         {
             _logger = ExperimentLogger.Instance;
-            RegisterKeyHandler(KeyCode.Return, Confirm);
+            RegisterKeyHandler(confirmKey, Confirm);
             RegisterVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, Confirm);
         }
 
         private void OnDisable()
         {
-            UnregisterKeyHandler(KeyCode.Return, Confirm);
+            UnregisterKeyHandler(confirmKey, Confirm);
             UnregisterVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, Confirm);
         }
 
