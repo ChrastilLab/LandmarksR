@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 
 namespace LandmarksR.Scripts.Experiment.Tasks.Editor
@@ -52,3 +53,5 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Editor
 
     }
 }
+
+#endif

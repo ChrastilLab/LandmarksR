@@ -247,7 +247,8 @@ namespace LandmarksR.Scripts.Experiment.Data
             }
             catch (Exception e)
             {
-                throw;
+                // Log the exception or handle it as needed
+                Logger.E("data", $"Error writing file: {e.Message}");
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 
 namespace LandmarksR.Scripts.Editor
@@ -15,3 +16,5 @@ namespace LandmarksR.Scripts.Editor
         }
     }
 }
+
+#endif

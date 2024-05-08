@@ -80,7 +80,6 @@ namespace LandmarksR.Scripts.Experiment.Data
                     return _dataList.Aggregate(row, (current, df) => current.Merge(df.GetRow(position), MergeType.Horizontal));
                 case MergeType.Vertical:
                     return GetDataFrameAtIndex(_dataList, position);
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
