@@ -74,6 +74,7 @@ namespace PerspectiveTransformation.Scripts
 
             var currentFoilData = repeatTask.CurrentDataByTable(0);
 
+
             if (revert)
             {
                 if (previousFoilControl)

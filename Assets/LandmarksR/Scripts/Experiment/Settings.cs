@@ -104,6 +104,8 @@ namespace LandmarksR.Scripts.Experiment
         public string remoteStatusUrl;
         public string remoteLogUrl;
         public float loggingIntervalInMillisecond;
+        public string dataFileDelimiter;
+        public string dataFileExtension;
     }
 
     [Serializable]
@@ -187,7 +189,9 @@ namespace LandmarksR.Scripts.Experiment
             remoteLogging = false,
             remoteStatusUrl = "http://localhost:3000/status",
             remoteLogUrl = "http://localhost:3000/log",
-            loggingIntervalInMillisecond = 200f
+            loggingIntervalInMillisecond = 200f,
+            dataFileDelimiter = ",",
+            dataFileExtension = "csv"
         };
 
         public UISettings ui = new();

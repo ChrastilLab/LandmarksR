@@ -28,6 +28,7 @@ namespace LandmarksR.Scripts.Experiment.Data
             }
 
             var randomSeed = randomize ? DateTime.Now.Millisecond : 0;
+            Logger.I("data", "Random seed: " + randomSeed);
 
             if (hardMerge)
             {

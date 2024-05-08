@@ -15,7 +15,7 @@ namespace LandmarksR.Scripts.Experiment.Data
     public class DataFrame
     {
         // Fields
-        private ColumnNameMap _columnNameMap;
+        private readonly ColumnNameMap _columnNameMap;
         private readonly List<List<object?>> _data = new();
 
         // Constructors
@@ -34,6 +34,14 @@ namespace LandmarksR.Scripts.Experiment.Data
                 _data.Add(new List<object?>(row));
             }
         }
+
+        public DataFrame(IReadOnlyList<string> columnNames)
+        {
+            ColumnCount = columnNames.Count;
+            _columnNameMap = new ColumnNameMap();
+            SetColumnNames(columnNames);
+        }
+
 
         // Properties
         public IReadOnlyList<List<object?>> Rows => _data;
@@ -169,6 +177,8 @@ namespace LandmarksR.Scripts.Experiment.Data
                 throw new IndexOutOfRangeException("Column index out of range.");
             }
 
+            AdjustEmptyRow(row);
+
             return (T?)_data[row][col];
         }
 
@@ -194,7 +204,8 @@ namespace LandmarksR.Scripts.Experiment.Data
                 throw new ArgumentException("Header not found.");
             }
 
-            Debug.Log("Get Value at: " + row + " " + col);
+
+            AdjustEmptyRow(row);
 
             return (T?)_data[row][col];
         }
@@ -218,6 +229,41 @@ namespace LandmarksR.Scripts.Experiment.Data
             }
 
             return GetValue<T>(0, col);
+        }
+
+        public void SetValue(int row, int col, object? value)
+        {
+            if (row < 0 || row >= RowCount)
+            {
+                throw new IndexOutOfRangeException("Row index out of range.");
+            }
+
+            if (col < 0 || col >= ColumnCount)
+            {
+                throw new IndexOutOfRangeException("Column index out of range.");
+            }
+
+            AdjustEmptyRow(row);
+
+            _data[row][col] = value;
+        }
+
+        public void SetValue(int row, string columnName, object? value)
+        {
+            if (row < 0 || row >= RowCount)
+            {
+                throw new IndexOutOfRangeException("Row index out of range.");
+            }
+
+            if (!_columnNameMap.TryGetIndex(columnName, out var col))
+            {
+                throw new ArgumentException("Header not found.");
+            }
+
+            AdjustEmptyRow(row);
+
+
+            _data[row][col] = value;
         }
 
         /// <summary>
@@ -258,6 +304,7 @@ namespace LandmarksR.Scripts.Experiment.Data
             var dataFrame = new DataFrame();
             for (var i = 0; i < RowCount; i++)
             {
+                AdjustEmptyRow(i);
                 dataFrame.AppendRow(new List<object?> { _data[i][col] });
             }
 
@@ -284,6 +331,7 @@ namespace LandmarksR.Scripts.Experiment.Data
 
         public List<object?> GetRawRow(int row)
         {
+            AdjustEmptyRow(row);
             return _data[row];
         }
 
@@ -318,6 +366,7 @@ namespace LandmarksR.Scripts.Experiment.Data
             var dataFrame = new DataFrame();
             for (var i = 0; i < RowCount; i++)
             {
+                AdjustEmptyRow(i);
                 var row = new List<object?>();
                 for (var j = startCol; j <= end; j++)
                 {
@@ -481,6 +530,21 @@ namespace LandmarksR.Scripts.Experiment.Data
             for (var i = 0; i < ColumnCount; i++)
             {
                 _columnNameMap.TryAdd($"{GetUniqueColumnName("X")}", i);
+            }
+        }
+
+        private void AdjustEmptyRow(int row)
+        {
+            if (row < 0 || row >= RowCount)
+            {
+                throw new IndexOutOfRangeException("Row index out of range.");
+            }
+
+            if (ColumnCount <= _data[row].Count) return;
+
+            for (var i = _data[row].Count; i < ColumnCount; i++)
+            {
+                _data[row].Add(null);
             }
         }
 

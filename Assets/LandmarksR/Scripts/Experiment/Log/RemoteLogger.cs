@@ -44,6 +44,7 @@ namespace LandmarksR.Scripts.Experiment.Log
         private async Task WriteLogAsync(LogMessage message)
         {
             var content = new StringContent(message.ToJson(_filePath), Encoding.UTF8, "application/json");
+
             try
             {
                 var response = await HttpClient.PostAsync(_logUrl, content);

@@ -10,9 +10,9 @@ namespace LandmarksR.Scripts.Experiment.Data
         private int _position = -1;
         public int Count { get; }
         private readonly MergeType _type;
-        private readonly HashSet<int> _usedIndexes = new();
         private readonly int _randomSeed;
         private readonly Random _random;
+        private readonly List<int> _randomizedIndexes;
 
         public DataEnumerator(DataFrame data, int randomSeed = 0)
         {
@@ -23,6 +23,7 @@ namespace LandmarksR.Scripts.Experiment.Data
             if (_randomSeed > 0)
             {
                 _random = new Random(_randomSeed);
+                _randomizedIndexes = Enumerable.Range(0, Count).OrderBy(x => _random.Next()).ToList();
             }
         }
 
@@ -48,6 +49,7 @@ namespace LandmarksR.Scripts.Experiment.Data
             if (_randomSeed > 0)
             {
                 _random = new Random(_randomSeed);
+                _randomizedIndexes = Enumerable.Range(0, Count).OrderBy(x => _random.Next()).ToList();
             }
         }
 
@@ -60,7 +62,6 @@ namespace LandmarksR.Scripts.Experiment.Data
         public void Reset()
         {
             _position = -1;
-            _usedIndexes.Clear();
         }
 
         public DataFrame GetCurrent()
@@ -69,14 +70,7 @@ namespace LandmarksR.Scripts.Experiment.Data
             var position = _position;
             if (_randomSeed > 0)
             {
-                var randomIndex = _random.Next(0, Count);
-                while (_usedIndexes.Contains(randomIndex))
-                {
-                    randomIndex = _random.Next(0, Count);
-                }
-
-                position = randomIndex;
-                _usedIndexes.Add(randomIndex);
+                position = _randomizedIndexes[_position];
             }
 
             switch (_type)
@@ -95,7 +89,12 @@ namespace LandmarksR.Scripts.Experiment.Data
 
         public DataFrame GetCurrentByTable(int tableIndex)
         {
-            return _dataList[tableIndex].GetRow(_position);
+            var position = _position;
+            if (_randomSeed > 0)
+            {
+                position = _randomizedIndexes[_position];
+            }
+            return _dataList[tableIndex].GetRow(position);
         }
 
         private static DataFrame GetDataFrameAtIndex(List<DataFrame> dataList, int index)

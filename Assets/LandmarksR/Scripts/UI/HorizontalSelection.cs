@@ -46,5 +46,10 @@ namespace LandmarksR.Scripts.UI
             return _options[_selectedIndex];
         }
 
+        public int GetSelectedIndex()
+        {
+            return _selectedIndex;
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace LandmarksR.Scripts.Experiment.Tasks
@@ -9,8 +10,12 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         [TextArea(3, 10)]
         [SerializeField] private string instructionContent;
 
+        [SerializeField] private TextAlignmentOptions textAlignmentOptions = TextAlignmentOptions.TopRight;
+
         [SerializeField] private float opacity = 0.5f;
         [SerializeField] private List<string> layersToHide = new();
+
+
         protected override void Prepare()
         {
             base.Prepare();
@@ -19,7 +24,8 @@ namespace LandmarksR.Scripts.Experiment.Tasks
                 .SetContent(instructionContent)
                 .ShowAll()
                 .SetOpacity(opacity)
-                .HideLayers(layersToHide);
+                .HideLayers(layersToHide)
+                .SetContentAlignment(textAlignmentOptions);
 
             PlayerEvent.RegisterConfirmHandler(OnConfirm);
         }
@@ -30,6 +36,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         {
             PlayerEvent.UnregisterConfirmHandler(OnConfirm);
         }
+
 
         private void OnConfirm()
         {

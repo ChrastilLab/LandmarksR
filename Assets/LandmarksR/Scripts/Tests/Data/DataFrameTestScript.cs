@@ -31,6 +31,21 @@ namespace LandmarksR.Scripts.Tests.Data
         }
 
         [Test]
+        public void Constructor_Empty_WithColumnNames()
+        {
+
+            var df = new DataFrame(new List<string> { "A", "B", "C"});
+            Debug.Log(df);
+            Assert.AreEqual(0, df.RowCount);
+            Assert.AreEqual(3, df.ColumnCount);
+
+            df.AppendRow(new List<object?> { 1, 2, 3 });
+            Debug.Log(df);
+            Assert.AreEqual(1, df.RowCount);
+            Assert.AreEqual(3, df.ColumnCount);
+        }
+
+        [Test]
         public void AppendRow_AddsRowToEmptyDataFrame()
         {
             var df = new DataFrame();
@@ -167,6 +182,26 @@ namespace LandmarksR.Scripts.Tests.Data
             Assert.AreEqual(3, columns[0, 1]);
             Assert.AreEqual(6, columns[1, 1]);
 
+        }
+
+        [Test]
+        public void SetValue_SetsCorrectValue()
+        {
+            var df = new DataFrame();
+            df.AppendRow(new List<object?> { 1, 2, 3 });
+            df.SetValue(0, 1, 5);
+            Debug.Log(df);
+            Assert.AreEqual(5, df[0, 1]);
+        }
+
+        [Test]
+        public void SetValue_AtNullColumn_SetsCorrectValue()
+        {
+            var df = new DataFrame( new List<string> { "A", "B", "C" });
+            df.AppendRow(new List<object?> { 1, 2, 3 });
+            df.SetValue(0, "B", 5);
+            Debug.Log(df);
+            Assert.AreEqual(5, df[0, 1]);
         }
 
         [Test]

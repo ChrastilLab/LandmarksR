@@ -45,17 +45,19 @@ namespace PerspectiveTransformation.Scripts
 
 
             var camData = repeatTask.CurrentDataByTable(1);
-            SetFirstPersonView(perspectiveCamera, camData);
-            SetTopDownView(topDownCamera);
 
             var isTopFirst = Utilities.GetOrderFromDataFrame(camData)[0] == 'T';
             if (isTopFirst)
             {
+                SetFirstPersonView(perspectiveCamera, camData, 0);
+                SetTopDownView(topDownCamera, 100);
                 AdjustImageSize(leftImage, topDownRenderTexture, 900);
                 AdjustImageSize(rightImage, perspectiveRenderTexture, 900);
             }
             else
             {
+                SetFirstPersonView(perspectiveCamera, camData, 100);
+                SetTopDownView(topDownCamera, 0);
                 AdjustImageSize(leftImage, perspectiveRenderTexture, 900);
                 AdjustImageSize(rightImage, topDownRenderTexture, 900);
             }
@@ -94,18 +96,20 @@ namespace PerspectiveTransformation.Scripts
             image.rectTransform.sizeDelta = new Vector2(imageWidth, imageWidth * ratio);
         }
 
-        private static void SetTopDownView(Camera cam)
+        private static void SetTopDownView(Camera cam, float offset)
         {
-            cam.transform.position = new Vector3(0, 100, -4f);
+            cam.transform.position = new Vector3(0, 100 + offset, -4f);
             cam.transform.rotation = Quaternion.Euler(90, 0, 0);
             cam.orthographic = true;
             cam.orthographicSize = 40;
         }
 
-        private static void SetFirstPersonView(Camera cam, DataFrame camData)
+        private static void SetFirstPersonView(Camera cam, DataFrame camData, float offset)
         {
             var targetPosition = Utilities.GetPositionFromDataFrame(camData);
             var targetRotation = Utilities.GetRotationFromDataFrame(camData);
+
+            targetPosition.y += offset;
 
             cam.transform.position = targetPosition;
             cam.transform.rotation = Quaternion.Euler(targetRotation);

@@ -144,6 +144,13 @@ namespace LandmarksR.Scripts.Player
             instructionPanel.color = color;
             return this;
         }
+
+        public Hud SetContentAlignment(TextAlignmentOptions alignment)
+        {
+            contentText.alignment = alignment;
+            return this;
+        }
+
         #endregion
 
         #region Confirmation Button

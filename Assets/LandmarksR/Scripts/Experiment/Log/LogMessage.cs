@@ -1,46 +1,54 @@
-﻿using System.Security;
+﻿using System;
+using System.Text;
 
 namespace LandmarksR.Scripts.Experiment.Log
 {
-    public enum LogPriority
+    public enum LogType
     {
         Info,
         Warning,
         Error,
+        Data
     }
+
     public class LogMessage
     {
-        private LogPriority Priority { get;  }
-        private string Message { get; }
-        private string Tag { get; }
-        private string Timestamp { get; }
+        public LogType Type { get; }
+        public string Message { get; }
+        public string Tag { get; }
+        public string Timestamp { get; }
 
-        public LogMessage(string timestamp, string tag, LogPriority priority,string message)
+        public LogMessage(string timestamp, string tag, LogType type, string message)
         {
             Timestamp = timestamp;
             Tag = tag;
-            Priority = priority;
+            Type = type;
+            Message = message;
+        }
+
+        public LogMessage(string message)
+        {
+            Type = LogType.Data;
             Message = message;
         }
 
 
         public override string ToString()
         {
-            var priority = Priority switch
+            return Type switch
             {
-                LogPriority.Info => "I",
-                LogPriority.Warning => "W",
-                LogPriority.Error => "E",
+                LogType.Info => $"{Timestamp}|{Tag}|I|{Message}",
+                LogType.Warning => $"{Timestamp}|{Tag}|W|{Message}",
+                LogType.Error => $"{Timestamp}|{Tag}|E|{Message}",
+                LogType.Data => Message,
                 _ => "UNKNOWN"
             };
-
-            return $"{Timestamp}|{Tag}|{priority}|{Message}";
         }
 
         public string ToJson(string fileName)
         {
-            return $"{{\"filePath\":\"{fileName}\",\"message\":\"{SecurityElement.Escape(ToString())}\"}}";
+            return
+                $"{{\"filePath\":\"{fileName}\",\"message\":\"{Convert.ToBase64String(Encoding.UTF8.GetBytes(ToString()))}\"}}";
         }
-
     }
 }

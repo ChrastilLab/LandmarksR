@@ -52,10 +52,21 @@ namespace LandmarksR.Scripts.Player
 
             var waitTime = 0.001f * _settings.logging.loggingIntervalInMillisecond;
             _logger.I("player", $"Logging Interval: {waitTime}");
-            StartCoroutine(PlayerLoggingCoroutine(waitTime));
+            // StartCoroutine(PlayerLoggingCoroutine(waitTime));
         }
 
         #region Logging
+
+        public void StartPlayerLogging()
+        {
+            _playerLogging = true;
+            StartCoroutine(PlayerLoggingCoroutine());
+        }
+
+        public void StopPlayerLogging()
+        {
+            _playerLogging = false;
+        }
         private IEnumerator PlayerLoggingCoroutine(float interval = 0.2f)
         {
             while (_playerLogging)

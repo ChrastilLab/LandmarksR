@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using LandmarksR.Scripts.Attributes;
 using LandmarksR.Scripts.Experiment.Data;
-using LandmarksR.Scripts.Experiment.Log;
 using UnityEngine;
 
 namespace LandmarksR.Scripts.Experiment.Tasks
@@ -22,6 +21,9 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
         [SerializeField] private RepeatOption repeatOption;
 
+        [SerializeField] private string outputSetName = "defaultSet";
+        [SerializeField] private List<string> outputColumns;
+
         [Tooltip("Current SubTask Number (0-indexed)")]
         [NotEditable] public int currentRepeat = 1;
 
@@ -30,7 +32,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
         [SerializeField] private bool showDebug = true;
 
-        public Dictionary<string, string> Context = new();
+        public readonly Dictionary<string, string> Context = new();
         public Table CurrentTable => repeatOption.table;
         public DataFrame CurrentData => repeatOption.table.Enumerator.GetCurrent();
         public DataFrame CurrentDataByTable(int tableIndex) => repeatOption.table.Enumerator.GetCurrentByTable(tableIndex);
@@ -52,6 +54,21 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             {
                 _executeAll = ExecuteByRepeat;
             }
+
+            if (string.IsNullOrEmpty(outputSetName))
+            {
+                Logger.W("output", "Output Set Name is not set. Using default name.");
+                outputSetName = "defaultSet";
+            }
+
+            if (outputColumns == null || outputColumns.Count == 0)
+            {
+                Logger.W("output", "Output Columns are not set. Using default column names.");
+                outputColumns = new List<string> { "Repeat", "SubTask" };
+            }
+
+            Logger.BeginDataSet(outputSetName, outputColumns);
+
         }
 
         // protected override void Finish()
@@ -71,6 +88,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             while (repeatOption.table.Enumerator.MoveNext())
             {
                 yield return ExecuteSubTasks();
+                LogContext();
                 ResetSubtasks();
                 currentRepeat++;
             }
@@ -83,6 +101,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             while (currentRepeat <= repeatOption.numberOfRepeat)
             {
                 yield return ExecuteSubTasks();
+                LogContext();
                 ResetSubtasks();
                 currentRepeat++;
             }
@@ -113,6 +132,16 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             }
         }
 
+        private void LogContext()
+        {
+            foreach (var column in outputColumns)
+            {
+                Logger.SetData(outputSetName, column, Context.GetValueOrDefault(column, "N/A"));
+            }
+
+            Logger.LogDataRow(outputSetName);
+        }
+
         private void ResetSubtasks()
         {
             currentSubTaskNumber = 1;
@@ -120,8 +149,13 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             {
                 task.Reset();
             }
-
             Context.Clear();
+        }
+
+        protected override void Finish()
+        {
+            base.Finish();
+            Logger.EndDataSet(outputSetName);
         }
 
         private void OnGUI()

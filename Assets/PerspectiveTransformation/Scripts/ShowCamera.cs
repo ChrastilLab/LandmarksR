@@ -1,6 +1,4 @@
-﻿using LandmarksR.Scripts.Experiment.Data;
-using LandmarksR.Scripts.Experiment.Log;
-using LandmarksR.Scripts.Experiment.Tasks;
+﻿using LandmarksR.Scripts.Experiment.Tasks;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -37,6 +35,8 @@ namespace PerspectiveTransformation.Scripts
                 _camera.transform.rotation = Quaternion.Euler(90, 0, 0);
                 _camera.orthographic = true;
                 _camera.orthographicSize = 40;
+
+                PlayerEvent.RegisterKeyHandler(KeyCode.Backspace, Skip);
                 return;
             }
 
@@ -61,6 +61,19 @@ namespace PerspectiveTransformation.Scripts
             var currentFoilData = repeatTask.CurrentDataByTable(0);
             var currentCameraData = repeatTask.CurrentDataByTable(1);
 
+            repeatTask.Context.TryAdd("Type", currentFoilData.GetFirstInColumn<string>("Type"));
+            repeatTask.Context.TryAdd("Arg1", $"\"{currentFoilData.GetFirstInColumn<string>("Arg1")}\"");
+            repeatTask.Context.TryAdd("Arg2", $"\"{currentFoilData.GetFirstInColumn<string>("Arg2")}\"");
+            repeatTask.Context.TryAdd("PX", currentCameraData.GetFirstInColumn<string>("PX"));
+            repeatTask.Context.TryAdd("PY", currentCameraData.GetFirstInColumn<string>("PY"));
+            repeatTask.Context.TryAdd("PZ", currentCameraData.GetFirstInColumn<string>("PZ"));
+            repeatTask.Context.TryAdd("RX", currentCameraData.GetFirstInColumn<string>("RX"));
+            repeatTask.Context.TryAdd("RY", currentCameraData.GetFirstInColumn<string>("RY"));
+            repeatTask.Context.TryAdd("RZ", currentCameraData.GetFirstInColumn<string>("RZ"));
+            repeatTask.Context.TryAdd("ORDER", currentCameraData.GetFirstInColumn<string>("ORDER"));
+
+
+
             isFoil = currentFoilData.GetFirstInColumn<string>("Type").Equals("No Foil");
 
             _targetPosition = Utilities.GetPositionFromDataFrame(currentCameraData);
@@ -77,6 +90,8 @@ namespace PerspectiveTransformation.Scripts
                 HandleFirstPerson();
 
             repeatTask.Context.Remove("Correctness");
+
+
         }
 
         private void HandleFirstPerson()
@@ -106,6 +121,7 @@ namespace PerspectiveTransformation.Scripts
         private void HandleResponseYes()
         {
             isRunning = false;
+            repeatTask.Context["Response"] = "1";
             repeatTask.Context["Correctness"] = isFoil ? "1" : "0";
             Logger.I("response", "Same");
         }
@@ -114,7 +130,14 @@ namespace PerspectiveTransformation.Scripts
         {
             isRunning = false;
             repeatTask.Context["Correctness"] = isFoil ? "0" : "1";
+            repeatTask.Context["Response"] = "0";
             Logger.I("response", "Different");
+        }
+
+        private void Skip()
+        {
+            Debug.Log("Skip");
+            isRunning = false;
         }
 
         protected override void Finish()
@@ -126,12 +149,19 @@ namespace PerspectiveTransformation.Scripts
             else
                 HandleTopDown();
 
+            if (isStaticLook)
+            {
+                PlayerEvent.UnregisterKeyHandler(KeyCode.Backspace, Skip);
+            }
+
             if (!isFirstShow && !isStaticLook)
             {
                 responsePanel.SetActive(false);
                 PlayerEvent.UnregisterKeyHandler(KeyCode.F, HandleResponseYes);
                 PlayerEvent.UnregisterKeyHandler(KeyCode.J, HandleResponseNo);
+                repeatTask?.Context.TryAdd("Timeout", $"{elapsedTime >= timer}");
             }
+
         }
     }
 }

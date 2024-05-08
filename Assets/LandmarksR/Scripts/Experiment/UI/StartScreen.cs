@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using LandmarksR.Scripts.Player;
 using LandmarksR.Scripts.UI;
 using TMPro;
@@ -12,17 +13,16 @@ namespace LandmarksR.Scripts.Experiment.UI
     {
         [SerializeField] private TMP_InputField participantIdInput;
         [SerializeField] private HorizontalSelection sceneModeSelection;
-        [SerializeField] private HorizontalSelection displayModeSelection;
+        [SerializeField] private HorizontalSelection settingsSelection;
         [SerializeField] private TMP_Text errorText;
 
-        private readonly List<string> _displayModeOptions = new() { "VR", "PC" };
+        private List<Settings> _availableSettings;
 
         public void Start()
         {
-            var scenes = GetAllScenes();
+            var scenes = GetActiveScenes();
             sceneModeSelection.SetList(scenes);
-
-            displayModeSelection.SetList(_displayModeOptions);
+            settingsSelection.SetList(GetAvailableSettings());
         }
         public void StartExperiment()
         {
@@ -31,7 +31,7 @@ namespace LandmarksR.Scripts.Experiment.UI
             SceneManager.LoadScene(sceneModeSelection.GetSelectedOption());
         }
 
-        private static IEnumerable<string> GetAllScenes()
+        private static IEnumerable<string> GetActiveScenes()
         {
             var scenes = new List<string>();
             for (var i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
@@ -43,6 +43,16 @@ namespace LandmarksR.Scripts.Experiment.UI
             }
 
             return scenes;
+        }
+
+        private IEnumerable<string> GetAvailableSettings()
+        {
+            // Get all available settings from resources folder
+
+            _availableSettings = Resources.LoadAll<Settings>("Settings").ToList();
+
+            return _availableSettings.Select(settings => settings.name).ToList();
+
         }
 
         private bool ValidateNonNullity()
@@ -60,7 +70,7 @@ namespace LandmarksR.Scripts.Experiment.UI
                 return false;
             }
 
-            if (displayModeSelection == null)
+            if (settingsSelection == null)
             {
                 Debug.LogError(
                     "Display Mode Selection has not been assigned to the StartScreen script. This is a critical error");
@@ -85,13 +95,21 @@ namespace LandmarksR.Scripts.Experiment.UI
                 return false;
             }
 
-            Settings.Instance.experiment.participantId = participantIdInput.text;
-            Settings.Instance.displayReference.displayMode = displayModeSelection.GetSelectedOption() switch
+            // Settings.Instance.experiment.participantId = participantIdInput.text;
+
+            if (sceneModeSelection.GetSelectedOption() == null)
             {
-                "PC" => DisplayMode.Desktop,
-                "VR" => DisplayMode.VR,
-                _ => throw new System.Exception("Invalid Display Mode, Check The HorizontalSelection Options")
-            };
+                errorText.text = "Please select a scene";
+                return false;
+            }
+
+            var settings = _availableSettings[settingsSelection.GetSelectedIndex()];
+            settings.experiment.participantId = participantIdInput.text;
+
+            // Create a new instance of the selected settings
+            var settingClone = Instantiate(settings);
+
+            settingClone.name = settings.name;
 
             return true;
         }

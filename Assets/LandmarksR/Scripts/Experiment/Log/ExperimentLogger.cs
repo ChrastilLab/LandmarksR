@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,8 +13,10 @@ namespace LandmarksR.Scripts.Experiment.Log
         [SerializeField] private List<string> tagToPrint = new() { "default" };
         private bool CheckTag(string messageTag) => tagToPrint.IndexOf(messageTag) >= 0;
 
-        private TextLogger _textLogger;
+        private TextLogger _generalLogger;
         private Settings _settings;
+
+        private Dictionary<string, DataLogger> _dataLoggers = new();
 
         private void Awake()
         {
@@ -33,23 +36,89 @@ namespace LandmarksR.Scripts.Experiment.Log
         private void Init()
         {
             _settings = Settings.Instance;
-            _textLogger = new TextLogger();
+            _generalLogger = new TextLogger();
 
             if (_settings.logging.localLogging)
             {
-                _textLogger.EnableLocalLog(GetPersistentLocalPath());
+                _generalLogger.EnableLocalLog(GetPersistentLocalPath());
             }
 
             if (_settings.logging.remoteLogging)
             {
-                _textLogger.EnableRemoteLog(GetRelativeRemotePath(),
+                _generalLogger.EnableRemoteLog(GetRelativeRemotePath(),
                     _settings.logging.remoteStatusUrl, _settings.logging.remoteLogUrl);
             }
         }
 
+
+        public void BeginDataSet(string setName, List<string> columnNames)
+        {
+            var dataLogger = new DataLogger();
+            var fileName = $"{setName}.{_settings.logging.dataFileExtension}";
+
+            if (_settings.logging.localLogging)
+            {
+                dataLogger.EnableLocalLog(GetPersistentLocalPath(fileName));
+            }
+
+            if (_settings.logging.remoteLogging)
+            {
+                dataLogger.EnableRemoteLog(GetRelativeRemotePath(fileName),
+                    _settings.logging.remoteStatusUrl, _settings.logging.remoteLogUrl);
+            }
+
+            I("output", "BeginDataRow:" + fileName);
+            I("output", "Columns:" + string.Join(",", columnNames));
+
+            dataLogger.Begin(columnNames, _settings.logging.dataFileDelimiter);
+
+            _dataLoggers.Add(setName, dataLogger);
+        }
+
+        public void SetData(string setName, string column, string value)
+        {
+            if (!_dataLoggers.ContainsKey(setName))
+            {
+                E("output", $"Data logger for {setName} not found.");
+                return;
+            }
+
+            I("output", $"LogData:{column}:{value}");
+
+            _dataLoggers[setName].SetValue(column, value);
+        }
+
+        public void LogDataRow(string setName)
+        {
+            if (!_dataLoggers.ContainsKey(setName))
+            {
+                E("output", $"Data logger for {setName} not found.");
+                return;
+            }
+
+            I("output", "LogDataRow:" + setName);
+
+            _dataLoggers[setName].Log();
+        }
+
+
+        public void EndDataSet(string setName)
+        {
+            if (!_dataLoggers.ContainsKey(setName))
+            {
+                E("output", $"Data logger for {setName} not found.");
+                return;
+            }
+
+            I("output", "EndDataRow:" + setName);
+            _dataLoggers[setName].End();
+            _dataLoggers.Remove(setName);
+        }
+
+
         public void I(string messageTag, object message)
         {
-            _textLogger.I(messageTag, message);
+            _generalLogger.I(messageTag, message);
 #if UNITY_EDITOR
             if (CheckTag(messageTag))
                 Debug.Log($"[LMR] <color=green>INFO</color> | {messageTag} | {message}");
@@ -58,7 +127,7 @@ namespace LandmarksR.Scripts.Experiment.Log
 
         public void W(string messageTag, object message)
         {
-            _textLogger.W(messageTag, message);
+            _generalLogger.W(messageTag, message);
 #if UNITY_EDITOR
             Debug.LogWarning($"[LMR] <color=yellow>WARNING</color> | {messageTag} | {message}");
 #endif
@@ -66,32 +135,36 @@ namespace LandmarksR.Scripts.Experiment.Log
 
         public void E(string messageTag, object message)
         {
-            _textLogger.E(messageTag, message);
+            _generalLogger.E(messageTag, message);
 #if UNITY_EDITOR
             Debug.LogError($"[LMR] <color=red>ERROR</color> | {messageTag} | {message}");
             EditorApplication.isPlaying = false;
 #endif
         }
 
-        private string GetPersistentLocalPath()
+        private string GetPersistentLocalPath(string fileName = "all.log")
         {
             var date = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
             return Path.Combine(Application.persistentDataPath,
                 Application.productName,
                 _settings.experiment.participantId,
-                $"{_settings.experiment.participantId}_{date}.log");
+                $"{_settings.experiment.participantId}_{date}_{fileName}");
         }
 
-        private string GetRelativeRemotePath()
+        private string GetRelativeRemotePath(string fileName = "all.log")
         {
             var date = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
             return
-                $"{Application.productName}/{_settings.experiment.participantId}/{_settings.experiment.participantId}_{date}.log";
+                $"{Application.productName}/{_settings.experiment.participantId}/{_settings.experiment.participantId}_{date}_{fileName}";
         }
 
         private async void OnDisable()
         {
-            await _textLogger.StopAsync();
+            await _generalLogger.StopAsync();
+            foreach (var dataLogger in _dataLoggers.Values.ToList())
+            {
+                await dataLogger.StopAsync();
+            }
         }
     }
 }
