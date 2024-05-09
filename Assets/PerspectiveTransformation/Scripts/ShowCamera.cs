@@ -1,4 +1,5 @@
 ﻿using LandmarksR.Scripts.Experiment.Tasks;
+using LandmarksR.Scripts.Player;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -29,6 +30,9 @@ namespace PerspectiveTransformation.Scripts
             base.Prepare();
             _camera = Player.GetMainCamera();
 
+            HUD.HideAll()
+                .ShowAllLayer();
+
             if (isStaticLook)
             {
                 _camera.transform.position = new Vector3(0, 100, -4f);
@@ -37,15 +41,13 @@ namespace PerspectiveTransformation.Scripts
                 _camera.orthographicSize = 40;
 
                 PlayerEvent.RegisterKeyHandler(KeyCode.Backspace, Skip);
-                return;
+                return; // Careful with this return statement, it will skip the rest of the code
             }
 
             repeatTask = GetComponentInParent<RepeatTask>();
             Assert.IsNotNull(repeatTask, "Move Camera must be a child of Repeat Task");
 
 
-            HUD.HideAll()
-                .ShowAllLayer();
 
 
 
@@ -143,6 +145,7 @@ namespace PerspectiveTransformation.Scripts
         protected override void Finish()
         {
             base.Finish();
+            HUD.HideLayers(new[] { "Objects", "Environment" });
             // Prevent flickering by pre-setting the position and rotation
             if (isTopDown)
                 HandleFirstPerson();

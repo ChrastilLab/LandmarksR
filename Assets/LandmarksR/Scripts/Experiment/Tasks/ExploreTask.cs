@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using LandmarksR.Scripts.Player;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace LandmarksR.Scripts.Experiment.Tasks
 {
@@ -11,6 +8,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         protected override void Prepare()
         {
             base.Prepare();
+            base.UnregisterDefaultKeyHandler();
 
             Player.TryEnableDesktopInput();
             Player.StartPlayerLogging();
@@ -25,8 +23,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             Player.DisableDesktopInput();
             Player.StopPlayerLogging();
             PlayerEvent.UnregisterKeyHandler(KeyCode.Backspace, Skip);
-            HUD.ClearAllText()
-                .ShowAllLayer();
+            HUD.ClearAllText();
 
         }
 

@@ -48,9 +48,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         {
             base.Finish();
             PlayerEvent.UnregisterConfirmHandler(OnConfirm);
-
-            HUD.HideAll()
-                .ShowAllLayer();
+            HUD.ClearAllText();
         }
     }
 }

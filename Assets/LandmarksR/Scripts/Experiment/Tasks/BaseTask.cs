@@ -27,6 +27,9 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
         [Header("Time")]
         [SerializeField] protected float timer = Mathf.Infinity;
+        [SerializeField] protected bool randomizeTimer;
+        [SerializeField] private float minTimer = 0;
+        [SerializeField] private float maxTimer = 10;
         [NotEditable, SerializeField] protected float elapsedTime;
 
         protected virtual void Start()
@@ -56,6 +59,12 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             isCompleted = false;
             isRunning = true;
             elapsedTime = 0;
+
+            if (randomizeTimer)
+            {
+                timer = UnityEngine.Random.Range(minTimer, maxTimer);
+            }
+
             StartTimer();
         }
 
