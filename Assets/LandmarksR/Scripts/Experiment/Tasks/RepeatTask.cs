@@ -136,7 +136,10 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         {
             foreach (var column in outputColumns)
             {
-                Logger.SetData(outputSetName, column, Context.GetValueOrDefault(column, "N/A"));
+                // add \"\" to the both side of value to make sure it is a string
+                var value = Context.GetValueOrDefault(column, "N/A").Trim('"');
+                value = $"\"{value}\"";
+                Logger.SetData(outputSetName, column, value);
             }
 
             Logger.LogDataRow(outputSetName);
