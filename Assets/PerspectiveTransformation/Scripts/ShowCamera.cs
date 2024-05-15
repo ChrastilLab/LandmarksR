@@ -162,7 +162,8 @@ namespace PerspectiveTransformation.Scripts
                 responsePanel.SetActive(false);
                 PlayerEvent.UnregisterKeyHandler(KeyCode.F, HandleResponseYes);
                 PlayerEvent.UnregisterKeyHandler(KeyCode.J, HandleResponseNo);
-                repeatTask?.Context.TryAdd("Timeout", $"{elapsedTime >= timer}");
+                var timeout = elapsedTime >= timer ? "1" : "0";
+                repeatTask?.Context.TryAdd("Timeout", $"{timeout}");
             }
 
         }

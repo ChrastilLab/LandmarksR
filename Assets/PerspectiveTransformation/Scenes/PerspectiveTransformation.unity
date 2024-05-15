@@ -183,7 +183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -298,7 +297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -314,7 +312,7 @@ MonoBehaviour:
 
 
     Press ''Space'' to continue'
-  textAlignmentOptions: 257
+  textAlignmentOptions: 258
   opacity: 0.5
   layersToHide:
   - Objects
@@ -367,7 +365,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a0d3e6ace1477187152c6e929c5fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -387,7 +384,7 @@ GameObject:
   m_Component:
   - component: {fileID: 42634979}
   m_Layer: 0
-  m_Name: Q4 Center Locations for validation (Please delete)
+  m_Name: Q4 Center Locations for validation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1137,7 +1134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 114724170}
   m_Layer: 0
-  m_Name: Q3 Center Locations for validation (Please delete)
+  m_Name: Q3 Center Locations for validation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1217,7 +1214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -1480,7 +1476,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d52240ae314fe2868a81e45e831cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: 4
   randomizeTimer: 0
@@ -2219,7 +2214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524efa6f7e12772429f0eeb30163efaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -2397,7 +2391,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -2625,7 +2618,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c5adfed97754c40af4ca8ee0ab9ea3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -2782,7 +2774,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d52240ae314fe2868a81e45e831cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: 90
   randomizeTimer: 0
@@ -3145,7 +3136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524efa6f7e12772429f0eeb30163efaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -3406,7 +3396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 560563983}
   m_Layer: 0
-  m_Name: Q2 Center Locations for validation (Please delete)
+  m_Name: Q2 Center Locations for validation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3486,7 +3476,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -3605,7 +3594,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -3617,13 +3605,13 @@ MonoBehaviour:
   isCompleted: 0
   randomize: 0
   rows:
-  - The two views are different
-  - The two views are different
-  - The two views are the same
-  - The two views are different
-  - The two views are different
-  - The two views are the same
-  - The two views are different
+  - The blue Capsule was rotated
+  - The wall colors were swapped
+  - The two views were the same
+  - Sphere and capsule swapped positions
+  - Facing direction was rotated 90 degree
+  - The two views were the same
+  - Sphere and capsule swapped colors
   hasHeader: 1
   headers:
   - Feedback
@@ -3844,7 +3832,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a0d3e6ace1477187152c6e929c5fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -4141,7 +4128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -4299,7 +4285,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83d716906e334ccda9369c26b0e93e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: 90
   randomizeTimer: 0
@@ -4893,7 +4878,7 @@ GameObject:
   - component: {fileID: 700978259}
   - component: {fileID: 700978260}
   m_Layer: 0
-  m_Name: Practice Instruction 2
+  m_Name: Insturctions Form
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4912,7 +4897,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1184050086}
+  m_Father: {fileID: 1295532277}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &700978260
 MonoBehaviour:
@@ -4926,9 +4911,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
-  timer: 10
+  timer: Infinity
   randomizeTimer: 0
   minTimer: 0
   maxTimer: 10
@@ -4937,12 +4921,15 @@ MonoBehaviour:
   isSubTaskRunning: 0
   isCompleted: 0
   instructionTitle: 
-  instructionContent: 'Now you''re going to do some practice trials.
-
-
-    Press
-    ''Space'' to continue'
-  textAlignmentOptions: 257
+  instructionContent: "Great, now we will provide information on the trials on which
+    you will be tested\n\nFor each trial, you will be able to see the original environment
+    from \n- either a top-down view\t\n- or a first-person view\n\nThe 1st picture
+    always contains the original, unmodified environment\t\n\n\nThen, you will see
+    a possibly changed environment from the other view.\nSimutaneously, we need you
+    to decide if the environments from the 2 views are \n- the same\t\n- or different\n\nYou
+    will  have 4 seconds to decide before timeout\r\n\nPress 'Space' to read the
+    next instruction"
+  textAlignmentOptions: 514
   opacity: 0.5
   layersToHide:
   - Objects
@@ -4983,6 +4970,7 @@ Transform:
   - {fileID: 1521627462}
   - {fileID: 831516256}
   - {fileID: 1709162663}
+  - {fileID: 1770011239}
   m_Father: {fileID: 591039715}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &704457090
@@ -4997,7 +4985,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63f32155509b4f69a105657b0c48e8d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -5073,7 +5060,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c5adfed97754c40af4ca8ee0ab9ea3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -5136,7 +5122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a0d3e6ace1477187152c6e929c5fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -5376,7 +5361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d52240ae314fe2868a81e45e831cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: 4
   randomizeTimer: 0
@@ -5496,7 +5480,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -5596,7 +5579,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: 10000
   randomizeTimer: 0
@@ -5606,16 +5588,18 @@ MonoBehaviour:
   isRunning: 0
   isSubTaskRunning: 0
   isCompleted: 0
-  instructionTitle: Welcome
-  instructionContent: 'In this task, you will need to learn about a small environment
-    with a few objects.
+  instructionTitle: Welcome to experiment
+  instructionContent: 'In this task, you will learn about a small environment containing
+    a few objects.
+
+    
+
+    We will provide more details about the tests later.
 
 
-    Observe them carefully.
-
-
-    Press ''Space'' to continue'
-  textAlignmentOptions: 513
+    Press
+    ''Space'' to continue'
+  textAlignmentOptions: 514
   opacity: 0.5
   layersToHide:
   - Objects
@@ -5695,7 +5679,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -5957,7 +5940,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -6549,7 +6531,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -6561,8 +6542,8 @@ MonoBehaviour:
   isCompleted: 0
   instructionTitle: 
   instructionContent: "Now we're going to test you on the environment you just learned.
-    \nThis time there will be no feedbacks\n\nPress 'Space' to continue"
-  textAlignmentOptions: 257
+    \nThis time there will be no feedback\n\nPress 'Space' to continue"
+  textAlignmentOptions: 258
   opacity: 0.5
   layersToHide:
   - Objects
@@ -6833,7 +6814,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: 4
   randomizeTimer: 0
@@ -6894,7 +6874,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -7190,7 +7169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d52240ae314fe2868a81e45e831cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: 2
   randomizeTimer: 0
@@ -7538,7 +7516,6 @@ Transform:
   - {fileID: 673079223}
   - {fileID: 26680387}
   - {fileID: 392821353}
-  - {fileID: 700978259}
   m_Father: {fileID: 1449127729}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1184050087
@@ -7553,7 +7530,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a0d3e6ace1477187152c6e929c5fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -8203,6 +8179,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 560563983}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1295532276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1295532277}
+  - component: {fileID: 1295532278}
+  m_Layer: 0
+  m_Name: Detail Instructions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1295532277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295532276}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 700978259}
+  - {fileID: 1808979025}
+  m_Father: {fileID: 1449127729}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1295532278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295532276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4a0d3e6ace1477187152c6e929c5fb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  timer: Infinity
+  randomizeTimer: 0
+  minTimer: 0
+  maxTimer: 10
+  elapsedTime: 0
+  isRunning: 0
+  isSubTaskRunning: 0
+  isCompleted: 0
 --- !u!1 &1317806420
 GameObject:
   m_ObjectHideFlags: 0
@@ -8796,7 +8827,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a0d3e6ace1477187152c6e929c5fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -9189,6 +9219,7 @@ Transform:
   m_Children:
   - {fileID: 878411367}
   - {fileID: 1184050086}
+  - {fileID: 1295532277}
   - {fileID: 716528357}
   - {fileID: 591039715}
   m_Father: {fileID: 1939899252}
@@ -9205,7 +9236,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f248ebc42f7542728c9b795071996326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -9290,7 +9320,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b986b3a96b1e455397476b76f7f128ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -9894,7 +9923,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: 4
   randomizeTimer: 0
@@ -10017,7 +10045,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c5adfed97754c40af4ca8ee0ab9ea3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -10107,7 +10134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1588671607}
   m_Layer: 0
-  m_Name: Q1 Center Locations for validation (Please delete)
+  m_Name: Q1 Center Locations for validation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10491,7 +10518,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: 1
   randomizeTimer: 1
@@ -10552,7 +10578,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c5adfed97754c40af4ca8ee0ab9ea3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -10630,7 +10655,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524efa6f7e12772429f0eeb30163efaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -10851,7 +10875,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524efa6f7e12772429f0eeb30163efaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -11000,7 +11023,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: 1
   randomizeTimer: 1
@@ -11061,7 +11083,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -11072,12 +11093,10 @@ MonoBehaviour:
   isSubTaskRunning: 0
   isCompleted: 0
   instructionTitle: 
-  instructionContent: 'First, explore the environment freely for 90 seconds to get
-    familiar with it.
-
-
-    Press ''Space'' to continue'
-  textAlignmentOptions: 257
+  instructionContent: "First, explore the environment freely for 90 seconds to get
+    familiar with it.\n\nPay attention to the following things:\n\nWall colors\t\t\nObject
+    colors\t\nObject rotations\t\nObject locations \t\n\nPress 'Space' to continue"
+  textAlignmentOptions: 514
   opacity: 0.5
   layersToHide:
   - Objects
@@ -11698,6 +11717,68 @@ Transform:
   - {fileID: 169344405}
   m_Father: {fileID: 1905187147}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1770011238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1770011239}
+  - component: {fileID: 1770011240}
+  m_Layer: 0
+  m_Name: Break Time
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1770011239
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770011238}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 704457089}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1770011240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770011238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d39dd295c3ebb843825b93239c40336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  timer: Infinity
+  randomizeTimer: 0
+  minTimer: 0
+  maxTimer: 10
+  elapsedTime: 0
+  isRunning: 0
+  isSubTaskRunning: 0
+  isCompleted: 0
+  instructionTitle: 
+  instructionContent: "Take a break. \n\nIf you are ready to continue,\nPress 'Space'
+    twice quickly will end the break time."
+  textAlignmentOptions: 514
+  opacity: 0.5
+  layersToHide:
+  - Objects
+  - Environment
+  breakPoints: 1e0000003c0000005a0000007800000096000000b4000000d2000000
 --- !u!1 &1784525993
 GameObject:
   m_ObjectHideFlags: 0
@@ -11874,6 +11955,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1808979024
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1808979025}
+  - component: {fileID: 1808979026}
+  m_Layer: 0
+  m_Name: Instruction Types
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1808979025
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808979024}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1295532277}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1808979026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808979024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  timer: Infinity
+  randomizeTimer: 0
+  minTimer: 0
+  maxTimer: 10
+  elapsedTime: 0
+  isRunning: 0
+  isSubTaskRunning: 0
+  isCompleted: 0
+  instructionTitle: 
+  instructionContent: "There're 4 types of possible change.\nYou will encounter all
+    of them in the practice trials.\n\n1. Swapping the walls' color with each other\t\t\n2.
+    Swapping the objects' color with each other\t\n3. Rotating the object\t\t\t\t\t\n4.
+    Change the facing direction\t\t\t\t\n\n\nPress 'Space' to start practice trials"
+  textAlignmentOptions: 514
+  opacity: 0.5
+  layersToHide:
+  - Objects
+  - Environment
 --- !u!1 &1820948580
 GameObject:
   m_ObjectHideFlags: 0
@@ -12540,7 +12684,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -12927,7 +13070,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -13083,7 +13225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d52240ae314fe2868a81e45e831cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: 2
   randomizeTimer: 0
@@ -13242,7 +13383,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63f32155509b4f69a105657b0c48e8d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -13739,6 +13879,10 @@ PrefabInstance:
     - target: {fileID: 5311497611995278321, guid: 99f76e22df5988c4db811f676591ef1d, type: 3}
       propertyPath: m_VerticalAlignment
       value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 5311497611995278321, guid: 99f76e22df5988c4db811f676591ef1d, type: 3}
+      propertyPath: m_enableWordWrapping
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5311497611995278321, guid: 99f76e22df5988c4db811f676591ef1d, type: 3}
       propertyPath: m_HorizontalAlignment

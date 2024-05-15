@@ -68,9 +68,12 @@ namespace PerspectiveTransformation.Scripts
                 ? "Your answer is Incorrect"
                 : "Your answer is Correct";
 
+            if (repeatTask.Context.ContainsKey("Timeout") && repeatTask.Context["Timeout"] == "1")
+                correctness = "You ran out of time";
+
             var feedbackText = correctness + "\n" +
                                currentSpriteData.GetFirstInColumn<string>("Feedback") +
-                               "\n\nPress Space to continue";
+                               "\n\nPress 'Space' to continue";
 
             text.text = feedbackText;
 
