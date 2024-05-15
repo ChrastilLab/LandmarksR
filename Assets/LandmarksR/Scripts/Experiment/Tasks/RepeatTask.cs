@@ -110,7 +110,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
         public override IEnumerator ExecuteAll()
         {
-            if (!enable) yield break;
+            if (!_enable) yield break;
 
             Prepare();
 

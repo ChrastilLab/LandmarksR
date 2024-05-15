@@ -6,13 +6,14 @@ using UnityEngine;
 using LandmarksR.Scripts.Attributes;
 using LandmarksR.Scripts.Experiment.Log;
 using LandmarksR.Scripts.Player;
+using UnityEngine.Assertions;
 
 namespace LandmarksR.Scripts.Experiment.Tasks
 {
     public class BaseTask : MonoBehaviour
     {
 
-        [SerializeField] protected bool enable = true;
+        protected bool _enable;
         [NotEditable] public uint id;
 
         protected Settings Settings { get; private set; }
@@ -32,6 +33,11 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         [SerializeField] private float maxTimer = 10;
         [NotEditable, SerializeField] protected float elapsedTime;
 
+        private void Awake()
+        {
+            _enable = true;
+        }
+
         protected virtual void Start()
         {
             _subTasks = transform.Cast<Transform>()
@@ -44,6 +50,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         [NotEditable, SerializeField] protected bool isRunning;
         [NotEditable, SerializeField] protected bool isSubTaskRunning;
         [NotEditable, SerializeField] protected bool isCompleted;
+        private bool isPrepared;
 
         protected virtual void Prepare()
         {
@@ -54,10 +61,18 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             HUD = Player.hud;
             Logger = ExperimentLogger.Instance;
 
+            Assert.IsNotNull(Settings, $"{name} is missing a reference to Settings");
+            Assert.IsNotNull(Experiment, $"{name} is missing a reference to Experiment");
+            Assert.IsNotNull(Player, $"{name} is missing a reference to Player");
+            Assert.IsNotNull(PlayerEvent, $"{name} is missing a reference to PlayerEvent");
+            Assert.IsNotNull(HUD, $"{name} is missing a reference to HUD");
+            Assert.IsNotNull(Logger, $"{name} is missing a reference to Logger");
             Logger.I("task", $"({name}) Started");
+
 
             isCompleted = false;
             isRunning = true;
+            isPrepared = true;
             elapsedTime = 0;
 
             if (randomizeTimer)
@@ -70,8 +85,14 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
         protected virtual void Finish()
         {
+            if (!isPrepared)
+            {
+                UnityEngine.Debug.LogWarning("Task not prepared before finishing. This may cause issues.");
+                return;
+            }
             Logger.I("task", $"({name}) Finished");
             isCompleted = true;
+            isPrepared = false;
         }
 
         public virtual void Reset()
@@ -81,7 +102,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
         public virtual IEnumerator ExecuteAll()
         {
-            if (!enable) yield break;
+            if (!_enable) yield break;
 
             Prepare();
 
