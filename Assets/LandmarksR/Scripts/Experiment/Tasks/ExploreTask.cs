@@ -13,6 +13,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             Player.TryEnableDesktopInput();
             Player.StartPlayerLogging();
 
+            Player.GetMainCamera().orthographic = false;
             HUD.HideAllAfter(timer <= hideInstructionAfter ? timer - 0.5f : hideInstructionAfter); // ensure that the instruction is hidden before the task ends
             PlayerEvent.RegisterKeyHandler(KeyCode.Backspace, Skip);
         }

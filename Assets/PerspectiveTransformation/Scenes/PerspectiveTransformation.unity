@@ -311,7 +311,11 @@ MonoBehaviour:
     for another 90 seconds.
 
 
-    Press ''Space'' to continue'
+    Please try to remeber the layout of the objects
+
+
+    Press
+    ''Space'' to continue'
   textAlignmentOptions: 258
   opacity: 0.5
   layersToHide:
@@ -3162,6 +3166,70 @@ Transform:
   m_Children: []
   m_Father: {fileID: 704457089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &451298421
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 451298422}
+  - component: {fileID: 451298423}
+  m_Layer: 0
+  m_Name: Practice Instruction 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &451298422
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451298421}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 729489934}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &451298423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451298421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  timer: Infinity
+  randomizeTimer: 0
+  minTimer: 0
+  maxTimer: 10
+  elapsedTime: 0
+  isRunning: 0
+  isSubTaskRunning: 0
+  isCompleted: 0
+  instructionTitle: 
+  instructionContent: 'You will now look at the environment from  a top-down view
+    for another 60 seconds.
+
+
+    Press ''Space'' to continue'
+  textAlignmentOptions: 258
+  opacity: 0.5
+  layersToHide:
+  - Objects
+  - Environment
 --- !u!1 &456143822
 GameObject:
   m_ObjectHideFlags: 0
@@ -4924,11 +4992,8 @@ MonoBehaviour:
   instructionContent: "Great, now we will provide information on the trials on which
     you will be tested\n\nFor each trial, you will be able to see the original environment
     from \n- either a top-down view\t\n- or a first-person view\n\nThe 1st picture
-    always contains the original, unmodified environment\t\n\n\nThen, you will see
-    a possibly changed environment from the other view.\nSimutaneously, we need you
-    to decide if the environments from the 2 views are \n- the same\t\n- or different\n\nYou
-    will  have 4 seconds to decide before timeout\r\n\nPress 'Space' to read the
-    next instruction"
+    always contains the original, unmodified environment\t\n\r\n\nPress 'Space' to
+    read the next instruction"
   textAlignmentOptions: 514
   opacity: 0.5
   layersToHide:
@@ -5162,6 +5227,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 560563983}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &729489933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 729489934}
+  - component: {fileID: 729489935}
+  m_Layer: 0
+  m_Name: Learning Once More
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &729489934
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729489933}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1786666565}
+  - {fileID: 835355060}
+  - {fileID: 451298422}
+  - {fileID: 741190964}
+  m_Father: {fileID: 1449127729}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &729489935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729489933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4a0d3e6ace1477187152c6e929c5fb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  timer: Infinity
+  randomizeTimer: 0
+  minTimer: 0
+  maxTimer: 10
+  elapsedTime: 0
+  isRunning: 0
+  isSubTaskRunning: 0
+  isCompleted: 0
 --- !u!1 &739799581
 GameObject:
   m_ObjectHideFlags: 0
@@ -5193,6 +5315,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 114724170}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &741190963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 741190964}
+  - component: {fileID: 741190965}
+  m_Layer: 0
+  m_Name: Top Down View
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &741190964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741190963}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 729489934}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &741190965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741190963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d52240ae314fe2868a81e45e831cab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  timer: 60
+  randomizeTimer: 0
+  minTimer: 0
+  maxTimer: 10
+  elapsedTime: 0
+  isRunning: 0
+  isSubTaskRunning: 0
+  isCompleted: 0
+  arrow: {fileID: 1180971819}
+  isFirstShow: 1
+  responsePanel: {fileID: 0}
+  isStaticLook: 1
 --- !u!1 &755944694
 GameObject:
   m_ObjectHideFlags: 0
@@ -5224,6 +5403,69 @@ Transform:
   m_Children: []
   m_Father: {fileID: 560563983}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &768201513
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 768201514}
+  - component: {fileID: 768201515}
+  m_Layer: 0
+  m_Name: Insturctions Form (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &768201514
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768201513}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1295532277}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &768201515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768201513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  timer: Infinity
+  randomizeTimer: 0
+  minTimer: 0
+  maxTimer: 10
+  elapsedTime: 0
+  isRunning: 0
+  isSubTaskRunning: 0
+  isCompleted: 0
+  instructionTitle: 
+  instructionContent: "However, You will see an environment that might have changed
+    in the other view\nThen, we need you to decide if the environments from the 2
+    views are \n- the same\t\n- or different\n\nYou will  have 4 seconds to decide
+    before timeout\n\nPress 'Space' to read the next instruction"
+  textAlignmentOptions: 514
+  opacity: 0.5
+  layersToHide:
+  - Objects
+  - Environment
 --- !u!1 &797144342
 GameObject:
   m_ObjectHideFlags: 0
@@ -5374,6 +5616,65 @@ MonoBehaviour:
   isFirstShow: 0
   responsePanel: {fileID: 1033725014}
   isStaticLook: 0
+--- !u!1 &835355059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 835355060}
+  - component: {fileID: 835355061}
+  m_Layer: 0
+  m_Name: Free Explore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &835355060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835355059}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 729489934}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &835355061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835355059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d716906e334ccda9369c26b0e93e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  timer: 60
+  randomizeTimer: 0
+  minTimer: 0
+  maxTimer: 10
+  elapsedTime: 0
+  isRunning: 0
+  isSubTaskRunning: 0
+  isCompleted: 0
+  instructionTitle: 
+  instructionContent: 
+  textAlignmentOptions: 0
+  opacity: 0.8
+  layersToHide: []
+  hideInstructionAfter: 0
 --- !u!1 &837790824
 GameObject:
   m_ObjectHideFlags: 0
@@ -5588,11 +5889,11 @@ MonoBehaviour:
   isRunning: 0
   isSubTaskRunning: 0
   isCompleted: 0
-  instructionTitle: Welcome to experiment
+  instructionTitle: Welcome to the experiment
   instructionContent: 'In this task, you will learn about a small environment containing
     a few objects.
 
-    
+
 
     We will provide more details about the tests later.
 
@@ -7170,7 +7471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  timer: 2
+  timer: 4
   randomizeTimer: 0
   minTimer: 0
   maxTimer: 10
@@ -7407,14 +7708,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2264614635703426644}
     m_Modifications:
-    - target: {fileID: 1523624755869740102, guid: b5dadeb35e7ca3a449223352517361bb, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1523624755869740102, guid: b5dadeb35e7ca3a449223352517361bb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3877402515259269385, guid: b5dadeb35e7ca3a449223352517361bb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7458,14 +7751,6 @@ PrefabInstance:
     - target: {fileID: 7273078141265683642, guid: b5dadeb35e7ca3a449223352517361bb, type: 3}
       propertyPath: m_Name
       value: Arrow
-      objectReference: {fileID: 0}
-    - target: {fileID: 7273078141265683642, guid: b5dadeb35e7ca3a449223352517361bb, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7273078141265683642, guid: b5dadeb35e7ca3a449223352517361bb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8210,6 +8495,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 700978259}
+  - {fileID: 768201514}
   - {fileID: 1808979025}
   m_Father: {fileID: 1449127729}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9221,6 +9507,7 @@ Transform:
   - {fileID: 1184050086}
   - {fileID: 1295532277}
   - {fileID: 716528357}
+  - {fileID: 729489934}
   - {fileID: 591039715}
   m_Father: {fileID: 1939899252}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11095,7 +11382,7 @@ MonoBehaviour:
   instructionTitle: 
   instructionContent: "First, explore the environment freely for 90 seconds to get
     familiar with it.\n\nPay attention to the following things:\n\nWall colors\t\t\nObject
-    colors\t\nObject rotations\t\nObject locations \t\n\nPress 'Space' to continue"
+    colors\t\nObject orientation\t\nObject locations \t\n\nPress 'Space' to continue"
   textAlignmentOptions: 514
   opacity: 0.5
   layersToHide:
@@ -11810,6 +12097,70 @@ Transform:
   m_Children: []
   m_Father: {fileID: 560563983}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &1786666564
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1786666565}
+  - component: {fileID: 1786666566}
+  m_Layer: 0
+  m_Name: Explore Instruction 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1786666565
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786666564}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 729489934}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1786666566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786666564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  timer: Infinity
+  randomizeTimer: 0
+  minTimer: 0
+  maxTimer: 10
+  elapsedTime: 0
+  isRunning: 0
+  isSubTaskRunning: 0
+  isCompleted: 0
+  instructionTitle: 
+  instructionContent: 'Now you will have another 60s to explore the environment again
+
+
+    Press
+    ''Space'' to continue'
+  textAlignmentOptions: 514
+  opacity: 0.5
+  layersToHide:
+  - Objects
+  - Environment
 --- !u!1 &1799280026
 GameObject:
   m_ObjectHideFlags: 0
@@ -12009,10 +12360,11 @@ MonoBehaviour:
   isSubTaskRunning: 0
   isCompleted: 0
   instructionTitle: 
-  instructionContent: "There're 4 types of possible change.\nYou will encounter all
+  instructionContent: "There're 5 types of possible change.\nYou will encounter all
     of them in the practice trials.\n\n1. Swapping the walls' color with each other\t\t\n2.
-    Swapping the objects' color with each other\t\n3. Rotating the object\t\t\t\t\t\n4.
-    Change the facing direction\t\t\t\t\n\n\nPress 'Space' to start practice trials"
+    Swapping the objects' color with each other\n3. Swapping the objects' location
+    with each other\t\n3. Rotating the object\t\t\t\t\t\n4. Change the facing direction\t\t\t\t\n\n\nPress
+    'Space' to start practice trials"
   textAlignmentOptions: 514
   opacity: 0.5
   layersToHide:
@@ -13226,7 +13578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  timer: 2
+  timer: 4
   randomizeTimer: 0
   minTimer: 0
   maxTimer: 10
@@ -13409,6 +13761,7 @@ MonoBehaviour:
   - RZ
   - ORDER
   - Correctness
+  - Timeout
   currentRepeat: 1
   currentSubTaskNumber: 1
   showDebug: 0

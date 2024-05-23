@@ -33,14 +33,14 @@ namespace PerspectiveTransformation.Scripts
             HUD.HideAll()
                 .ShowAllLayer();
 
+            PlayerEvent.RegisterKeyHandler(KeyCode.Backspace, Skip);
+
             if (isStaticLook)
             {
                 _camera.transform.position = new Vector3(0, 100, -4f);
                 _camera.transform.rotation = Quaternion.Euler(90, 0, 0);
                 _camera.orthographic = true;
                 _camera.orthographicSize = 40;
-
-                PlayerEvent.RegisterKeyHandler(KeyCode.Backspace, Skip);
                 return; // Careful with this return statement, it will skip the rest of the code
             }
 
@@ -96,18 +96,18 @@ namespace PerspectiveTransformation.Scripts
 
         }
 
-        private void HandleFirstPerson()
+        private void HandleFirstPerson(bool showArrow=false)
         {
             _targetPosition.y = 1.5f;
             _camera.transform.position = _targetPosition;
             _camera.transform.rotation = Quaternion.Euler(_targetRotation);
             _camera.orthographic = false;
 
-            arrow.SetActive(false);
+            arrow.SetActive(showArrow);
 
         }
 
-        private void HandleTopDown()
+        private void HandleTopDown(bool showArrow=true)
         {
             _camera.transform.position = new Vector3(0, 100, -4f);
             _camera.transform.rotation = Quaternion.Euler(90, 0, 0);
@@ -115,7 +115,7 @@ namespace PerspectiveTransformation.Scripts
             _camera.orthographic = true;
             _camera.orthographicSize = 40;
 
-            arrow.SetActive(true);
+            arrow.SetActive(showArrow);
             arrow.transform.position = _targetPosition;
             arrow.transform.rotation = Quaternion.Euler(_targetRotation);
         }
@@ -147,17 +147,22 @@ namespace PerspectiveTransformation.Scripts
             base.Finish();
             HUD.HideLayers(new[] { "Objects", "Environment" });
             // Prevent flickering by pre-setting the position and rotation
-            if (isTopDown)
-                HandleFirstPerson();
-            else
-                HandleTopDown();
 
+            PlayerEvent.UnregisterKeyHandler(KeyCode.Backspace, Skip);
             if (isStaticLook)
             {
-                PlayerEvent.UnregisterKeyHandler(KeyCode.Backspace, Skip);
+                return;
             }
 
-            if (!isFirstShow && !isStaticLook)
+
+            // if (isTopDown)
+            //     HandleFirstPerson(false);
+            // else
+            //     HandleTopDown(false);
+
+            Player.GetMainCamera().transform.localPosition = new Vector3(0, 1.7f, 0);
+
+            if (!isFirstShow )
             {
                 responsePanel.SetActive(false);
                 PlayerEvent.UnregisterKeyHandler(KeyCode.F, HandleResponseYes);
