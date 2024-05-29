@@ -34,6 +34,7 @@ namespace PerspectiveTransformation.Scripts
             var repeatTask = GetComponentInParent<RepeatTask>();
             Assert.IsNotNull(repeatTask, $"{name} must be a child of Repeat Task");
 
+            SetTaskType(TaskType.Interactive);
             base.Prepare();
 
             HUD.ShowAllLayer()
@@ -85,7 +86,7 @@ namespace PerspectiveTransformation.Scripts
             PlayerEvent.RegisterKeyHandler(KeyCode.Space, Confirm);
         }
 
-        protected override void Finish()
+        public override void Finish()
         {
             base.Finish();
             feedbackPanel.SetActive(false);
@@ -121,8 +122,7 @@ namespace PerspectiveTransformation.Scripts
 
         private void Confirm()
         {
-            if (!isRunning) return;
-            isRunning = false;
+            StopCurrentTask();
         }
     }
 }

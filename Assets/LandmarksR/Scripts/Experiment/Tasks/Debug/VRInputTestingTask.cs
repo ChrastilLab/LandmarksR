@@ -6,6 +6,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Debug
     {
         protected override void Prepare()
         {
+            SetTaskType(TaskType.Interactive);
             base.Prepare();
             Player.playerEvent.RegisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, 2f, () => Logger.I("input", "PrimaryIndexTrigger 2s"));
             Player.playerEvent.RegisterTimedVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, 3f, () => Logger.I("input", "PrimaryIndexTrigger 3s"));
@@ -20,7 +21,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Debug
 
         }
 
-        protected override void Finish()
+        public override void Finish()
         {
             base.Finish();
             Player.playerEvent.UnregisterAllVRInputHandlers();

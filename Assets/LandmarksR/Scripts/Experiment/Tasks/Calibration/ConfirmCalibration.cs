@@ -8,6 +8,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
 
         protected override void Prepare()
         {
+            SetTaskType(TaskType.Interactive);
             base.Prepare();
             UnregisterConfirmHandler(); // Unregister the confirm handler from the parent class, because we want to redefine it here
 
@@ -31,7 +32,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
         }
 
 
-        protected override void Finish()
+        public override void Finish()
         {
             base.Finish();
             HUD.HideProgressBar();
@@ -43,14 +44,15 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
 
         private void HandleIndexTrigger()
         {
-            isRunning = false;
+            StopCurrentTask();
         }
 
         private void HandleAButton()
         {
             _parentTask.RemoveCalibrationResultIndicator();
             _parentTask.MoveToPrevious();
-            isRunning = false;
+
+            StopCurrentTask();
         }
 
         private void UpdateProgressBarForTrigger(float time)

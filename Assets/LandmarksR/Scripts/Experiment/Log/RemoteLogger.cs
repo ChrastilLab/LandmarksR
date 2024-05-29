@@ -6,8 +6,19 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
 
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using UnityEngine;
+
 namespace LandmarksR.Scripts.Experiment.Log
 {
+    /// <summary>
+    /// Manages remote logging of messages.
+    /// </summary>
     public class RemoteLogger
     {
         private readonly LoggerQueue _loggerQueue;
@@ -16,11 +27,18 @@ namespace LandmarksR.Scripts.Experiment.Log
         private readonly string _filePath;
         private bool _ready; // Changed to false by default
 
+        /// <summary>
+        /// Initializes a new instance of the RemoteLogger class.
+        /// </summary>
+        /// <param name="filePath">The file path for local logging.</param>
+        /// <param name="statusUrl">The URL to check the status of the remote logging server.</param>
+        /// <param name="logUrl">The URL to send log messages to.</param>
+        /// <param name="flushingInterval">The interval for flushing the log queue.</param>
         public RemoteLogger(string filePath, string statusUrl, string logUrl, int flushingInterval = 100)
         {
             _filePath = filePath;
             _logUrl = logUrl;
-            _loggerQueue = new LoggerQueue(WriteLogAsync, flushingInterval); // Assume WriteLogAsync is the new async method
+            _loggerQueue = new LoggerQueue(WriteLogAsync, flushingInterval);
 
             ValidateAPIAsync(statusUrl).ContinueWith(task =>
             {
@@ -36,11 +54,19 @@ namespace LandmarksR.Scripts.Experiment.Log
             });
         }
 
+        /// <summary>
+        /// Logs a message.
+        /// </summary>
+        /// <param name="message">The message to log.</param>
         public void Log(LogMessage message)
         {
             _loggerQueue.EnqueueMessage(message);
         }
 
+        /// <summary>
+        /// Writes a log message asynchronously to the remote server.
+        /// </summary>
+        /// <param name="message">The log message to write.</param>
         private async Task WriteLogAsync(LogMessage message)
         {
             var content = new StringContent(message.ToJson(_filePath), Encoding.UTF8, "application/json");
@@ -61,12 +87,21 @@ namespace LandmarksR.Scripts.Experiment.Log
             }
         }
 
+        /// <summary>
+        /// Stops the remote logger asynchronously.
+        /// </summary>
+        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task StopAsync()
         {
             if (!_ready) return;
             await _loggerQueue.StopAsync();
         }
 
+        /// <summary>
+        /// Validates the remote logging server API asynchronously.
+        /// </summary>
+        /// <param name="url">The URL to check the status of the remote logging server.</param>
+        /// <returns>True if the API is valid; otherwise, false.</returns>
         private static async Task<bool> ValidateAPIAsync(string url)
         {
             if (string.IsNullOrWhiteSpace(url))
@@ -86,6 +121,11 @@ namespace LandmarksR.Scripts.Experiment.Log
             }
         }
 
+        /// <summary>
+        /// Gets the status of the remote logging server asynchronously.
+        /// </summary>
+        /// <param name="url">The URL to check the status of the remote logging server.</param>
+        /// <returns>The status response as a string.</returns>
         private static async Task<string> GetStatus(string url)
         {
             var response = await HttpClient.GetAsync(url);

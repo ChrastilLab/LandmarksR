@@ -6,6 +6,7 @@
 
         protected override void Prepare()
         {
+            SetTaskType(TaskType.Interactive);
             base.Prepare();
             UnregisterConfirmHandler(); // Unregister the confirm handler from the parent class, because we want to redefine it here
 
@@ -19,7 +20,7 @@
             _parentTask.InitializeFloorIndicator();
         }
 
-        protected override void Finish()
+        public override void Finish()
         {
             base.Finish();
             HUD.HideProgressBar();
@@ -31,7 +32,7 @@
 
         private void HandleIndexTrigger()
         {
-            isRunning = false;
+            StopCurrentTask();
         }
 
         private void HandleAButton()
@@ -39,7 +40,8 @@
             _parentTask.MoveToPrevious();
             _parentTask.RemoveLastPole();
             _parentTask.RemoveFloorIndicator();
-            isRunning = false;
+
+            StopCurrentTask();
         }
 
         private void UpdateProgressBar(float time)
@@ -49,7 +51,7 @@
 
         private void Update()
         {
-            if (isRunning)
+            if (IsTaskRunning())
             {
                 _parentTask.UpdateFloorIndicator();
             }

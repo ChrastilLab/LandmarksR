@@ -17,7 +17,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Debug
         {
             base.Start();
             _keyActions = new List<Action>();
-            AddKeyAction(KeyCode.Backspace, () => isRunning = false, "Stop Task");
+            AddKeyAction(KeyCode.Backspace, StopCurrentTask, "Stop Task");
 
         }
 
@@ -29,7 +29,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Debug
 
         protected virtual void Update()
         {
-            if (!isRunning) return;
+            if (!IsTaskRunning()) return;
             HandleInput();
         }
 
@@ -54,7 +54,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Debug
 
         protected void OnGUI()
         {
-            if (!isRunning) return;
+            if (!IsTaskRunning()) return;
             GUI.Label(new Rect(10, 10, 800, 800), _keyActionInstructions);
         }
     }

@@ -70,6 +70,7 @@ namespace PerspectiveTransformation.Scripts
             var currentData = repeatTask.CurrentData;
             Assert.IsFalse(currentData.ColumnCount < 1 || currentData.RowCount < 1, "Must have at least one row and one column in the data table");
 
+            SetTaskType(TaskType.Functional);
             base.Prepare();
 
             var currentFoilData = repeatTask.CurrentDataByTable(0);
@@ -90,7 +91,6 @@ namespace PerspectiveTransformation.Scripts
             {
                 Show(currentFoilData);
             }
-            isRunning = false;
         }
 
 

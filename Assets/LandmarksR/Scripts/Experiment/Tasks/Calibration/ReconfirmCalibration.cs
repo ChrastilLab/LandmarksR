@@ -6,6 +6,7 @@
 
         protected override void Prepare()
         {
+            SetTaskType(TaskType.Interactive);
             base.Prepare();
             UnregisterConfirmHandler(); // Unregister the confirm handler from the parent class, because we want to redefine it here
 
@@ -24,10 +25,11 @@
 
             HUD.ShowProgressBar();
 
+            // Apply the calibration settings to the environment
             Settings.space.ApplyToEnvironment();
         }
 
-        protected override void Finish()
+        public override void Finish()
         {
             base.Finish();
             HUD.HideProgressBar();
@@ -38,13 +40,13 @@
 
         private void HandleIndexTrigger()
         {
-            isRunning = false;
+            StopCurrentTask();
         }
 
         private void HandleAButton()
         {
             _parentTask.ResetAll();
-            isRunning = false;
+            StopCurrentTask();
         }
 
         private void UpdateProgressBarForTrigger(float time)

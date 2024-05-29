@@ -7,6 +7,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Debug
     {
         protected override void Prepare()
         {
+            SetTaskType(TaskType.Interactive);
             base.Prepare();
             Player.TryEnableDesktopInput();
         }
@@ -22,7 +23,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Debug
             AddKeyAction(KeyCode.Space, () => HUD.FixedRecenter(1.5f), "Recenter HUD");
         }
 
-        protected override void Finish()
+        public override void Finish()
         {
             base.Finish();
             Player.DisableDesktopInput();

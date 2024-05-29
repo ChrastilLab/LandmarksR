@@ -18,13 +18,19 @@ namespace LandmarksR.Scripts.Experiment.Data
         private readonly ColumnNameMap _columnNameMap;
         private readonly List<List<object?>> _data = new();
 
-        // Constructors
+        /// <summary>
+        /// Initializes a new instance of the DataFrame class.
+        /// </summary>
         public DataFrame()
         {
             ColumnCount = 0;
             _columnNameMap = new ColumnNameMap();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the DataFrame class by copying another DataFrame.
+        /// </summary>
+        /// <param name="dataFrame">The DataFrame to copy.</param>
         public DataFrame(DataFrame dataFrame)
         {
             ColumnCount = dataFrame.ColumnCount;
@@ -35,6 +41,10 @@ namespace LandmarksR.Scripts.Experiment.Data
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the DataFrame class with specified column names.
+        /// </summary>
+        /// <param name="columnNames">The column names to set.</param>
         public DataFrame(IReadOnlyList<string> columnNames)
         {
             ColumnCount = columnNames.Count;

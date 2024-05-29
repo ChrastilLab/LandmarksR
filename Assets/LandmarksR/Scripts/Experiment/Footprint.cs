@@ -6,19 +6,19 @@ namespace LandmarksR.Scripts.Experiment
     public class Footprint : MonoBehaviour
     {
         // Start is called before the first frame update
-        public Action<Collider> onTriggerEnter;
-        public Action<Collider> onTriggerExit;
+        public Action<Collider> TriggerEnterAction;
+        public Action<Collider> TriggerExitAction;
 
         private void OnTriggerEnter(Collider other)
         {
             Debug.Log("OnTriggerEnter "+ other.name);
-            onTriggerEnter?.Invoke(other);
+            TriggerEnterAction?.Invoke(other);
         }
 
         private void OnTriggerExit(Collider other)
         {
             Debug.Log("OnTriggerExit "+ other.name);
-            onTriggerExit?.Invoke(other);
+            TriggerExitAction?.Invoke(other);
         }
     }
 }

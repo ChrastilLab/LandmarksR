@@ -9,17 +9,19 @@ namespace LandmarksR.Scripts.Experiment.Tasks
     {
         // private RepeatTask _parentRepeatTask;
         [NotEditable, SerializeField] private string target;
+        [SerializeField] private string targetNameColumn = "Target";
+        [SerializeField] private string targetObjectTag = "Target";
 
 
         protected override void Prepare()
         {
+            SetTaskType(TaskType.Interactive);
             base.Prepare();
-
 
             if (transform.parent.TryGetComponent<RepeatTask>(out var repeatTask))
             {
                 var currentTrialData = repeatTask.CurrentData;
-                target = currentTrialData[0, "Target"] as string;
+                target = currentTrialData.GetFirstInColumn<string>("Target");
 
                 Assert.IsNotNull(target, "NavigationTask target is null. Check your data table!");
 
@@ -44,12 +46,12 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         private void HandlePlayerTriggerEnter(Collider other)
         {
             var obj = other.transform;
-            if (!obj.CompareTag("Target")) return;
+            if (!obj.CompareTag(targetObjectTag)) return;
 
-            isRunning = false;
+            StopCurrentTask();
         }
 
-        protected override void Finish()
+        public override void Finish()
         {
             base.Finish();
             Player.DisableDesktopInput();

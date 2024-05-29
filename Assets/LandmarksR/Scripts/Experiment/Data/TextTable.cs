@@ -2,17 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using LandmarksR.Scripts.Experiment.Log;
+using LandmarksR.Scripts.Experiment.Tasks;
 using UnityEngine;
 
 namespace LandmarksR.Scripts.Experiment.Data
 {
+    /// <summary>
+    /// Represents delimiter options for separating values in a text table.
+    /// </summary>
     [Serializable]
     public class DelimiterOption
     {
+        /// <summary>
+        /// The index of the delimiter.
+        /// </summary>
         public int delimiterIndex;
 
+        /// <summary>
+        /// Custom delimiter value.
+        /// </summary>
         public string customValue;
 
+        /// <summary>
+        /// Gets the delimiter value based on the selected index.
+        /// </summary>
         public string Value => delimiterIndex switch
         {
             0 => ",",
@@ -23,55 +36,111 @@ namespace LandmarksR.Scripts.Experiment.Data
             _ => ","
         };
 
+        /// <summary>
+        /// Available delimiter options.
+        /// </summary>
         public static readonly string[] Options = { "Comma", "Tab", "Semicolon", "Space", "Custom" };
     }
 
+    /// <summary>
+    /// Represents a text table in the experiment.
+    /// </summary>
     public class TextTable : Table
     {
+        /// <summary>
+        /// Indicates if the rows should be randomized.
+        /// </summary>
         [SerializeField] private bool randomize;
+
+        /// <summary>
+        /// List of rows in the table.
+        /// </summary>
         [SerializeField] private List<string> rows;
+
+        /// <summary>
+        /// Indicates if the table has a header.
+        /// </summary>
         [SerializeField] private bool hasHeader = true;
+
+        /// <summary>
+        /// List of headers in the table.
+        /// </summary>
         [SerializeField] private List<string> headers;
+
+        /// <summary>
+        /// Delimiter option for the table.
+        /// </summary>
         [SerializeField] private DelimiterOption delimiterOption;
+
+        /// <summary>
+        /// Path to the data file.
+        /// </summary>
         [SerializeField] private string dataPath;
+
+        /// <summary>
+        /// Indexes to exclude from the table.
+        /// </summary>
         [SerializeField] private string indexesToExclude;
 
+        /// <summary>
+        /// Gets the count of rows in the table.
+        /// </summary>
         public override int Count => Data.RowCount;
 
+        /// <summary>
+        /// Gets the rows in the table as a read-only list.
+        /// </summary>
         public IReadOnlyList<string> StringRows => rows;
 
+        /// <summary>
+        /// Prepares the table by parsing the data.
+        /// </summary>
         protected override void Prepare()
         {
+            SetTaskType(TaskType.Functional);
             base.Prepare();
             Parse();
         }
 
+        /// <summary>
+        /// Sets the headers for the table.
+        /// </summary>
+        /// <param name="stringHeader">The headers to set.</param>
         public void SetHeaders(List<string> stringHeader)
         {
             headers = stringHeader;
         }
 
+        /// <summary>
+        /// Sets the rows for the table.
+        /// </summary>
+        /// <param name="stringRows">The rows to set.</param>
         public void SetStringRows(List<string> stringRows)
         {
             rows = stringRows;
         }
 
+        /// <summary>
+        /// Appends rows to the existing rows in the table.
+        /// </summary>
+        /// <param name="stringRows">The rows to append.</param>
         public void AppendStringRows(List<string> stringRows)
         {
-            var newRows = new List<string>();
-            newRows.AddRange(rows);
-            newRows.AddRange(stringRows);
-            rows = newRows;
+            rows.AddRange(stringRows);
         }
 
+        /// <summary>
+        /// Parses the rows in the table based on the delimiter option.
+        /// </summary>
         private void Parse()
         {
-            if (rows is null || rows.Count == 0)
+            if (rows == null || rows.Count == 0)
             {
                 ExperimentLogger.Instance.W("data", $"({name}) Rows are empty.");
                 Data = new DataFrame();
                 return;
             }
+
             try
             {
                 var counter = 0;
@@ -81,7 +150,7 @@ namespace LandmarksR.Scripts.Experiment.Data
                     return;
                 }
 
-                if (!string.IsNullOrEmpty(indexesToExclude) || !string.IsNullOrWhiteSpace(indexesToExclude))
+                if (!string.IsNullOrEmpty(indexesToExclude))
                 {
                     RemoveBySlice(indexesToExclude);
                 }
@@ -94,7 +163,6 @@ namespace LandmarksR.Scripts.Experiment.Data
 
                 if (headers is { Count: > 0 })
                     Data.SetColumnNames(headers);
-
 
                 if (randomize)
                 {
@@ -109,24 +177,24 @@ namespace LandmarksR.Scripts.Experiment.Data
             catch (Exception e)
             {
                 ExperimentLogger.Instance.E("data",
-                    $"<{name}> Error parsing data: {e.Message}\n Check your header, rows and delimiter settings.");
+                    $"<{name}> Error parsing data: {e.Message}\n Check your header, rows, and delimiter settings.");
             }
         }
 
+        /// <summary>
+        /// Removes rows from the table based on a slice string.
+        /// </summary>
+        /// <param name="slice">The slice string specifying the rows to remove.</param>
         private void RemoveBySlice(string slice)
         {
-            if (string.IsNullOrEmpty(slice))
-                return;
+            if (string.IsNullOrEmpty(slice)) return;
 
-            // Split the slice string by commas to handle multiple slices
             var slices = slice.Split(',');
 
-            // List to hold the ranges to be removed
             var removals = new List<(int start, int count)>();
 
             foreach (var singleSlice in slices)
             {
-                // Parse each slice part
                 int start = 0, end = rows.Count;
                 bool startSet = false, endSet = false;
 
@@ -146,13 +214,9 @@ namespace LandmarksR.Scripts.Experiment.Data
                     }
                 }
 
-                // Adjust negative indices
-                if (start < 0)
-                    start = rows.Count + start;
-                if (end < 0)
-                    end = rows.Count + end;
+                if (start < 0) start = rows.Count + start;
+                if (end < 0) end = rows.Count + end;
 
-                // Ensure indices are within bounds
                 start = Math.Max(start, 0);
                 end = Math.Min(end, rows.Count);
 
@@ -170,39 +234,34 @@ namespace LandmarksR.Scripts.Experiment.Data
                 }
             }
 
-            // Sort removal ranges by starting index in descending order to avoid shifting issues
             removals.Sort((a, b) => b.start.CompareTo(a.start));
 
-            // Remove the calculated ranges
             foreach (var removal in removals)
             {
-                if (removal.start < rows.Count) // Check needed if previous removals make indices out of range
+                if (removal.start < rows.Count)
                     rows.RemoveRange(removal.start, Math.Min(removal.count, rows.Count - removal.start));
             }
         }
 
-
+        /// <summary>
+        /// Loads data from a file into the table.
+        /// </summary>
         public void LoadFromFile()
         {
             if (string.IsNullOrWhiteSpace(dataPath))
             {
-                // Log error or handle the case where dataPath is not set
                 ExperimentLogger.Instance.E("data", "Data path is not set.");
                 return;
             }
 
             try
             {
-                // Using IEnumerable<string> to lazily read lines for memory efficiency
                 var lines = System.IO.File.ReadLines(dataPath);
-
-                // Initializing rows list to ensure it's always a valid object
                 rows = new List<string>();
 
                 var isFirstLine = true;
                 foreach (var line in lines)
                 {
-                    // If the first line is a header, process it separately
                     if (isFirstLine && hasHeader)
                     {
                         headers = line.Split(delimiterOption.Value).ToList();
@@ -212,34 +271,27 @@ namespace LandmarksR.Scripts.Experiment.Data
 
                     rows.Add(line);
                 }
-
-                // if (rows.Count == 0)
-                // {
-                //     // Handle case where file is empty or only contains headers
-                //     return;
-                // }
             }
             catch (System.IO.IOException ex)
             {
-                // Log the exception or handle it as needed
-                Logger.E("data", $"Error reading file: {ex.Message}");
+                ExperimentLogger.Instance.E("data", $"Error reading file: {ex.Message}");
             }
         }
 
+        /// <summary>
+        /// Saves the data from the table to a file.
+        /// </summary>
         public void SaveToFile()
         {
             try
             {
-                // Using StreamWriter to write to a file
                 using var writer = new System.IO.StreamWriter(dataPath + "_output.txt");
 
-                // Writing headers if they exist
                 if (headers is { Count: > 0 })
                 {
                     writer.WriteLine(string.Join(delimiterOption.Value, headers));
                 }
 
-                // Writing rows
                 foreach (var row in rows)
                 {
                     writer.WriteLine(row);
@@ -247,8 +299,7 @@ namespace LandmarksR.Scripts.Experiment.Data
             }
             catch (Exception e)
             {
-                // Log the exception or handle it as needed
-                Logger.E("data", $"Error writing file: {e.Message}");
+                ExperimentLogger.Instance.E("data", $"Error writing file: {e.Message}");
             }
         }
     }

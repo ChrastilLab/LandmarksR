@@ -1,24 +1,57 @@
 ﻿using LandmarksR.Scripts.Attributes;
-using LandmarksR.Scripts.Player;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace LandmarksR.Scripts.Experiment.Tasks
 {
+    /// <summary>
+    /// Represents a task where the player needs to go to a specified footprint.
+    /// </summary>
     public class GoToFootprintTask : BaseTask
     {
+        /// <summary>
+        /// The target transform the player needs to reach.
+        /// </summary>
         [NotEditable, SerializeField] private Transform target;
+
+        /// <summary>
+        /// The footprint prefab to instantiate.
+        /// </summary>
         [SerializeField] private GameObject footprintPrefab;
+
+        /// <summary>
+        /// The instantiated footprint component.
+        /// </summary>
         private Footprint _footprint;
 
+        /// <summary>
+        /// Indicates whether to move to the origin.
+        /// </summary>
         [SerializeField] private bool toOrigin;
+
+        /// <summary>
+        /// Offset from the origin.
+        /// </summary>
         [SerializeField] private Vector3 originOffset;
+
+        /// <summary>
+        /// Indicates whether the player is on the footprint.
+        /// </summary>
         private bool _isPlayerOnFootprint;
+
+        /// <summary>
+        /// Indicates whether the player is ready to confirm their position.
+        /// </summary>
         private bool _readyToConfirm;
+
+        /// <summary>
+        /// The environment GameObject.
+        /// </summary>
         private GameObject _environment;
 
-
-
+        /// <summary>
+        /// Hides the environment except for the floor.
+        /// </summary>
         private void HideEnvironment()
         {
             foreach (Transform child in _environment.transform)
@@ -28,6 +61,9 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             }
         }
 
+        /// <summary>
+        /// Shows the environment.
+        /// </summary>
         private void ShowEnvironment()
         {
             foreach (Transform child in _environment.transform)
@@ -36,8 +72,12 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             }
         }
 
+        /// <summary>
+        /// Prepares the go to footprint task.
+        /// </summary>
         protected override void Prepare()
         {
+            SetTaskType(TaskType.Interactive);
             base.Prepare();
 
             // Disable environment
@@ -65,9 +105,8 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
             Assert.IsNotNull(_footprint, "Footprint prefab must have a Footprint component.");
 
-            _footprint.onTriggerEnter += HandlePlayerTriggerEnter;
-            _footprint.onTriggerExit += HandlePlayerTriggerExit;
-
+            _footprint.TriggerEnterAction += HandlePlayerTriggerEnter;
+            _footprint.TriggerExitAction += HandlePlayerTriggerExit;
 
             HUD.SetTitle("")
                 .SetContent($"Please look for a footprint and step on it.")
@@ -78,13 +117,20 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             PlayerEvent.RegisterConfirmHandler(HandleConfirm);
         }
 
+        /// <summary>
+        /// Handles the confirm event when the player confirms their position.
+        /// </summary>
         private void HandleConfirm()
         {
             if (!_readyToConfirm) return;
 
-            isRunning = false;
+            StopCurrentTask();
         }
 
+        /// <summary>
+        /// Handles the event when the player enters the footprint trigger.
+        /// </summary>
+        /// <param name="other">The collider of the object the player triggered.</param>
         private void HandlePlayerTriggerEnter(Collider other)
         {
             var obj = other.transform;
@@ -97,6 +143,10 @@ namespace LandmarksR.Scripts.Experiment.Tasks
                 .ShowAll();
         }
 
+        /// <summary>
+        /// Handles the event when the player exits the footprint trigger.
+        /// </summary>
+        /// <param name="other">The collider of the object the player triggered.</param>
         private void HandlePlayerTriggerExit(Collider other)
         {
             var obj = other.transform;
@@ -108,9 +158,12 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             HUD.HideAll();
         }
 
+        /// <summary>
+        /// Updates the task, checking the player's alignment with the footprint.
+        /// </summary>
         private void Update()
         {
-            if (!isRunning) return;
+            if (!IsTaskRunning()) return;
             if (!_isPlayerOnFootprint) return;
 
             HUD.FixedRecenter(2f);
@@ -122,20 +175,20 @@ namespace LandmarksR.Scripts.Experiment.Tasks
                     _readyToConfirm = true;
                     break;
                 case < -10:
-                    HUD.SetContent($"You are not aligned. slowly rotate to your left to align");
+                    HUD.SetContent("You are not aligned. Slowly rotate to your left to align.");
                     _readyToConfirm = false;
                     break;
                 default:
-                    HUD.SetContent($"You are not aligned. slowly rotate to your right to align");
+                    HUD.SetContent("You are not aligned. Slowly rotate to your right to align.");
                     _readyToConfirm = false;
                     break;
             }
-
-
         }
 
-
-        protected override void Finish()
+        /// <summary>
+        /// Finishes the task, showing the environment and clearing the HUD.
+        /// </summary>
+        public override void Finish()
         {
             base.Finish();
             ShowEnvironment();
@@ -146,6 +199,10 @@ namespace LandmarksR.Scripts.Experiment.Tasks
                 Destroy(_footprint.gameObject);
         }
 
+        /// <summary>
+        /// Computes the angle difference between the player's forward direction and the target's forward direction.
+        /// </summary>
+        /// <returns>The angle difference in degrees.</returns>
         private float ComputeAngleDifference()
         {
             var playerForward = Player.GetMainCamera().transform.forward;

@@ -4,7 +4,7 @@
     {
         private void Update()
         {
-            isRunning = false;
+            StopCurrentTask();
         }
     }
 }

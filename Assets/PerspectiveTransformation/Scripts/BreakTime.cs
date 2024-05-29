@@ -10,17 +10,20 @@ namespace PerspectiveTransformation.Scripts
     {
         [SerializeField] private List<int> breakPoints;
         private bool confirmBreak = false;
+
         protected override void Prepare()
         {
 
             var repeatTask = GetComponentInParent<RepeatTask>();
             Assert.IsNotNull(repeatTask, $"{name} must be a child of Repeat Task");
 
+            SetTaskType(TaskType.Interactive);
             base.Prepare();
+
             // check if repeatTask.currentRepeat is in breakPoints
             if (!breakPoints.Contains(repeatTask.currentRepeat))
             {
-                isRunning = false;
+                StopCurrentTask();
                 return;
             }
 
@@ -30,7 +33,7 @@ namespace PerspectiveTransformation.Scripts
 
         private void HandleSpace()
         {
-            if (!isRunning) return;
+            if (!IsTaskRunning()) return;
 
             if (!confirmBreak)
             {
@@ -39,7 +42,7 @@ namespace PerspectiveTransformation.Scripts
                 return;
             }
 
-            isRunning = false;
+            StopCurrentTask();
         }
 
         private IEnumerator ConfirmTimeout()
@@ -48,7 +51,7 @@ namespace PerspectiveTransformation.Scripts
             confirmBreak = false;
         }
 
-        protected override void Finish()
+        public override void Finish()
         {
             base.Finish();
             PlayerEvent.UnregisterKeyHandler(KeyCode.Space, HandleSpace);

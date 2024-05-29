@@ -1,8 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace LandmarksR.Scripts.Player
 {
+    /// <summary>
+    /// Manages the first-person controller for player movement and interaction.
+    /// </summary>
     public class FirstPersonController : MonoBehaviour
     {
         private CharacterController _characterController;
@@ -18,13 +20,18 @@ namespace LandmarksR.Scripts.Player
 
         public bool enableControl;
 
+        /// <summary>
+        /// Unity Start method. Initializes the character controller and locks the cursor.
+        /// </summary>
         private void Start()
         {
             _characterController = GetComponent<CharacterController>();
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-
+        /// <summary>
+        /// Unity Update method. Handles player input for movement, gravity, rotation, and cursor control.
+        /// </summary>
         private void Update()
         {
             if (!enableControl) return;
@@ -34,6 +41,11 @@ namespace LandmarksR.Scripts.Player
             HandleCursor();
         }
 
+        /// <summary>
+        /// Teleports the player to a specified position and rotation.
+        /// </summary>
+        /// <param name="position">The target position.</param>
+        /// <param name="rotation">The target rotation.</param>
         public void Teleport(Vector3 position, Vector3 rotation)
         {
             _characterController.enabled = false;
@@ -42,12 +54,18 @@ namespace LandmarksR.Scripts.Player
             _characterController.enabled = true;
         }
 
+        /// <summary>
+        /// Handles player movement based on input.
+        /// </summary>
         private void HandleMovement()
         {
             var move = transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical");
             _characterController.Move(move * (Time.deltaTime * moveSpeed));
         }
 
+        /// <summary>
+        /// Handles player rotation based on mouse input.
+        /// </summary>
         private void HandleRotation()
         {
             mouseSensitivity = Mathf.Clamp(mouseSensitivity, 1f, 20f);
@@ -66,6 +84,9 @@ namespace LandmarksR.Scripts.Player
             transform.Rotate(Vector3.up * mouseX);
         }
 
+        /// <summary>
+        /// Handles cursor locking and unlocking based on input.
+        /// </summary>
         private static void HandleCursor()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -79,6 +100,9 @@ namespace LandmarksR.Scripts.Player
             }
         }
 
+        /// <summary>
+        /// Handles gravity effects on the player.
+        /// </summary>
         private void HandleGravity()
         {
             if (!enableGravity) return;

@@ -6,7 +6,6 @@ namespace LandmarksR.Scripts.SimplePhysics
     public class Gravity : MonoBehaviour
     {
         public float gravity = -9.81f;
-        private bool _isGrounded = false;
 
         private Vector3 _velocity;
         private Collider _collider;

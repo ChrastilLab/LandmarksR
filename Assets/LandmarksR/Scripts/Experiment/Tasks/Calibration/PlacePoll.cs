@@ -6,6 +6,7 @@
 
         protected override void Prepare()
         {
+            SetTaskType(TaskType.Interactive);
             base.Prepare();
 
             _parentTask = GetComponentInParent<CalibrateTask>();
@@ -30,7 +31,7 @@
                 .ShowAll();
         }
 
-        protected override void Finish()
+        public override void Finish()
         {
             base.Finish();
             PlayerEvent.UnregisterVRInputHandler(OVRInput.Button.PrimaryIndexTrigger, HandleIndexTrigger);
@@ -40,14 +41,14 @@
         private void HandleIndexTrigger()
         {
             _parentTask.AddPole();
-            isRunning = false;
+            StopCurrentTask();
         }
 
         private void HandleAButton()
         {
             _parentTask.MoveToPrevious();
             _parentTask.RemoveLastPole();
-            isRunning = false;
+            StopCurrentTask();
         }
     }
 }

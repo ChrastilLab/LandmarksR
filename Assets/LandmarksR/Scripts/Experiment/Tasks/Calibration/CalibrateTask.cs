@@ -218,6 +218,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
 
         protected override void Prepare()
         {
+            SetTaskType(TaskType.Structural);
             base.Prepare();
             _rightHandAnchor = Player.vrPlayerControllerReference.rightHandAnchor;
 
@@ -228,7 +229,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
                .ShowProgressBar();
         }
 
-        protected override void Finish()
+        public override void Finish()
         {
             base.Finish();
             var environment = GameObject.FindGameObjectWithTag("Environment");

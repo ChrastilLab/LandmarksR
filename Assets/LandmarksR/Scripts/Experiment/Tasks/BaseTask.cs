@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,15 +7,31 @@ using LandmarksR.Scripts.Attributes;
 using LandmarksR.Scripts.Experiment.Log;
 using LandmarksR.Scripts.Player;
 using UnityEngine.Assertions;
+using Random = UnityEngine.Random;
 
 namespace LandmarksR.Scripts.Experiment.Tasks
 {
+    public enum TaskType
+    {
+        Structural,
+        Functional,
+        Interactive,
+        NotSet,
+    }
+
     /// <summary>
     /// Base class for all experiment tasks.
     /// Handles common task functionality such as timers and subtask management.
     /// </summary>
     public class BaseTask : MonoBehaviour
     {
+
+        /// <summary>
+        /// The type of task.
+        /// </summary>
+        [NotEditable, SerializeField]
+        protected TaskType taskType = TaskType.NotSet;
+
         /// <summary>
         /// Indicates whether the task is enabled.
         /// </summary>
@@ -22,9 +39,10 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
         /// <summary>
         /// Unique identifier for the task.
+        /// Currently not used. Will be used in future versions for resume support.
         /// </summary>
-        [NotEditable]
-        public uint id;
+        [NotEditable] public uint id;
+
 
         /// <summary>
         /// Gets the settings for the task.
@@ -64,33 +82,27 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         /// <summary>
         /// Timer settings for the task.
         /// </summary>
-        [Header("Time")]
-        [SerializeField]
-        protected float timer = Mathf.Infinity;
+        [Header("Time")] [SerializeField] protected float timer = Mathf.Infinity;
 
         /// <summary>
         /// Indicates whether the timer should be randomized.
         /// </summary>
-        [SerializeField]
-        protected bool randomizeTimer;
+        [SerializeField] protected bool randomizeTimer;
 
         /// <summary>
         /// Minimum value for the timer when randomized.
         /// </summary>
-        [SerializeField]
-        private float minTimer = 0;
+        [SerializeField] private float minTimer;
 
         /// <summary>
         /// Maximum value for the timer when randomized.
         /// </summary>
-        [SerializeField]
-        private float maxTimer = 10;
+        [SerializeField] private float maxTimer = 10;
 
         /// <summary>
         /// Elapsed time since the task started.
         /// </summary>
-        [NotEditable, SerializeField]
-        protected float elapsedTime;
+        [NotEditable, SerializeField] protected float elapsedTime;
 
         /// <summary>
         /// Unity Awake method. Initializes the task.
@@ -102,6 +114,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
         /// <summary>
         /// Unity Start method. Initializes the list of subtasks.
+        /// When overriding this method, make sure to call base.Start() to initialize the subtasks.
         /// </summary>
         protected virtual void Start()
         {
@@ -115,20 +128,18 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         /// <summary>
         /// Indicates whether the task is currently running.
         /// </summary>
-        [NotEditable, SerializeField]
-        protected bool isRunning;
+        [NotEditable, SerializeField] private bool isRunning;
 
         /// <summary>
         /// Indicates whether a subtask is currently running.
         /// </summary>
-        [NotEditable, SerializeField]
-        protected bool isSubTaskRunning;
+        [NotEditable, SerializeField] protected bool isSubTaskRunning;
 
         /// <summary>
         /// Indicates whether the task is completed.
+        /// For Inspector use only.
         /// </summary>
-        [NotEditable, SerializeField]
-        protected bool isCompleted;
+        [NotEditable, SerializeField] private bool isCompleted;
 
         /// <summary>
         /// Indicates whether the task has been prepared.
@@ -162,22 +173,49 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 
             if (randomizeTimer)
             {
-                timer = UnityEngine.Random.Range(minTimer, maxTimer);
+                timer = Random.Range(minTimer, maxTimer);
             }
 
             StartTimer();
+
+            switch (taskType)
+            {
+                case TaskType.Structural:
+                    isRunning = false;
+                    break;
+                case TaskType.Functional:
+                    isRunning = false;
+                    break;
+                case TaskType.Interactive:
+                    isRunning = true;
+                    break;
+                case TaskType.NotSet:
+                    isRunning = true;
+                    Logger.E("task", $"Task type for {name} not set. Task will not run.");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void SetTaskType(TaskType type)
+        {
+            taskType = type;
         }
 
         /// <summary>
         /// Finishes the task, performing any necessary cleanup.
+        /// If the Prepare method is not called before this method, references may be null.
+        /// If you have any Event Register/Unregister, make sure to unregister them here.
         /// </summary>
-        protected virtual void Finish()
+        public virtual void Finish()
         {
             if (!isPrepared)
             {
                 UnityEngine.Debug.LogWarning("Task not prepared before finishing. This may cause issues.");
                 return;
             }
+
             Logger.I("task", $"({name}) Finished");
             isCompleted = true;
             isPrepared = false;
@@ -189,10 +227,12 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         public virtual void Reset()
         {
             isCompleted = false;
+            isPrepared = false;
         }
 
         /// <summary>
         /// Executes the task and all its subtasks.
+        /// This method should only be called by an external experiment controller.
         /// </summary>
         /// <returns>IEnumerator for coroutine execution.</returns>
         public virtual IEnumerator ExecuteAll()
@@ -215,18 +255,27 @@ namespace LandmarksR.Scripts.Experiment.Tasks
             {
                 yield return task.ExecuteAll();
             }
+
             isSubTaskRunning = false;
 
             Finish();
         }
 
         /// <summary>
-        /// Gets the names of all subtasks.
+        /// Stops the task.
         /// </summary>
-        /// <returns>A string containing the names of all subtasks.</returns>
-        private string GetSubTasksName()
+        protected void StopCurrentTask()
         {
-            return _subTasks.Aggregate("", (current, task) => current + (task.name + " "));
+            isRunning = false;
+        }
+
+        /// <summary>
+        ///  Stops the subtask.
+        /// </summary>
+        /// <returns> The running status of the Task </returns>
+        protected bool IsTaskRunning()
+        {
+            return isRunning;
         }
 
         /// <summary>
@@ -236,6 +285,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         {
             StartCoroutine(TimerCoroutine());
         }
+
 
         /// <summary>
         /// Coroutine to handle the task timer.
@@ -248,6 +298,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
+
             isRunning = false;
         }
     }

@@ -1,28 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace LandmarksR.Scripts.Experiment.Log
 {
+    /// <summary>
+    /// Manages logging for the experiment, including general logging and data logging.
+    /// </summary>
     public class ExperimentLogger : MonoBehaviour
     {
         public static ExperimentLogger Instance { get; private set; }
+
         [SerializeField] private List<string> tagToPrint = new() { "default" };
+
         private bool CheckTag(string messageTag) => tagToPrint.IndexOf(messageTag) >= 0;
 
         private TextLogger _generalLogger;
         private Settings _settings;
-
         private Dictionary<string, DataLogger> _dataLoggers = new();
 
         private void Awake()
         {
             if (Instance != null && Instance != this)
             {
-                Destroy(Instance);
+                Destroy(Instance.gameObject);
             }
             else
             {
@@ -49,7 +57,6 @@ namespace LandmarksR.Scripts.Experiment.Log
                     _settings.logging.remoteStatusUrl, _settings.logging.remoteLogUrl);
             }
         }
-
 
         public void BeginDataSet(string setName, List<string> columnNames)
         {
@@ -101,7 +108,6 @@ namespace LandmarksR.Scripts.Experiment.Log
             _dataLoggers[setName].Log();
         }
 
-
         public void EndDataSet(string setName)
         {
             if (!_dataLoggers.ContainsKey(setName))
@@ -114,7 +120,6 @@ namespace LandmarksR.Scripts.Experiment.Log
             _dataLoggers[setName].End();
             _dataLoggers.Remove(setName);
         }
-
 
         public void I(string messageTag, object message)
         {
@@ -144,7 +149,7 @@ namespace LandmarksR.Scripts.Experiment.Log
 
         private string GetPersistentLocalPath(string fileName = "all.log")
         {
-            var date = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+            var date = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
             return Path.Combine(Application.persistentDataPath,
                 Application.productName,
                 _settings.experiment.participantId,
@@ -153,7 +158,7 @@ namespace LandmarksR.Scripts.Experiment.Log
 
         private string GetRelativeRemotePath(string fileName = "all.log")
         {
-            var date = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+            var date = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
             return
                 $"{Application.productName}/{_settings.experiment.participantId}/{_settings.experiment.participantId}_{date}_{fileName}";
         }

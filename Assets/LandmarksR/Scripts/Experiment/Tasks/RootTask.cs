@@ -7,10 +7,11 @@ namespace LandmarksR.Scripts.Experiment.Tasks
     {
         protected override void Prepare()
         {
-            Logger = ExperimentLogger.Instance;
+            SetTaskType(TaskType.Structural);
+            base.Prepare();
             Logger.I("app", "Start Application");
         }
-        protected override void Finish()
+        public override void Finish()
         {
             // Get the current scene index
 
@@ -35,12 +36,6 @@ namespace LandmarksR.Scripts.Experiment.Tasks
 #else
             Application.Quit();
 #endif
-        }
-
-
-        private void Update()
-        {
-            isRunning = false;
         }
     }
 }

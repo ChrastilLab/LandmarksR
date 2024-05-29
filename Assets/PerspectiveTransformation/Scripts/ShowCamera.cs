@@ -1,5 +1,4 @@
 ﻿using LandmarksR.Scripts.Experiment.Tasks;
-using LandmarksR.Scripts.Player;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -14,7 +13,7 @@ namespace PerspectiveTransformation.Scripts
         [SerializeField] private bool isFirstShow = true;
         [SerializeField] private GameObject responsePanel;
 
-        private int _transformationStringIndex = 0;
+        private int _transformationStringIndex;
         private bool isTopDown;
 
         private Camera _camera;
@@ -27,6 +26,7 @@ namespace PerspectiveTransformation.Scripts
 
         protected override void Prepare()
         {
+            SetTaskType(TaskType.Interactive);
             base.Prepare();
             _camera = Player.GetMainCamera();
 
@@ -122,7 +122,7 @@ namespace PerspectiveTransformation.Scripts
 
         private void HandleResponseYes()
         {
-            isRunning = false;
+            StopCurrentTask();
             repeatTask.Context["Response"] = "1";
             repeatTask.Context["Correctness"] = isFoil ? "1" : "0";
             Logger.I("response", "Same");
@@ -130,7 +130,7 @@ namespace PerspectiveTransformation.Scripts
 
         private void HandleResponseNo()
         {
-            isRunning = false;
+            StopCurrentTask();
             repeatTask.Context["Correctness"] = isFoil ? "0" : "1";
             repeatTask.Context["Response"] = "0";
             Logger.I("response", "Different");
@@ -138,11 +138,10 @@ namespace PerspectiveTransformation.Scripts
 
         private void Skip()
         {
-            Debug.Log("Skip");
-            isRunning = false;
+            StopCurrentTask();
         }
 
-        protected override void Finish()
+        public override void Finish()
         {
             base.Finish();
             HUD.HideLayers(new[] { "Objects", "Environment" });

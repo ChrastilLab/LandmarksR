@@ -12,18 +12,26 @@ using UnityEngine.UI;
 
 namespace LandmarksR.Scripts.Player
 {
+    /// <summary>
+    /// Enum representing the different HUD modes.
+    /// </summary>
     public enum HudMode
     {
-        Follow, // Camera Follows Player
-        Fixed, // Fixed Position, requires recenter
+        Follow,  // Camera Follows Player
+        Fixed,   // Fixed Position, requires recenter
         Overlay, // Desktop Only
     }
 
+    /// <summary>
+    /// Manages the HUD (Heads-Up Display) for the player, including modes, positioning, and content.
+    /// </summary>
     public class Hud : MonoBehaviour
     {
         private Settings _settings;
         private ExperimentLogger _logger;
         private PlayerController _playerController;
+        private Camera _camera;
+
         [NotEditable, SerializeField] private HudMode hudMode;
         [SerializeField] private Transform hudTransform;
         [SerializeField] private Canvas canvas;
@@ -37,8 +45,9 @@ namespace LandmarksR.Scripts.Player
         [SerializeField] private Transform colliderTransform;
         [SerializeField] private Transform planeSurfaceTransform;
 
-        private Camera _camera;
-
+        /// <summary>
+        /// Unity Start method. Initializes the HUD and sets up initial configurations.
+        /// </summary>
         private void Start()
         {
             Assert.IsNotNull(hudTransform, "HUD Transform is not set");
@@ -61,6 +70,9 @@ namespace LandmarksR.Scripts.Player
             StartCoroutine(WaitForRecenter());
         }
 
+        /// <summary>
+        /// Applies setting changes to the HUD.
+        /// </summary>
         public void ApplySettingChanges()
         {
             if (!_settings)
@@ -74,19 +86,33 @@ namespace LandmarksR.Scripts.Player
         #region Canvas Components
 
         #region Text
+
+        /// <summary>
+        /// Sets the title text of the HUD.
+        /// </summary>
+        /// <param name="text">The title text.</param>
+        /// <returns>The current Hud instance.</returns>
         public Hud SetTitle(string text)
         {
             titleText.text = text;
             return this;
         }
 
-
+        /// <summary>
+        /// Sets the content text of the HUD.
+        /// </summary>
+        /// <param name="text">The content text.</param>
+        /// <returns>The current Hud instance.</returns>
         public Hud SetContent(string text)
         {
             contentText.text = text;
             return this;
         }
 
+        /// <summary>
+        /// Clears all text from the HUD.
+        /// </summary>
+        /// <returns>The current Hud instance.</returns>
         public Hud ClearAllText()
         {
             SetTitle("");
@@ -94,49 +120,81 @@ namespace LandmarksR.Scripts.Player
             return this;
         }
 
+        /// <summary>
+        /// Shows the title text on the HUD.
+        /// </summary>
+        /// <returns>The current Hud instance.</returns>
         public Hud ShowTitle()
         {
             titleText.enabled = true;
             return this;
         }
 
+        /// <summary>
+        /// Shows the content text on the HUD.
+        /// </summary>
+        /// <returns>The current Hud instance.</returns>
         public Hud ShowContent()
         {
             contentText.enabled = true;
             return this;
         }
 
+        /// <summary>
+        /// Shows the instruction panel on the HUD.
+        /// </summary>
+        /// <returns>The current Hud instance.</returns>
         public Hud ShowPanel()
         {
             instructionPanel.gameObject.SetActive(true);
             return this;
         }
 
+        /// <summary>
+        /// Hides the instruction panel on the HUD.
+        /// </summary>
+        /// <returns>The current Hud instance.</returns>
         public Hud HidePanel()
         {
             instructionPanel.gameObject.SetActive(false);
             return this;
         }
 
+        /// <summary>
+        /// Hides the title text on the HUD.
+        /// </summary>
+        /// <returns>The current Hud instance.</returns>
         public Hud HideTitle()
         {
             titleText.enabled = false;
             return this;
         }
 
+        /// <summary>
+        /// Hides the content text on the HUD.
+        /// </summary>
+        /// <returns>The current Hud instance.</returns>
         public Hud HideContent()
         {
             contentText.enabled = false;
             return this;
         }
 
+        /// <summary>
+        /// Hides the confirmation button on the HUD.
+        /// </summary>
+        /// <returns>The current Hud instance.</returns>
         public Hud HideButton()
         {
             confirmButton.gameObject.SetActive(false);
             return this;
         }
 
-
+        /// <summary>
+        /// Sets the opacity of the instruction panel.
+        /// </summary>
+        /// <param name="opacity">The desired opacity.</param>
+        /// <returns>The current Hud instance.</returns>
         public Hud SetOpacity(float opacity)
         {
             var color = instructionPanel.color;
@@ -145,6 +203,11 @@ namespace LandmarksR.Scripts.Player
             return this;
         }
 
+        /// <summary>
+        /// Sets the alignment of the content text.
+        /// </summary>
+        /// <param name="alignment">The desired text alignment.</param>
+        /// <returns>The current Hud instance.</returns>
         public Hud SetContentAlignment(TextAlignmentOptions alignment)
         {
             contentText.alignment = alignment;
@@ -154,19 +217,36 @@ namespace LandmarksR.Scripts.Player
         #endregion
 
         #region Confirmation Button
+
+        /// <summary>
+        /// Sets the text of the confirmation button.
+        /// </summary>
+        /// <param name="text">The button text.</param>
+        /// <returns>The current Hud instance.</returns>
         public Hud SetButtonText(string text)
         {
             confirmButton.GetComponentInChildren<TMP_Text>().text = text;
             return this;
         }
+
+        /// <summary>
+        /// Shows the confirmation button on the HUD.
+        /// </summary>
+        /// <returns>The current Hud instance.</returns>
         public Hud ShowButton()
         {
             confirmButton.gameObject.SetActive(true);
             return this;
         }
+
         #endregion
 
-        # region Progress Bar
+        #region Progress Bar
+
+        /// <summary>
+        /// Shows the progress bar on the HUD.
+        /// </summary>
+        /// <returns>The current Hud instance.</returns>
         public Hud ShowProgressBar()
         {
             progressBar.gameObject.SetActive(true);
@@ -174,12 +254,21 @@ namespace LandmarksR.Scripts.Player
             return this;
         }
 
+        /// <summary>
+        /// Hides the progress bar on the HUD.
+        /// </summary>
+        /// <returns>The current Hud instance.</returns>
         public Hud HideProgressBar()
         {
             progressBar.gameObject.SetActive(false);
             return this;
         }
 
+        /// <summary>
+        /// Sets the progress value of the progress bar.
+        /// </summary>
+        /// <param name="value">The progress value.</param>
+        /// <returns>The current Hud instance.</returns>
         public Hud SetProgress(float value)
         {
             progressBar.SetProgress(value);
@@ -188,7 +277,10 @@ namespace LandmarksR.Scripts.Player
 
         #endregion
 
-
+        /// <summary>
+        /// Shows all elements of the HUD.
+        /// </summary>
+        /// <returns>The current Hud instance.</returns>
         public Hud ShowAll()
         {
             ShowPanel();
@@ -198,6 +290,10 @@ namespace LandmarksR.Scripts.Player
             return this;
         }
 
+        /// <summary>
+        /// Hides all elements of the HUD.
+        /// </summary>
+        /// <returns>The current Hud instance.</returns>
         public Hud HideAll()
         {
             HidePanel();
@@ -206,24 +302,43 @@ namespace LandmarksR.Scripts.Player
 
         #endregion
 
+        /// <summary>
+        /// Hides all elements of the HUD after a specified time.
+        /// </summary>
+        /// <param name="seconds">The delay in seconds before hiding the HUD.</param>
+        /// <returns>The current Hud instance.</returns>
         public Hud HideAllAfter(float seconds)
         {
             StartCoroutine(HideAllAfterCoroutine(seconds));
             return this;
         }
 
+        /// <summary>
+        /// Coroutine to hide all elements of the HUD after a delay.
+        /// </summary>
+        /// <param name="seconds">The delay in seconds.</param>
+        /// <returns>IEnumerator for coroutine execution.</returns>
         private IEnumerator HideAllAfterCoroutine(float seconds)
         {
             yield return new WaitForSeconds(seconds);
             HideAll();
         }
 
+        /// <summary>
+        /// Shows all layers on the HUD's canvas.
+        /// </summary>
+        /// <returns>The current Hud instance.</returns>
         public Hud ShowAllLayer()
         {
             canvas.worldCamera.cullingMask = -1;
             return this;
         }
 
+        /// <summary>
+        /// Shows specified layers on the HUD's canvas.
+        /// </summary>
+        /// <param name="layers">The layers to show.</param>
+        /// <returns>The current Hud instance.</returns>
         public Hud ShowLayers(IEnumerable<string> layers)
         {
             foreach (var layer in layers)
@@ -234,6 +349,11 @@ namespace LandmarksR.Scripts.Player
             return this;
         }
 
+        /// <summary>
+        /// Hides specified layer on the HUD's canvas.
+        /// </summary>
+        /// <param name="layers">The layers to hide.</param>
+        /// <returns>The current Hud instance.</returns>
         public Hud HideLayers(IEnumerable<string> layers)
         {
             foreach (var layer in layers)
@@ -244,21 +364,33 @@ namespace LandmarksR.Scripts.Player
             return this;
         }
 
-
+        /// <summary>
+        /// Hides a specific layer on the HUD's canvas.
+        /// </summary>
+        /// <param name="layerName">The name of the layer to hide.</param>
+        /// <returns>The current Hud instance.</returns>
         public Hud HideLayer(string layerName)
         {
             canvas.worldCamera.cullingMask &= ~(1 << LayerMask.NameToLayer(layerName));
             return this;
         }
 
+        /// <summary>
+        /// Shows a specific layer on the HUD's canvas.
+        /// </summary>
+        /// <param name="layerName">The name of the layer to show.</param>
+        /// <returns>The current Hud instance.</returns>
         public Hud ShowLayer(string layerName)
         {
             canvas.worldCamera.cullingMask |= (1 << LayerMask.NameToLayer(layerName));
             return this;
         }
 
-
-
+        /// <summary>
+        /// Switches the HUD mode.
+        /// </summary>
+        /// <param name="mode">The desired HUD mode.</param>
+        /// <returns>The current Hud instance.</returns>
         public Hud SwitchHudMode(HudMode? mode)
         {
             if (!mode.HasValue) return this;
@@ -279,7 +411,6 @@ namespace LandmarksR.Scripts.Player
             return this;
         }
 
-
         private void SetModeFollow()
         {
             if (!_settings) return;
@@ -289,6 +420,7 @@ namespace LandmarksR.Scripts.Player
             AdjustScale(_settings.displayReference?.hudScreenSize);
             canvas.renderMode = RenderMode.WorldSpace;
         }
+
         private void SetModeFixed()
         {
             if (!_settings) return;
@@ -309,7 +441,10 @@ namespace LandmarksR.Scripts.Player
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         }
 
-        // Fixed Mode related methods
+        /// <summary>
+        /// Recenters the HUD to a specified distance when in fixed mode.
+        /// </summary>
+        /// <param name="distanceToCam">The distance to the camera.</param>
         public void FixedRecenter(float distanceToCam)
         {
             if (hudMode != HudMode.Fixed) return;
@@ -327,7 +462,6 @@ namespace LandmarksR.Scripts.Player
         {
             if (!distanceToCam.HasValue) return;
 
-            // Get the camera position
             var camTransform = _camera.transform;
             var camPosition = camTransform.position;
             var camForward = camTransform.forward;
@@ -344,7 +478,6 @@ namespace LandmarksR.Scripts.Player
             Recenter(_settings.displayReference?.hudDistance);
         }
 
-
         private static void SetTransformPosition(Transform tr, Vector3 position, Vector3 lookAt, Vector3 upward)
         {
             tr.position = position;
@@ -356,6 +489,10 @@ namespace LandmarksR.Scripts.Player
             tr.localScale = scale;
         }
 
+        /// <summary>
+        /// Adjusts the scale of the HUD based on the screen size.
+        /// </summary>
+        /// <param name="size"></param>
         private void AdjustScale(Vector2? size)
         {
             if (!size.HasValue) return;
@@ -367,12 +504,19 @@ namespace LandmarksR.Scripts.Player
             var w = canvasScale * size.Value.x;
             SetTransformScale(colliderTransform, new Vector3(w, h, _settings.interaction.hudColliderThickness));
         }
+
+        /// <summary>
+        /// Calculates the height of the canvas based on the camera field of view.
+        /// </summary>
+        /// <returns></returns>
         private float CalculateCanvasHeight()
         {
-            return 2.0f *  Mathf.Tan(0.5f * _camera.fieldOfView * Mathf.Deg2Rad);
+            return 2.0f * Mathf.Tan(0.5f * _camera.fieldOfView * Mathf.Deg2Rad);
         }
 
-
+        /// <summary>
+        /// Unity Update method. Ensures the HUD follows the player if in follow mode.
+        /// </summary>
         private void Update()
         {
             FollowRecenter();

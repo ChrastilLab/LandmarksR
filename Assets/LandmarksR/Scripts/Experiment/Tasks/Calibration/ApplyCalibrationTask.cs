@@ -4,6 +4,7 @@
     {
         protected override void Prepare()
         {
+            SetTaskType(TaskType.Functional);
             base.Prepare();
 
             if (Settings.space.calibrated)
@@ -14,8 +15,6 @@
             {
                 Logger.W("task", "Calibration not found.");
             }
-
-            isRunning = false;
         }
     }
 }
