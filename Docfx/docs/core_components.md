@@ -54,7 +54,8 @@ All these components are initialized before any tasks. You will frequently refer
 ### Step 1: Create a `GameObject` Called "LandmarksR"
 - Create a new GameObject and name it "LandmarksR".
 - Click on `Add Component` and add the `Experiment` script.
-![Create LandmarksR](create_landmarks_r.png)
+
+![Create LandmarksR](images/create_landmarks_r.png)
 
 ### Step 2: Add `PlayerController`
 - In the Project Explorer, navigate to `Assets/LandmarksR/Prefabs/Core`.
@@ -69,7 +70,8 @@ All these components are initialized before any tasks. You will frequently refer
 - Create an empty root task by right-clicking on the "LandmarksR" GameObject.
 - Navigate to `Experiment/Tasks/1.RootTask` and click on `RootTask` to create it.
 - Remember to change the tag of this GameObject to `RootTask`.
-![Create RootTask](create_root_task.png)
+
+![Create RootTask](images/create_root_task.png)
 
 ### Step 5 (Optional): Create Settings and Experiment Logger 
 - Create a new GameObject called "Settings" and add the `Settings` script to it. Refer to the settings page for more configuration information.
@@ -82,4 +84,5 @@ All these components are initialized before any tasks. You will frequently refer
 ### Step Ex.2: Add Calibration Space and Calibration Task (VR)
 - Drag and drop the `CalibrationTask` under `RootTask`, ensuring it is the **first** task.
 - Drag and drop the `Calibration Space` into the "LandmarksR" GameObject (not under the "Environment").
-![Calibration Prefabs](calibration_prefabs.png)
+
+![Calibration Prefabs](images/calibration_prefabs.png)

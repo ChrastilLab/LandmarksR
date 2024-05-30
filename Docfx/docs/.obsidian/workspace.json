@@ -25,12 +25,44 @@
             "state": {
               "type": "image",
               "state": {
-                "file": "images/RepeatTask.png"
+                "file": "images/create_root_task.png"
+              }
+            }
+          },
+          {
+            "id": "63aa1592bcbbaf9a",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "images/calibration_prefabs.png"
+              }
+            }
+          },
+          {
+            "id": "560b3d41b28230f4",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "images/calibration_prefabs.png"
+              }
+            }
+          },
+          {
+            "id": "293fd5a5cc0ac185",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "landmarks_r_structure.md",
+                "mode": "source",
+                "source": true
               }
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -96,7 +128,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "images/RepeatTask.png",
+                "file": "landmarks_r_structure.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -113,7 +145,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "images/RepeatTask.png",
+                "file": "landmarks_r_structure.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -136,7 +168,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "images/RepeatTask.png"
+                "file": "landmarks_r_structure.md"
               }
             }
           }
@@ -157,18 +189,19 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "99a8680c970a034c",
+  "active": "293fd5a5cc0ac185",
   "lastOpenFiles": [
+    "introduction.md",
+    "data.md",
+    "core_components.md",
+    "landmarks_r_structure.md",
+    "images/calibration_prefabs.png",
+    "images/create_landmarks_r.png",
+    "images/create_root_task.png",
+    "images/RepeatTask.png",
     "Unit Testing.md",
     "Quest Calibration.md",
     "Quick Introduction to Quest.md",
-    "landmarks_r_structure.md",
-    "introduction.md",
-    "core_components.md",
-    "calibration_prefabs.png",
-    "create_root_task.png",
-    "create_landmarks_r.png",
-    "data.md",
     "images/framework_unity_structure.png",
     "tasks.md",
     "2. Core Components.md"

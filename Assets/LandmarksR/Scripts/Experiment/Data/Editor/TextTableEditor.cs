@@ -7,6 +7,9 @@ using UnityEngine.UIElements;
 
 namespace LandmarksR.Scripts.Experiment.Data.Editor
 {
+    /// <summary>
+    /// Custom Unity Inspector for the TextTable class.
+    /// </summary>
     [CustomEditor(typeof(TextTable))]
     public class TextTableEditor : UnityEditor.Editor
     {

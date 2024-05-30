@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace LandmarksR.Scripts.Editor
 {
+    /// <summary>
+    ///  Assigns a unique identifier to all tasks in the scene.
+    ///  Currently, not in use.
+    /// </summary>
     public class SetUid : EditorWindow
     {
 

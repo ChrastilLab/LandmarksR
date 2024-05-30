@@ -5,6 +5,9 @@ namespace LandmarksR.Scripts.Editor
 {
     public class ExpandInspector: EditorWindow
     {
+        /// <summary>
+        /// Expands the selected GameObject in the Hierarchy window.
+        /// </summary>
         [MenuItem("EditorUtility/Shortcuts/Expand Selected Tasks &q")]
         //https://stackoverflow.com/a/66366775
         private static void ExpandTasks()

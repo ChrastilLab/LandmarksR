@@ -7,6 +7,9 @@ namespace LandmarksR.Scripts.Editor
 {
     public class DataUtility: EditorWindow
     {
+        /// <summary>
+        /// Opens the data folder in the file explorer.
+        /// </summary>
         [MenuItem("LandmarksR/Open Data Folder")]
         private static void OpenDataFolder()
         {

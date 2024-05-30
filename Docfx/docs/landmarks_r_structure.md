@@ -2,7 +2,8 @@
 Let's first break down the framework structure inside the Unity Editor
 
 # Overall Structure
-Here's a screenshot of that
+Here's a screenshot of an project
+
 ![](images/framework_unity_structure.png)
 
 | GameObject                                            | Required By LandmarksR | Purpose                                                                    | Assigned/Required Tag |

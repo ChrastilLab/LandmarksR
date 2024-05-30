@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace LandmarksR.Scripts.Experiment.Data.Editor
 {
+    /// <summary>
+    /// Custom property drawer for the DelimiterOption class.
+    /// </summary>
     [CustomPropertyDrawer(typeof(DelimiterOption))]
     public class DelimiterOptionDrawer : PropertyDrawer
     {
