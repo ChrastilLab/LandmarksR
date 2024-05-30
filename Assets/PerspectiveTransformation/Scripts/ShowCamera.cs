@@ -1,4 +1,5 @@
 ﻿using LandmarksR.Scripts.Experiment.Tasks;
+using LandmarksR.Scripts.Experiment.Tasks.Structural;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -125,6 +126,7 @@ namespace PerspectiveTransformation.Scripts
             StopCurrentTask();
             repeatTask.Context["Response"] = "1";
             repeatTask.Context["Correctness"] = isFoil ? "1" : "0";
+            repeatTask.Context["ReactionTime"] = $"{elapsedTime}";
             Logger.I("response", "Same");
         }
 
@@ -133,6 +135,7 @@ namespace PerspectiveTransformation.Scripts
             StopCurrentTask();
             repeatTask.Context["Correctness"] = isFoil ? "0" : "1";
             repeatTask.Context["Response"] = "0";
+            repeatTask.Context["ReactionTime"] = $"{elapsedTime}";
             Logger.I("response", "Different");
         }
 
@@ -168,6 +171,9 @@ namespace PerspectiveTransformation.Scripts
                 PlayerEvent.UnregisterKeyHandler(KeyCode.J, HandleResponseNo);
                 var timeout = elapsedTime >= timer ? "1" : "0";
                 repeatTask?.Context.TryAdd("Timeout", $"{timeout}");
+
+                var reactionTime = elapsedTime;
+                repeatTask?.Context.TryAdd("ReactionTime", $"{reactionTime}");
             }
 
         }

@@ -58,7 +58,7 @@ namespace LandmarksR.Scripts.Experiment.Log
             }
         }
 
-        public void BeginDataSet(string setName, List<string> columnNames)
+        public void BeginDataset(string setName, List<string> columnNames)
         {
             var dataLogger = new DataLogger();
             var fileName = $"{setName}.{_settings.logging.dataFileExtension}";
@@ -108,7 +108,7 @@ namespace LandmarksR.Scripts.Experiment.Log
             _dataLoggers[setName].Log();
         }
 
-        public void EndDataSet(string setName)
+        public void EndDataset(string setName)
         {
             if (!_dataLoggers.ContainsKey(setName))
             {

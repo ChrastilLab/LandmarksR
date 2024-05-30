@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace LandmarksR.Scripts.Experiment.Tasks
+namespace LandmarksR.Scripts.Experiment.Tasks.Interactive
 {
     /// <summary>
     /// Represents a task that displays instructions to the player.

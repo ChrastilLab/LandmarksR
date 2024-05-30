@@ -1,4 +1,6 @@
-﻿namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
+﻿using LandmarksR.Scripts.Experiment.Tasks.Interactive;
+
+namespace LandmarksR.Scripts.Experiment.Tasks.Calibration
 {
     public class PlaceFloor : InstructionTask
     {

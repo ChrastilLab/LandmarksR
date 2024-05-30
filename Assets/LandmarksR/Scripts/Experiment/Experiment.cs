@@ -1,5 +1,6 @@
 ﻿using System;
 using LandmarksR.Scripts.Experiment.Tasks;
+using LandmarksR.Scripts.Experiment.Tasks.Structural;
 using LandmarksR.Scripts.Player;
 using UnityEngine;
 

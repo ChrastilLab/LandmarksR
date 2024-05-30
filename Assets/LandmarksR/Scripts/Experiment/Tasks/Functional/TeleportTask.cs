@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace LandmarksR.Scripts.Experiment.Tasks
+namespace LandmarksR.Scripts.Experiment.Tasks.Functional
 {
     /// <summary>
     /// Represents a task that teleports the player to a specified position and rotation.

@@ -4,6 +4,7 @@ using System.Linq;
 using LandmarksR.Scripts.Experiment.Data;
 using LandmarksR.Scripts.Experiment.Log;
 using LandmarksR.Scripts.Experiment.Tasks;
+using LandmarksR.Scripts.Experiment.Tasks.Structural;
 using UnityEngine;
 using UnityEngine.Assertions;
 

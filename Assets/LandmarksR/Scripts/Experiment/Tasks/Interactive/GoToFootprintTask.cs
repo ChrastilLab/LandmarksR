@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace LandmarksR.Scripts.Experiment.Tasks
+namespace LandmarksR.Scripts.Experiment.Tasks.Interactive
 {
     /// <summary>
     /// Represents a task where the player needs to go to a specified footprint.

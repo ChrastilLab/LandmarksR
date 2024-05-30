@@ -1,7 +1,4 @@
-﻿using LandmarksR.Scripts.Experiment.Log;
-using UnityEngine;
-
-namespace LandmarksR.Scripts.Experiment.Tasks
+﻿namespace LandmarksR.Scripts.Experiment.Tasks.Structural
 {
     public class RootTask : BaseTask
     {

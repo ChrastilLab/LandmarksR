@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -297,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -369,6 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a0d3e6ace1477187152c6e929c5fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -1218,6 +1221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -1480,6 +1484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d52240ae314fe2868a81e45e831cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: 4
   randomizeTimer: 0
@@ -2218,6 +2223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524efa6f7e12772429f0eeb30163efaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -2395,6 +2401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -2622,6 +2629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c5adfed97754c40af4ca8ee0ab9ea3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -2778,6 +2786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d52240ae314fe2868a81e45e831cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: 90
   randomizeTimer: 0
@@ -3140,6 +3149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524efa6f7e12772429f0eeb30163efaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -3210,6 +3220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -3544,6 +3555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -3662,6 +3674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -3883,8 +3896,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1029443425}
   - {fileID: 1395153977}
+  - {fileID: 1029443425}
   - {fileID: 704457089}
   m_Father: {fileID: 1449127729}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3900,6 +3913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a0d3e6ace1477187152c6e929c5fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -4196,6 +4210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -4353,6 +4368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83d716906e334ccda9369c26b0e93e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: 90
   randomizeTimer: 0
@@ -4368,6 +4384,7 @@ MonoBehaviour:
   opacity: 0.8
   layersToHide: []
   hideInstructionAfter: 0
+  skipKey: 8
 --- !u!1 &688891866
 GameObject:
   m_ObjectHideFlags: 0
@@ -4979,6 +4996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -5050,6 +5068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63f32155509b4f69a105657b0c48e8d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -5078,6 +5097,8 @@ MonoBehaviour:
   - Correctness
   - Response
   - Timeout
+  - ITI
+  - ReactionTime
   currentRepeat: 1
   currentSubTaskNumber: 1
   showDebug: 0
@@ -5125,6 +5146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c5adfed97754c40af4ca8ee0ab9ea3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -5157,7 +5179,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &716528357
 Transform:
   m_ObjectHideFlags: 0
@@ -5187,6 +5209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a0d3e6ace1477187152c6e929c5fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -5243,7 +5266,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &729489934
 Transform:
   m_ObjectHideFlags: 0
@@ -5275,6 +5298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a0d3e6ace1477187152c6e929c5fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -5359,6 +5383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d52240ae314fe2868a81e45e831cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: 60
   randomizeTimer: 0
@@ -5447,6 +5472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -5603,6 +5629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d52240ae314fe2868a81e45e831cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: 4
   randomizeTimer: 0
@@ -5660,6 +5687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83d716906e334ccda9369c26b0e93e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: 60
   randomizeTimer: 0
@@ -5675,6 +5703,7 @@ MonoBehaviour:
   opacity: 0.8
   layersToHide: []
   hideInstructionAfter: 0
+  skipKey: 8
 --- !u!1 &837790824
 GameObject:
   m_ObjectHideFlags: 0
@@ -5781,6 +5810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -5852,7 +5882,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &878411367
 Transform:
   m_ObjectHideFlags: 0
@@ -5880,6 +5910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: 10000
   randomizeTimer: 0
@@ -5980,6 +6011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -6241,6 +6273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -6832,6 +6865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -7115,6 +7149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: 4
   randomizeTimer: 0
@@ -7175,6 +7210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -7470,6 +7506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d52240ae314fe2868a81e45e831cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: 4
   randomizeTimer: 0
@@ -7783,7 +7820,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1184050086
 Transform:
   m_ObjectHideFlags: 0
@@ -7815,6 +7852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a0d3e6ace1477187152c6e929c5fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -8480,7 +8518,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1295532277
 Transform:
   m_ObjectHideFlags: 0
@@ -8511,6 +8549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a0d3e6ace1477187152c6e929c5fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -9113,6 +9152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a0d3e6ace1477187152c6e929c5fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -9523,6 +9563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f248ebc42f7542728c9b795071996326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -9607,6 +9648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b986b3a96b1e455397476b76f7f128ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -10210,6 +10252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: 4
   randomizeTimer: 0
@@ -10332,6 +10375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c5adfed97754c40af4ca8ee0ab9ea3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -10805,6 +10849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: 1
   randomizeTimer: 1
@@ -10865,6 +10910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c5adfed97754c40af4ca8ee0ab9ea3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -10942,6 +10988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524efa6f7e12772429f0eeb30163efaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -11162,6 +11209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524efa6f7e12772429f0eeb30163efaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -11275,7 +11323,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1741610545}
-  - component: {fileID: 1741610546}
+  - component: {fileID: 1741610547}
   m_Layer: 0
   m_Name: ITI
   m_TagString: Untagged
@@ -11298,7 +11346,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 704457089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1741610546
+--- !u!114 &1741610547
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11307,11 +11355,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1741610544}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
+  m_Script: {fileID: 11500000, guid: 8713290307ef496f8ca4c8e92bfd9100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
-  timer: 1
+  timer: Infinity
   randomizeTimer: 1
   minTimer: 2
   maxTimer: 6
@@ -11370,6 +11419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -12048,6 +12098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d39dd295c3ebb843825b93239c40336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -12141,6 +12192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -12350,6 +12402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a728f20f5d9d4a198c2c47770f055962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -13036,6 +13089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -13422,6 +13476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c0a15dd99947e7837bea1471e568b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0
@@ -13577,6 +13632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d52240ae314fe2868a81e45e831cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: 4
   randomizeTimer: 0
@@ -13735,6 +13791,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63f32155509b4f69a105657b0c48e8d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 3
   id: 0
   timer: Infinity
   randomizeTimer: 0

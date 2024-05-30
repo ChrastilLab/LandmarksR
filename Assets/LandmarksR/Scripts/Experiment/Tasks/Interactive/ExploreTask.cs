@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace LandmarksR.Scripts.Experiment.Tasks
+namespace LandmarksR.Scripts.Experiment.Tasks.Interactive
 {
     /// <summary>
     /// Represents an explore task where the player can freely explore the environment.

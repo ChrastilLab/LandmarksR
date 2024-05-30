@@ -5,7 +5,7 @@ using LandmarksR.Scripts.Attributes;
 using LandmarksR.Scripts.Experiment.Data;
 using UnityEngine;
 
-namespace LandmarksR.Scripts.Experiment.Tasks
+namespace LandmarksR.Scripts.Experiment.Tasks.Structural
 {
     /// <summary>
     /// Represents the options for repeating a task.
@@ -134,7 +134,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
                 outputColumns = new List<string> { "Repeat", "SubTask" };
             }
 
-            Logger.BeginDataSet(outputSetName, outputColumns);
+            Logger.BeginDataset(outputSetName, outputColumns);
         }
 
         /// <summary>
@@ -241,7 +241,7 @@ namespace LandmarksR.Scripts.Experiment.Tasks
         public override void Finish()
         {
             base.Finish();
-            Logger.EndDataSet(outputSetName);
+            Logger.EndDataset(outputSetName);
         }
 
         /// <summary>

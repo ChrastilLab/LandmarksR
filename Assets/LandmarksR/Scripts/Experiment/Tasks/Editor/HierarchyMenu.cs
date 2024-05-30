@@ -1,5 +1,7 @@
 ﻿#if UNITY_EDITOR
 using LandmarksR.Scripts.Editor;
+using LandmarksR.Scripts.Experiment.Tasks.Interactive;
+using LandmarksR.Scripts.Experiment.Tasks.Structural;
 using UnityEditor;
 using UnityEngine;
 

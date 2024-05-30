@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using LandmarksR.Scripts.Experiment.Tasks;
+using LandmarksR.Scripts.Experiment.Tasks.Interactive;
+using LandmarksR.Scripts.Experiment.Tasks.Structural;
 using UnityEngine;
 using UnityEngine.Assertions;
 

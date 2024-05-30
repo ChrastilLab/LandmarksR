@@ -1,4 +1,11 @@
-- name: Introduction
-  href: introduction.md
-- name: Getting Started
-  href: getting-started.md
+items:
+- name: Tutorial
+  items:
+  - href: introduction.md
+  - href: landmarks_r_structure.md
+  - href: core_components.md
+  - href: tasks.md
+  - href: data.md
+- name: Task Details
+  items:
+  - href: Tasks/BaseTask.md

@@ -1,9 +1,9 @@
 ﻿using LandmarksR.Scripts.Attributes;
-using LandmarksR.Scripts.Experiment.Data;
+using LandmarksR.Scripts.Experiment.Tasks.Structural;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace LandmarksR.Scripts.Experiment.Tasks
+namespace LandmarksR.Scripts.Experiment.Tasks.Interactive
 {
     public class NavigationTask : BaseTask
     {

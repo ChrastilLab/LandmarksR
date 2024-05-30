@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using LandmarksR.Scripts.Experiment.Tasks.Structural;
 using UnityEditor;
 using UnityEngine;
 

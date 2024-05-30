@@ -1,5 +1,7 @@
 ﻿using LandmarksR.Scripts.Experiment.Data;
 using LandmarksR.Scripts.Experiment.Tasks;
+using LandmarksR.Scripts.Experiment.Tasks.Interactive;
+using LandmarksR.Scripts.Experiment.Tasks.Structural;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
