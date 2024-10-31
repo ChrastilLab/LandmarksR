@@ -2790,8 +2790,11 @@ MonoBehaviour:
   isSubTaskRunning: 0
   isCompleted: 0
   instructionTitle: 
-  instructionContent: "Use the WASD keys on the keyboard to move around. \n\nMove
-    the mouse to look around (rotate your point of view right or left).\n\nPress
+  instructionContent: "First, you will become familiar with the controls to look
+    and move around. \n______________\n\nUse the mouse to look around (rotating left
+    and right). \n\nUse the keyboard controls (WASD) to move around. \n\nUse the
+    W/S to move forwards/backwards, and A/D to move left/right. \n\nYou can use the
+    WASD key and the Mouse to look around and move at the same time. \n______________\n\nPress
     \"Space\" to continue."
   textAlignmentOptions: 514
   opacity: 0.5
@@ -9736,6 +9739,7 @@ MonoBehaviour:
   isRunning: 0
   isSubTaskRunning: 0
   isCompleted: 0
+  dataHolder: {fileID: 562456319}
 --- !u!1 &1453390699
 GameObject:
   m_ObjectHideFlags: 0
@@ -11372,7 +11376,7 @@ MonoBehaviour:
   opacity: 0.5
   layersToHide: []
   hideInstructionAfter: 3
-  skipKey: 8
+  skipKey: 32
   targetTag: Target
 --- !u!1 &1741610544
 GameObject:
@@ -15529,6 +15533,8 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 1ec2d14dffab3ae44bb543a966adfe37, type: 2}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1ec2d14dffab3ae44bb543a966adfe37, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15733,6 +15739,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 2100000, guid: 3281c8170bd9d41c7b2e7614537e15f7, type: 2}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 2100000, guid: 3281c8170bd9d41c7b2e7614537e15f7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -16498,6 +16506,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 2100000, guid: a48b62a45fda0f344acc0a387a1670d2, type: 2}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 2100000, guid: a48b62a45fda0f344acc0a387a1670d2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -17445,6 +17455,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 2100000, guid: c75fa283172fc45cd895c1e8a80251f8, type: 2}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 2100000, guid: c75fa283172fc45cd895c1e8a80251f8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0

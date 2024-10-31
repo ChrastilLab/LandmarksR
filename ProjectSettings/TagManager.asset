@@ -21,6 +21,7 @@ TagManager:
   - AlcoveLocationColliders
   - Floor
   - Calibration
+  - Tutorial
   layers:
   - Default
   - TransparentFX

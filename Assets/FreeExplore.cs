@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
+using System.Collections.Generic;
 
 namespace LandmarksR.Scripts.Experiment.Tasks.Interactive
 {
     /// <summary>
     /// Represents an explore task where the player can freely explore the environment.
-    /// Ensures objects with the "Target" tag are visible and changes all objects with the "Wall" tag to their Element 2 material.
+    /// Ensures objects with the "Target" tag are visible and allows objects tagged "Wall" to revert to their original materials.
     /// </summary>
     public class ExploreTask : InstructionTask
     {
@@ -24,8 +25,21 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Interactive
         [SerializeField] private string targetTag = "Target";  // Set this in the Inspector or leave as "Target"
 
         /// <summary>
+        /// The tag of the wall objects whose material will be changed.
+        /// </summary>
+        [SerializeField] private string wallTag = "Wall";  // Set this in the Inspector or leave as "Wall"
+
+        /// <summary>
+        /// The material to apply to objects with the "Wall" tag.
+        /// </summary>
+        [SerializeField] private Material newWallMaterial;  // Set this in the Inspector
+
+        // Store the original materials for walls
+        private Dictionary<GameObject, Material> originalWallMaterials = new Dictionary<GameObject, Material>();
+
+        /// <summary>
         /// Prepares the explore task, enabling player input and setting up the HUD.
-        /// Ensures that objects with the "Target" tag are visible and changes all objects with the "Wall" tag to their Element 2 material.
+        /// Ensures that objects with the "Target" tag are visible and walls' materials are reverted back to original when needed.
         /// </summary>
         protected override void Prepare()
         {
@@ -36,8 +50,8 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Interactive
             // Ensure all objects with the "Target" tag are visible
             ShowObjectsWithTag(targetTag);
 
-            // Change all objects tagged "Wall" to use their Element 2 material
-            ChangeWallMaterialToElement2("Wall");
+            // Store original materials for walls and change them to new material
+            ChangeWallMaterial(wallTag, newWallMaterial);
 
             Player.TryEnableDesktopInput();
             Player.StartPlayerLogging();
@@ -49,14 +63,18 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Interactive
 
         /// <summary>
         /// Finishes the explore task, disabling player input and clearing the HUD.
+        /// Reverts the wall materials to their original state.
         /// </summary>
         public override void Finish()
         {
             base.Finish();
             Player.DisableDesktopInput();
             Player.StopPlayerLogging();
-            PlayerEvent.UnregisterKeyHandler(skipKey, Skip);
+            PlayerEvent.UnregisterKeyHandler(KeyCode.Backspace, Skip);
             HUD.ClearAllText();
+
+            // Revert wall materials to original
+            RevertWallMaterial(wallTag);
         }
 
         /// <summary>
@@ -99,53 +117,56 @@ namespace LandmarksR.Scripts.Experiment.Tasks.Interactive
         }
 
         /// <summary>
-        /// Changes the material of all objects with the "Wall" tag to their Element 2 material.
+        /// Changes the material of all objects with the specified tag to the given material and stores their original material.
         /// </summary>
-        private void ChangeWallMaterialToElement2(string tag)
+        private void ChangeWallMaterial(string tag, Material newMaterial)
         {
-            // Find all GameObjects with the specified tag
+            // Find all GameObjects in the scene with the specified tag
             GameObject[] walls = GameObject.FindGameObjectsWithTag(tag);
             int count = 0;
 
             foreach (GameObject wall in walls)
             {
-                MeshRenderer wallRenderer = wall.GetComponent<MeshRenderer>();
+                Renderer wallRenderer = wall.GetComponent<Renderer>();
 
                 if (wallRenderer != null)
                 {
-                    // Check if the wall has at least three materials (for Element 2)
-                    if (wallRenderer.sharedMaterials.Length > 2)
+                    // Store the original material if not already stored
+                    if (!originalWallMaterials.ContainsKey(wall))
                     {
-                        // Get the material from Element 2
-                        Material element2Material = wallRenderer.sharedMaterials[2];
-
-                        // Create a new materials array
-                        Material[] newMaterials = wallRenderer.materials;
-
-                        // Replace all materials with the Element 2 material
-                        for (int i = 0; i < newMaterials.Length; i++)
-                        {
-                            newMaterials[i] = element2Material;
-                        }
-
-                        // Apply the new materials array back to the renderer
-                        wallRenderer.materials = newMaterials;
-
-                        UnityEngine.Debug.Log($"Changed material for wall: {wall.name} to Element 2 material");
-                        count++;
+                        originalWallMaterials.Add(wall, wallRenderer.material);
                     }
-                    else
-                    {
-                        UnityEngine.Debug.LogWarning($"Wall object {wall.name} does not have an Element 2 material (needs at least 3 materials).");
-                    }
+
+                    // Change the material of the wall
+                    wallRenderer.material = newMaterial;
+                    UnityEngine.Debug.Log($"Changed material for wall: {wall.name}");
+                    count++;
                 }
                 else
                 {
-                    UnityEngine.Debug.LogWarning($"Wall object {wall.name} does not have a MeshRenderer component.");
+                    UnityEngine.Debug.LogWarning($"Wall object {wall.name} does not have a Renderer component.");
                 }
             }
 
-            UnityEngine.Debug.Log($"Changed material for {count} objects with tag '{tag}' to Element 2");
+            UnityEngine.Debug.Log($"Changed material for {count} objects with tag '{tag}'");
+        }
+
+        /// <summary>
+        /// Reverts the material of all objects with the specified tag to their original material.
+        /// </summary>
+        private void RevertWallMaterial(string tag)
+        {
+            foreach (var wall in originalWallMaterials)
+            {
+                Renderer wallRenderer = wall.Key.GetComponent<Renderer>();
+
+                if (wallRenderer != null)
+                {
+                    // Revert to the original material
+                    wallRenderer.material = wall.Value;
+                    UnityEngine.Debug.Log($"Reverted material for wall: {wall.Key.name}");
+                }
+            }
         }
     }
 }
