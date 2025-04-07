@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -30,7 +29,8 @@ namespace LandmarksR.Scripts.Experiment.Log
         {
             if (Instance != null && Instance != this)
             {
-                Destroy(Instance.gameObject);
+                Destroy(this.gameObject); // Corrected: Destroy new instance if another exists
+                return; // Exit early to prevent further initialization
             }
             else
             {
@@ -60,6 +60,8 @@ namespace LandmarksR.Scripts.Experiment.Log
 
         public void BeginDataset(string setName, List<string> columnNames)
         {
+            Debug.Log($"[ExperimentLogger] Beginning dataset '{setName}' with columns: {string.Join(", ", columnNames)}");
+
             var dataLogger = new DataLogger();
             var fileName = $"{setName}.{_settings.logging.dataFileExtension}";
 
@@ -78,7 +80,6 @@ namespace LandmarksR.Scripts.Experiment.Log
             I("output", "Columns:" + string.Join(",", columnNames));
 
             dataLogger.Begin(columnNames, _settings.logging.dataFileDelimiter);
-
             _dataLoggers.Add(setName, dataLogger);
         }
 
@@ -87,11 +88,12 @@ namespace LandmarksR.Scripts.Experiment.Log
             if (!_dataLoggers.ContainsKey(setName))
             {
                 E("output", $"Data logger for {setName} not found.");
+                Debug.LogError($"[ExperimentLogger] Data logger for '{setName}' not found.");
                 return;
             }
 
             I("output", $"LogData:{column}:{value}");
-
+            Debug.Log($"[ExperimentLogger] Setting data for set '{setName}': {column} = {value}");
             _dataLoggers[setName].SetValue(column, value);
         }
 
@@ -100,11 +102,12 @@ namespace LandmarksR.Scripts.Experiment.Log
             if (!_dataLoggers.ContainsKey(setName))
             {
                 E("output", $"Data logger for {setName} not found.");
+                Debug.LogError($"[ExperimentLogger] Data logger for '{setName}' not found.");
                 return;
             }
 
             I("output", "LogDataRow:" + setName);
-
+            Debug.Log($"[ExperimentLogger] Logging data row for set '{setName}'");
             _dataLoggers[setName].Log();
         }
 
@@ -113,12 +116,39 @@ namespace LandmarksR.Scripts.Experiment.Log
             if (!_dataLoggers.ContainsKey(setName))
             {
                 E("output", $"Data logger for {setName} not found.");
+                Debug.LogError($"[ExperimentLogger] Data logger for '{setName}' not found.");
                 return;
             }
 
             I("output", "EndDataRow:" + setName);
+            Debug.Log($"[ExperimentLogger] Ending dataset '{setName}'");
             _dataLoggers[setName].End();
             _dataLoggers.Remove(setName);
+        }
+
+        private string GetPersistentLocalPath(string fileName = "all.log")
+        {
+            var date = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+            return Path.Combine(Application.persistentDataPath,
+                Application.productName,
+                _settings.experiment.participantId,
+                $"{_settings.experiment.participantId}_{date}_{fileName}");
+        }
+
+        private string GetRelativeRemotePath(string fileName = "all.log")
+        {
+            var date = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+            return
+                $"{Application.productName}/{_settings.experiment.participantId}/{_settings.experiment.participantId}_{date}_{fileName}";
+        }
+
+        private async void OnDisable()
+        {
+            await _generalLogger.StopAsync();
+            foreach (var dataLogger in _dataLoggers.Values.ToList())
+            {
+                await dataLogger.StopAsync();
+            }
         }
 
         public void I(string messageTag, object message)
@@ -145,31 +175,6 @@ namespace LandmarksR.Scripts.Experiment.Log
             Debug.LogError($"[LMR] <color=red>ERROR</color> | {messageTag} | {message}");
             EditorApplication.isPlaying = false;
 #endif
-        }
-
-        private string GetPersistentLocalPath(string fileName = "all.log")
-        {
-            var date = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-            return Path.Combine(Application.persistentDataPath,
-                Application.productName,
-                _settings.experiment.participantId,
-                $"{_settings.experiment.participantId}_{date}_{fileName}");
-        }
-
-        private string GetRelativeRemotePath(string fileName = "all.log")
-        {
-            var date = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-            return
-                $"{Application.productName}/{_settings.experiment.participantId}/{_settings.experiment.participantId}_{date}_{fileName}";
-        }
-
-        private async void OnDisable()
-        {
-            await _generalLogger.StopAsync();
-            foreach (var dataLogger in _dataLoggers.Values.ToList())
-            {
-                await dataLogger.StopAsync();
-            }
         }
     }
 }
